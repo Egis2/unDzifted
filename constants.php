@@ -67,10 +67,11 @@ define("TBL_VARTOTOJAS"," vartotojas");
 define("ADMIN_NAME", "Administratorius");
 define("PATIENT_NAME", "Pacientas");
 define("FAMILY_DOCTOR_NAME", "Šeimos gydytojas");
-define("DOCTOR_SEPCIALIST_NAME", "Gydytojas specialistas");
+define("DOCTOR_SPECIALIST_NAME", "Gydytojas specialistas");
 /* sutvarkyti lygius */
 define("ADMIN_LEVEL", 9);
-define("EMPLOYEE_LEVEL", 5);
+define("FAMILY_DOCTOR_LEVEL", 5);
+define("DOCTOR_SPECIALIST_LEVEL", 4);
 define("USER_LEVEL", 1);
 
 /**

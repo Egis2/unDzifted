@@ -3,16 +3,9 @@
 
   if (isset($_SESSION['prisijunges'])) {
 
-  $user=$_SESSION['user'];
-  $userlevel=$_SESSION['ulevel'];
-  $role="";
-  {
-    foreach($user_roles as $x=>$x_value)
-    {
-      if ($x_value == $userlevel) 
-        $role=$x;
-    }
-  }
+	$vardas=$_SESSION['vardas'];
+	$pavarde=$_SESSION['pavarde'];
+
 ?>
 
 <html>
@@ -25,39 +18,131 @@
 
     <?php
 
-      if (($userlevel == $user_roles[ADMIN_LEVEL])) 
+      if ($session->isAdmin()) 
       {
     ?>
-      <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href=\useredit.php>Redaguoti paskyrą</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href=\admin.php>Sistemos vartotojų sąrašas</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href=\admin-register.php>Registruoti ieškomą asmenį</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href=\admin-statistics.php>Ieškomų asmenų statistika</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav m1-auto">
-            <li class="navbar-text">
-              <?php
-                echo "".$user." ".$role."";
-              ?>
-            </li>
-            <li class="nav-item">
-              <a class="btn btn-outline-dark" href="\logout.php">Atsijungti</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+	<nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link">Gydytojų sąrašas</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link">Kabinetų sąrašas</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav m1-auto">
+				<li class="navbar-text">
+					<?php
+					echo "".$vardas." ".$pavarde."";
+					?>
+				</li>
+				<li class="nav-item">
+					<a class="btn btn-outline-dark" href="Controller/UserController.php?logout=true">Atsijungti</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 
     <?php
+		}
+		if ($session->isFamilyDoctor())
+		{
+	?>
+		
+		<nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
+        	<div class="collapse navbar-collapse" id="navbarNav">
+          		<ul class="navbar-nav mr-auto">
+            		<li class="nav-item">
+              		<a class="nav-link">Pacientų sąrašas</a>
+           			</li>
+				</ul>
+				<ul class="navbar-nav m1-auto">
+					<li class="navbar-text">
+					<?php
+						echo "".$vardas." ".$pavarde."";
+					?>
+				</li>
+				<li class="nav-item">
+					<a class="btn btn-outline-dark" href="Controller/UserController.php?logout=true">Atsijungti</a>
+				</li>
+			</ul>
+			</div>
+		</nav>
+
+	<?php
+		}
+		if ($session->isDoctorSpecialist()) 
+		{
+	?>
+		<nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link">Pacientų sąrašas</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav m1-auto">
+					<li class="navbar-text">
+						<?php
+						echo "".$vardas." ".$pavarde."";
+						?>
+					</li>
+					<li class="nav-item">
+						<a class="btn btn-outline-dark" href="Controller/UserController.php?logout=true">Atsijungti</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	<?php
+		}
+		if ($session->isPatient()) 
+		{
+	?>
+		<nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link">Paciento informacija</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link">Rezervacijų sąrašas</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link">Apsilankymų ataskaita</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link">Ligų ataskaita</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link">Receptų istorija</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav m1-auto">
+					<li class="navbar-text">
+						<?php
+						echo "".$vardas." ".$pavarde."";
+						?>
+					</li>
+					<li class="nav-item">
+						<a class="btn btn-outline-dark" href="Controller/UserController.php?logout=true">Atsijungti</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+	<?php
+		}
+		else 
+		{
+?>
+<ul>
+	<li><a href="..">Pradžia</a></li>
+	<li><a href='/View/User/login.php'>Prisijungti</a> </li>
+</ul>
+
+<?php 	echo "<h1> Neprisijunges </h1>";
+}
 	if ($form->num_errors > 0 ){
 		echo "<ul class='error'>";
 			foreach ($form->getErrorArray() as $key => $val )
@@ -73,24 +158,12 @@
 	else if (isset($_SESSION['success']) && $_SESSION['success'])
 		echo "<ul class='success'> {$_SESSION['message']} </ul>";
 
-	
+
 	unset($_SESSION['success']);
 	unset($_SESSION['message']);
 	unset($_SESSION['regsuccess']);
 	unset($_SESSION['value_array']);
 	unset($_SESSION['error_array']);
-}
-
-else 
-{
-?>
-<ul>
-	<li><a href="..">Pradžia</a></li>
-	<li><a href='/View/User/login.php'> Prisijungti</a> </li>
-</ul>
-
-<?php 	echo "<h1> Neprisijunges </h1>";
-}
   }
 ?>
 	</body>

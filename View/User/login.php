@@ -2,6 +2,9 @@
     if (isset($form) && isset($session) && !$session->logged_in) 
     {
     ?>   
+    <div class="jumbotron text-center header">
+        <h1>Gydymo įstaiga</h1>
+    </div>
     <div class="form-group login">
         <form action="Controller/UserController.php" method="POST">              
             <center><b>Prisijungimas</b></center>
