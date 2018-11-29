@@ -5,13 +5,16 @@ include("form.php");
 
 class Session {
 
-    var $username;     //Username given on sign-up
+    var $email;     //Username given on sign-up
     var $userid;       //Random value generated on current login
     var $userlevel;    //The level to which the user pertains
-	var $userbalance;
-	var $usertotalwinnings;
-	var $userwins;
-	var $userlosses;
+    var $username;
+    var $userlastname;
+    var $userphonenumber;
+    var $usercode;
+    var $useraddress;
+    var $userlicense;
+    var $userbirthdate;
     var $time;         //Time user was last active (page loaded)
     var $logged_in;    //True if user is logged in, false otherwise
     var $userinfo = array();  //The array holding all user info
@@ -87,7 +90,7 @@ class Session {
         global $database, $form;  //The database and form object
 
         
-        $field = "user";
+        $field = "email";
         if (!$subuser || strlen($subuser = trim($subuser)) == 0) {
             $form->setError($field, "* Neįvestas vartotojo vardas");
         } else {
@@ -153,71 +156,6 @@ class Session {
         $this->logged_in = false;
     }
 
-	
-	function adminRegister($subuser, $subpass, $subemail, $sublevel){
-		 global $database, $form;
-		$field = "user";
-        if (!$subuser || strlen($subuser = trim($subuser)) == 0) {
-            $form->setError($field, "* Vartotojas neįvestas");
-		} else {
-        
-            $subuser = stripslashes($subuser);
-            if (strlen($subuser) < 5) {
-                $form->setError($field, "* Vartotojo vardas turi mažiau kaip 5 simbolius");
-            } else if (strlen($subuser) > 30) {
-                $form->setError($field, "* Vartotojo vardas virš 30 simbolių");
-            }
-			else if (preg_match("^([0-9a-z])+$", $subuser)) {
-                $form->setError($field, "* Vartotojo vardas gali būti sudarytas
-                    <br>&nbsp;&nbsp;tik iš raidžių ir skaičių");
-            }
-            else if ($database->usernameTaken($subuser)) {
-                $form->setError($field, "* Toks vartotojo vardas jau yra");
-            }
-
-        }
-			
-        $field = "pass";
-        if (!$subpass) {
-            $form->setError($field, "* Neįvestas slaptažodis");
-        } else {
-            $subpass = stripslashes($subpass);
-            if (strlen($subpass) < 4) {
-                $form->setError($field, "* Ne mažiau kaip 4 simboliai");
-            }
-            else if (preg_match("^([0-9a-z])+$", ($subpass = trim($subpass)))) {
-                $form->setError($field, "* Slaptažodis gali būti sudarytas
-                    <br>&nbsp;&nbsp;tik iš raidžių ir skaičių");
-            }
-        }
-
-        $field = "email";
-        if (!$subemail || strlen($subemail = trim($subemail)) == 0) {
-            $form->setError($field, "* Neįvestas e-pašto adresas");
-        } else {
-  
-            $regex = "^[_+a-z0-9-]+(\.[_+a-z0-9-]+)*"
-                    . "@[a-z0-9-]+(\.[a-z0-9-]{1,})*"
-                    . "\.([a-z]{2,}){1}$";
-			
-            if (preg_match($regex, $subemail)) {
-                $form->setError($field, "* Klaidingas e-pašto adresas");
-            }
-            $subemail = stripslashes($subemail);
-        }
-		
-		if ($form->num_errors > 0) {
-            return 1;
-        }
-        else {
-            if ($database->addNewUserByAdmin($subuser, md5($subpass), $subemail, $sublevel)) {
-                return 0;
-            } else {
-                return 2;
-            }
-        }
-	}
-   
     function register($subuser, $subpass, $subemail) {
         global $database, $form;
 
