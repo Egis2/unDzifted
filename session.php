@@ -115,6 +115,8 @@ class Session {
         $this->userinfo = $database->getUserInfo($subemail);
         $_SESSION['prisijunges'] = 1;
         $_SESSION['userType'] = $this->userinfo['typeSelector'];
+        $_SESSION['vardas']= $this->userinfo['vardas'];
+        $_SESSION['pavarde']= $this->userinfo['pavarde'];
         $_SESSION['id'] = $thos->userinfo['id_VARTOTOJAS'];
 
         if ($subremember) {

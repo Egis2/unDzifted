@@ -11,7 +11,6 @@ include("session.php");
     <body>
 
         <?php
-            var_dump($_SESSION);
             if (isset($_SESSION['prisijunges']))
             {
                 include("View/meniu.php");
@@ -28,6 +27,8 @@ include("session.php");
                 if ($session->isDoctorSpecialist()){
                     echo "daktaras spec";
                 }
+
+                var_dump($_SESSION);
             }
             else 
             {
