@@ -120,12 +120,9 @@ class Session {
         if ($form->num_errors > 0) {
             return false;
         }
-        /*
-            Jeigu reikia kokiu nors duomenu
-
-        */
+        $this->userinfo = $database->getUserInfo($subemail);
         $_SESSION['prisijunges'] = 1;
-        $this->logged_in = 1;
+        $_SESSION['userType'] = $this->userinfo['typeSelector'];
 
         if ($subremember) {
             setcookie("cookname", $this->useremail, time() + COOKIE_EXPIRE, COOKIE_PATH);
@@ -213,12 +210,19 @@ class Session {
     }
 
     function isAdmin() {
-        return ($this->userlevel == ADMIN_LEVEL ||
-                $this->username == ADMIN_NAME);
+        return ($_SESSION['userType'] == ADMIN_NAME);
     }
 
-    function isEmployee() {
-        return ($this->userlevel == EMPLOYEE_LEVEL);
+    function isPatient() {
+        return ($_SESSION['userType'] == PATIENT_NAME);
+    }
+
+    function isFamilyDoctor() {
+        return ($_SESSION['userType'] == FAMILY_DOCTOR_NAME);
+    }
+
+    function isDoctorSpecialist() {
+        return ($_SESSION['userType'] == DOCTOR_SPECIALIST_NAME);
     }
 
     function generateRandID() {

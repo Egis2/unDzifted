@@ -11,9 +11,23 @@ include("session.php");
     <body>
 
         <?php
+            var_dump($_SESSION);
             if (isset($_SESSION['prisijunges']))
             {
                 include("View/meniu.php");
+
+                if ($session->isAdmin()){
+                    echo "adminas";
+                }
+                if ($session->isPatient()){
+                    echo "pacientas";
+                }
+                if ($session->isFamilyDoctor()){
+                    echo "seimos daktaras";
+                }
+                if ($session->isDoctorSpecialist()){
+                    echo "daktaras spec";
+                }
             }
             else 
             {
