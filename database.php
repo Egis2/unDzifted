@@ -123,6 +123,11 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function getAllPatients(){
+        $getAllPatientsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where typeSelector = '".PATIENT_NAME."'";
+        $result= mysqli_query($this->connection, $getAllPatientsQuery);
+        return $result;
+    }
 	
     /**
      * query - Performs the given query on the database and
