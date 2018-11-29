@@ -1,0 +1,21 @@
+body
+{
+    background: #F4F4F4;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+.header
+{
+    background: #F4F4F4;
+    text-transform: uppercase;
+}
+.login
+{
+    background: #fff;
+    border: 2px #fff solid;
+    border-radius: 25px;
+    width: 35%;
+    margin: 0 auto;
+    padding: 10;
+}

@@ -23,7 +23,6 @@
   </head>
   <body>
 
-
     <?php
 
       if (($userlevel == $user_roles[ADMIN_LEVEL])) 
@@ -82,7 +81,8 @@
 	unset($_SESSION['error_array']);
 }
 
-else{
+else 
+{
 ?>
 <ul>
 	<li><a href="..">Pradžia</a></li>
@@ -92,3 +92,5 @@ else{
 <?php 	echo "<h1> Neprisijunges </h1>";
 }
 ?>
+	</body>
+</html>
