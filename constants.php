@@ -29,10 +29,11 @@ define("DB_NAME", "projektas");
  * hold the names of all the database tables used
  * in the script.
  */
-define("TBL_USERS", "users");
-define("TBL_MATCHES", "matches");
-define("TBL_PARTICIPANTS", "participants");
-define("TBL_BETS", "bets");
+define("TBL_ALGA", "ALGA");
+define("TBL_BIULETENIS", "BIULETENIS");
+define("TBL_DARBO_STATISTIKA", "DARBO_STATISTIKA");
+define("TBL_GYDIMAS", "GYDYMAS");
+define("TBL_LIGA","LIGA");
 
 /**
  * Special Names and Level Constants - the admin
