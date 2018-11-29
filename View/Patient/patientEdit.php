@@ -1,3 +1,8 @@
+
+<?php 
+include("../../database.php");
+?>
+
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -12,56 +17,73 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="btn btn-outline-dark" href=PatientInfo.php>Atgal</a>
+            <?php 
+                echo "<a class='btn btn-outline-dark' href='PatientInfo.php?id={$_GET['id']}'>Atgal</a>";
+            ?>
             </li>
         </div>
     </nav>
     <br> 
     <br>
+    <?php
+		global $database;
+		$req_user_info = $database->GetUserInfo($_GET['id']);
+	?>
     <div class="form-group login">
-        <form method='post'>
+        <form action='../../Controller/PatientController.php' method='POST'>
             <center><b>Paciento informacijos redagavimas</b></center><br>
             <div style="text-align: left;">
                 <label for="vardas">Paciento vardas:</label>
-                <input name='vardas' type='text' class="form-control">
+                <?php 
+						  echo "<input name='vardas' type='text' class='form-control' value='{$req_user_info['vardas']}'>";
+					?>
             </div>
             <br>
             <div style="text-align: left;">
                 <label for="pavarde">Paciento pavardė:</label>
-                <input name='pavarde' type='text' class="form-control">
+                <?php
+                    echo "<input name='pavarde' type='text' class='form-control' value='{$req_user_info['pavarde']}'>"
+                ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="asmens_kodas">Paciento asmens kodas:</label>
-                <input name='asmens_kodas' type='text' class="form-control">
+                <?php
+                    echo "<input name='asmens_kodas' type='text' class='form-control' value='{$req_user_info['asmens_kodas']}'>";
+                ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="el_pastas">Paciento el. paštas:</label>
-                <input name='el_pastas' type='email' class="form-control">
-            </div style="text-align: left;">
-            <br>
-            <div style="text-align: left;">
-                <label for="slaptazodis">Paciento slaptažodis:</label>
-                <input name='slaptazodis' type='password' class="form-control">
+                <?php
+					  echo "<input name='el_pastas' type='email' class='form-control' value='{$req_user_info['el_pastas']}'>";
+                ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="telefonas">Paciento telefono numeris:</label>
-                <input name='telefonas' type='text' class="form-control">
+                <?php
+                    echo "<input name='telefonas' type='text' class='form-control'  value='{$req_user_info['telefonas']}'>";
+                ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="gimimo_data">Paciento gimimo data:</label>
-                <input name='gimimo_data' type='date' class="form-control">
+                <?php
+					  echo "<input name='gimimo_data' type='date' class='form-control' value='{$req_user_info['gimimo_data']}'>";
+                ?>
             </div style="text-align: left;">
             <br>
+
             <div style="text-align: left;">
-                <label for="adresas">Paciento telefono numeris:</label>
-                <input name='adresas' type='text' class="form-control">
-            </div>
+                <label for="slaptazodis">Paciento slaptažodis:</label>
+                <input name='slaptazodis' type='password' class="form-control" oninvalid="this.setCustomValidity('Neužpildytas slaptažodis')" oninput="this.setCustomValidity('')" required>
+            </div style="text-align: left;">
             <br>
             <input class="btn btn-outline-dark" type="submit" value="Užbaigti redagavimą">
+            <?php
+                 echo  "<input class='btn btn-outline-dark' type='hidden' name='submitEdit' value='{$_GET['id']}'/>";
+             ?>
         </form>
     </div>
 </body>

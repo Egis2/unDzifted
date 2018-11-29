@@ -112,7 +112,7 @@ class Session {
         /*
             Pildyti $_SESSION CIA, norint gauti info prisijungus
         */
-        $this->userinfo = $database->getUserInfo($subemail);
+        $this->userinfo = $database->getUserInfoByEmail($subemail);
         $_SESSION['prisijunges'] = 1;
         $_SESSION['userType'] = $this->userinfo['typeSelector'];
         $_SESSION['vardas']= $this->userinfo['vardas'];
