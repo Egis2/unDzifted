@@ -33,25 +33,25 @@ define("DB_NAME", "projektas");
  * hold the names of all the database tables used
  * in the script.
  */
-define("TBL_ALGA", "ALGA");
-define("TBL_BIULETENIS", "BIULETENIS");
-define("TBL_DARBO_STATISTIKA", "DARBO_STATISTIKA");
-define("TBL_GYDIMAS", "GYDYMAS");
-define("TBL_KABINETAS", "KABINETAS");
-define("TBL_LIGA","LIGA");
-define("TBL_LIGOS_APRASAS","LIGOS_APRASAS");
-define("TBL_NURODYMAS","NURODYMAS");
-define("TBL_PACIENTO_LIGOS","PACIENTO_LIGOS");
-define("TBL_PROCEDURA","PROCEDURA");
-define("TBL_RECEPTAS","RECEPTAS");
-define("TBL_REZERVACIJA","REZERVACIJA");
-define("TBL_SEIMOS_GYDYTOJAS","SEIMOS_GYDYTOJAS");
-define("TBL_SIUNTIMAS"," SIUNTIMAS");
-define("TBL_SPECIALISTAS"," SPECIALISTAS");
-define("TBL_TYRIMAS"," TYRIMAS");
-define("TBL_UZIMTUMAS","UZIMTUMAS");
-define("TBL_VAISTAS"," VAISTAS");
-define("TBL_VAISTU_ISRASAS"," VAISTU_ISRASAS");
+define("TBL_ALGA", "alga");
+define("TBL_BIULETENIS", "biuletenis");
+define("TBL_DARBO_STATISTIKA", "darbo_statistika");
+define("TBL_GYDIMAS", "gydymas");
+define("TBL_KABINETAS", "kabinetas");
+define("TBL_LIGA","liga");
+define("TBL_LIGOS_APRASAS","ligos_aprasas");
+define("TBL_NURODYMAS","nurodymas");
+define("TBL_PACIENTO_LIGOS","paciento_ligos");
+define("TBL_PROCEDURA","procedura");
+define("TBL_RECEPTAS","receptas");
+define("TBL_REZERVACIJA","rezervacija");
+define("TBL_SEIMOS_GYDYTOJAS","seimos_gydytojas");
+define("TBL_SIUNTIMAS","siuntimas");
+define("TBL_SPECIALISTAS","specialistas");
+define("TBL_TYRIMAS","tyrimas");
+define("TBL_UZIMTUMAS","uzimtumas");
+define("TBL_VAISTAS","vaistas");
+define("TBL_VAISTU_ISRASAS","vaistu_israsas");
 define("TBL_VARTOTOJAS"," vartotojas");
 
 

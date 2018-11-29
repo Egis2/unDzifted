@@ -20,9 +20,6 @@ class UserController{
         }
     }
 
-
-
-
     // User Logout function
     function userLogout() {
         global $session;
