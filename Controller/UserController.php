@@ -12,20 +12,21 @@ class UserController{
         else if (isset($_GET['logout'])) {
             $this->userLogout();
         }
+        else if (isset($_POST['edit'])){
+
+        }
         else {
             header("Location: ../index.php");
         }
     }
 
-
-
-
     // User Logout function
     function userLogout() {
-        global $session;
-        $retval = $session->logout();
-        unset($_SESSION['userType']);
-        unset($_SESSION['prisijunges']);
+        
+        /*
+            Pasalinti $_SESSION elementus atsijungus.
+        */
+        session_unset();
         header("Location: ../index.php");
     }
 
@@ -44,6 +45,17 @@ class UserController{
             $_SESSION['error_array'] = $form->getErrorArray();
             header("Location: " . $session->referrer);
         }
+    }
+
+    function userEdit(){
+        $name = $_POST['email'];
+        $lastname = $_POST['password'];
+        $adress = $_POST['adress'];
+        $phonenumber = $_POST['phone'];
+        $birthdate = $_POST['birthdate'];
+        $code = $_POST['code'];
+
+        $session->updateUser($name, $lastname, $adress, $phonenumber, $birthdate, $code);
     }
 }
 $UserController = new UserController();
