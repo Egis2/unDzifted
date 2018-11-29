@@ -63,7 +63,7 @@ class UserController{
         $SucessfullyInserted = $database->addNewUser($nextUserIndex[0],$registerValue,1);
 
        header("Location: ../index.php");
-
+    }
     function userEdit(){
         $name = $_POST['email'];
         $lastname = $_POST['password'];
