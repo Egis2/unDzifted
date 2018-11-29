@@ -1,17 +1,22 @@
-<?php include ("../session.php");
+<?php 
+
+include ("../session.php");
+
 class UserController{
     function UserController(){
         global $session;
-        
+
         if (isset($_POST['login'])){
-            header("Location: ../");
-            //$this->userLogin();
+            $this->userLogin();
         }
         else if ($session->logged_in) {
-            $this->procLogout();
+            echo "Atejo cia";
+            header("Location: ../index.php");
+            $this->userLogout();
         }
         else {
-            header("Location: index.php");
+            echo "Atejo cia";
+            header("Location: ../index.php");
         }
     }
 
@@ -19,13 +24,13 @@ class UserController{
 
 
     // User Logout function
-    function procLogout() {
+    function userLogout() {
         global $session;
         $retval = $session->logout();
         header("Location: index.php");
     }
 
-    function procLogin() {
+    function userLogin() {
         global $session, $form;
 		
         $retval = $session->login($_POST['email'], $_POST['password']);
@@ -42,4 +47,5 @@ class UserController{
         }
     }
 }
+$UserController = new UserController();
 ?>

@@ -5,7 +5,7 @@ include("form.php");
 
 class Session {
 
-    var $email;     //Username given on sign-up
+    var $useremail;     //Username given on sign-up
     var $userid;       //Random value generated on current login
     var $username;
     var $userlastname;
@@ -111,10 +111,10 @@ class Session {
         $result = $database->confirmUserPass($subemail, md5($subpassword));
 
         if ($result == 1) {
-            $field = "user";
+            $field = "email";
             $form->setError($field, "* Vartotojo, su tokiu el. paštu, nėra");
         } else if ($result == 2) {
-            $field = "pass";
+            $field = "password";
             $form->setError($field, "* Neteisingas slaptažodis");
         }
 
@@ -126,7 +126,7 @@ class Session {
         $this->username = $_SESSION['vardas'] = $this->userinfo['vardas'];
         $this->userlastname = $this->userinfo['pavarde'];
         $this->userid = $this->userinfo['id_VARTOTOJAS'];
-        $this->email = $this->userinfo['el_pastas'];
+        $this->useremail = $this->userinfo['el_pastas'];
         $this->userphonenumber = $this->userinfo['telefonas'];
         $this->useraddress = $this->userinfo['adresas'];
         $this->userlicense = $this->userinfo['licencija_iki'];
@@ -134,7 +134,7 @@ class Session {
         $this->userlevel = $this->userinfo['typeSelector'];
 
         if ($subremember) {
-            setcookie("cookname", $this->username, time() + COOKIE_EXPIRE, COOKIE_PATH);
+            setcookie("cookname", $this->useremail, time() + COOKIE_EXPIRE, COOKIE_PATH);
             setcookie("cookid", $this->userid, time() + COOKIE_EXPIRE, COOKIE_PATH);
         }
 

@@ -5,11 +5,11 @@
         <center style="font-size:18pt;"><b>Prisijungimas</b></label></center>
         <p style="text-align:left;">Vartotojo el paštas:<br>
             <input class ="s1" name="email" type="text" value=""/><br>
-            <?php echo $form->error("user"); ?>
+            <?php echo $form->error("email"); ?>
         </p>
         <p style="text-align:left;">Slaptažodis:<br>
             <input class ="s1" name="password" type="password" value=""/><br>
-            <?php echo $form->error("pass"); ?>
+            <?php echo $form->error("password"); ?>
         </p>  
         <input type="submit" value="Prisijungti"/>
         <input type="hidden" name="login" value="1"/>
