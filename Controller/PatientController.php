@@ -1,11 +1,12 @@
-
 <?php 
 class PatientController{
     function PatientController(){
-        if (isset($_POST['edit'])){
+        if (isset($_GET['operation']) && ){
             $this->patientEdit();
         }
     }
-}
 
+
+
+}
 ?>
