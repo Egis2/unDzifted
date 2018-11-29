@@ -139,7 +139,8 @@ class MySQLDB {
         "' , asmens_kodas='".$registerValue['asmens_kodas']."', el_pastas='".$registerValue['el_pastas']."' , telefonas='".
         $registerValue['telefonas']. "', gimimo_data='".$registerValue['gimimo_data']."' , slaptazodis='".$registerValue['slaptazodis']."' WHERE id_VARTOTOJAS='".$registerValue['submitEdit']."'";
         return  mysqli_query($this->connection, $query);
-        
+    }
+
     function getAllPatients(){
         $getAllPatientsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where typeSelector = '".PATIENT_NAME."'";
         $result= mysqli_query($this->connection, $getAllPatientsQuery);
