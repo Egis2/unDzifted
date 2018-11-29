@@ -5,9 +5,8 @@ include("form.php");
 
 class Session {
 
-    var $email;     //Username given on sign-up
+    var $useremail;     //Username given on sign-up
     var $userid;       //Random value generated on current login
-    var $userlevel;    //The level to which the user pertains
     var $username;
     var $userlastname;
     var $userphonenumber;
@@ -86,22 +85,21 @@ class Session {
         }
     }
 
-    function login($subuser, $subpass, $subremember) {
-        global $database, $form;  //The database and form object
+    function login($subemail, $subpassword) {
+        global $database, $form;
 
         
         $field = "email";
-        if (!$subuser || strlen($subuser = trim($subuser)) == 0) {
-            $form->setError($field, "* Neįvestas vartotojo vardas");
+        if (!$subemail || strlen($subemail = trim($subemail)) == 0) {
+            $form->setError($field, "* Neįvestas vartotojo el. paštas");
         } else {
-            if (preg_match("^([0-9a-z])*$", $subuser)) {
-                $form->setError($field, "* Vartotojo vardas gali būti sudarytas
-                    <br>&nbsp;&nbsp;tik iš raidžių ir skaičių");
+            if (preg_match("^([0-9a-z])*$", $subemail)) {
+                $form->setError($field, "* Netinkamai suformuluotas el. paštas");
             }
         }
 
-        $field = "pass";
-        if (!$subpass) {
+        $field = "password";
+        if (!$subpassword) {
             $form->setError($field, "* Neįvestas slaptažodis");
         }
 
@@ -109,38 +107,41 @@ class Session {
             return false;
         }
 
-        $subuser = stripslashes($subuser);
-        $result = $database->confirmUserPass($subuser, md5($subpass));
+        $subemail = stripslashes($subemail);
+        $result = $database->confirmUserPass($subemail, md5($subpassword));
 
         if ($result == 1) {
-            $field = "user";
-            $form->setError($field, "* Tokio vartotojo nėra");
+            $field = "email";
+            $form->setError($field, "* Vartotojo, su tokiu el. paštu, nėra");
         } else if ($result == 2) {
-            $field = "pass";
+            $field = "password";
             $form->setError($field, "* Neteisingas slaptažodis");
         }
 
         if ($form->num_errors > 0) {
             return false;
         }
-        $this->userinfo = $database->getUserInfo($subuser);
-        $this->username = $_SESSION['username'] = $this->userinfo['username'];
-        $this->userid = $_SESSION['userid'] = $this->generateRandID();
-        $this->userlevel = $this->userinfo['userlevel'];
-		$this->userbalance = $this->userinfo['balance'];
-		$this->usertotalwinnings = $this->userinfo['totalwinnings'];
-		$this->userwins = $this->userinfo['successfulguesses'];
-		$this->userlosses = $this->userinfo['failedguesses'];
-        /* Insert userid into database and update active users table */
-        $database->updateUserField($this->username, "userid", $this->userid);
+    
+        $this->userinfo = $database->getUserInfo($subemail);
+        $this->username = $_SESSION['vardas'] = $this->userinfo['vardas'];
+        $this->userlastname = $this->userinfo['pavarde'];
+        $this->userid = $this->userinfo['id_VARTOTOJAS'];
+        $this->useremail = $this->userinfo['el_pastas'];
+        $this->userphonenumber = $this->userinfo['telefonas'];
+        $this->useraddress = $this->userinfo['adresas'];
+        $this->userlicense = $this->userinfo['licencija_iki'];
+        $this->userbirthdate = $this->userinfo['gimimo_data'];
+        $this->userlevel = $this->userinfo['typeSelector'];
 
         if ($subremember) {
-            setcookie("cookname", $this->username, time() + COOKIE_EXPIRE, COOKIE_PATH);
+            setcookie("cookname", $this->useremail, time() + COOKIE_EXPIRE, COOKIE_PATH);
             setcookie("cookid", $this->userid, time() + COOKIE_EXPIRE, COOKIE_PATH);
         }
 
         return true;
     }
+
+
 
     function logout() {
         global $database;

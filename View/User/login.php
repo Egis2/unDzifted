@@ -8,13 +8,13 @@
             <div style="text-align: left;">
                 <label for="user">Vartotojo el. paštas:</label>
                     <input class="form-control" name="email" type="text" value=""/>
-                    <?php echo $form->error("user"); ?>
+                    <?php echo $form->error("email"); ?>
                     <br>
             </div>
             <div style="text-align: left;">
             <label for="pass">Slaptažodis:</label> 
-                <input class="form-control" name="pass" type="password" value=""/>
-                <?php echo $form->error("pass"); ?>
+                <input class="form-control" name="password" type="password" value=""/>
+                <?php echo $form->error("password"); ?>
                 <br>
             </div>  
             <p>
