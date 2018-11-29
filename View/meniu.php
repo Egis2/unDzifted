@@ -1,32 +1,63 @@
- <?php
-//Formuojamas meniu.
-if (isset($session) && $session->logged_in) {
-    $path = "";
-    if (isset($_SESSION['path'])) {
-        $path = $_SESSION['path'];
-        unset($_SESSION['path']);
+<?php
+  // meniu.php  rodomas meniu pagal vartotojo rolę
+
+  if (isset($session) && $session->logged_in) {
+
+  $user=$_SESSION['user'];
+  $userlevel=$_SESSION['ulevel'];
+  $role="";
+  {
+    foreach($user_roles as $x=>$x_value)
+    {
+      if ($x_value == $userlevel) 
+        $role=$x;
     }
+  }
+?>
+
+<html>
+  <head>
+    <title>Nepriklausoma paieškų tarnyba</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="include/styles.css">
+  </head>
+  <body>
+
+
+    <?php
+
+      if (($userlevel == $user_roles[ADMIN_LEVEL])) 
+      {
     ?>
-	<div style="font-family:verdana; overflow;hidden">
-	<ul>
-		<?php 
-		//echo "<li><a href=\"/projektas\">Pradžia</a></li>";
-		echo "<li><a href=\"..\">Pradžia</a></li>";
-		echo "<li><a href=\"" . $path . "userinfo.php?user=$session->username\">Mano paskyra</a></li>";
-		echo "<li><a href=\"" . $path . "place_bets.php\">Atlikti statymus</a></li>";
-		echo "<li><a href=\"" . $path . "statistics.php\">Statistika</a></li>";
-		
-		if ($session->isEmployee() || $session->isAdmin())
-		{
-			echo "<li><a href=\"" . $path . "compose_results.php\">Suvesti rezultatus</a></li>";
-		}
-		if ($session->isAdmin()) {
-			echo "<li><a href=\"" . $path . "admin/admin.php\">Admin</a></li>";
-		}
-		
-		echo "<li class='right'><a href=\"" . $path . "process.php\">Atsijungti</a></li>";
-		?>
-	</ul>
+      <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href=\useredit.php>Redaguoti paskyrą</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href=\admin.php>Sistemos vartotojų sąrašas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href=\admin-register.php>Registruoti ieškomą asmenį</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href=\admin-statistics.php>Ieškomų asmenų statistika</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav m1-auto">
+            <li class="navbar-text">
+              <?php
+                echo "".$user." ".$role."";
+              ?>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-dark" href="\logout.php">Atsijungti</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
     <?php
 	if ($form->num_errors > 0 ){
 		echo "<ul class='error'>";
