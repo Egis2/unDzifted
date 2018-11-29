@@ -19,3 +19,14 @@ body
     margin: 0 auto;
     padding: 10;
 }
+.navbar
+{
+    padding: 10 10;
+    margin: 0;
+}
+.navbar-text
+{
+    color: black !important;
+    text-transform: uppercase !important;
+     margin-right: 25px !important;
+}

@@ -9,9 +9,7 @@ include("session.php");
         <link rel="stylesheet" type="text/css" href="Styles/styles.css">
     </head>
     <body>
-        <div class="jumbotron text-center header">
-            <h1>Gydymo įstaiga</h1>
-        </div>
+
         <?php
             var_dump($_SESSION);
             if (isset($_SESSION['prisijunges']))
