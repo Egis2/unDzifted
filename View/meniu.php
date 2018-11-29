@@ -30,12 +30,14 @@ if (isset($session) && $session->logged_in) {
     <?php
 	if ($form->num_errors > 0 ){
 		echo "<ul class='error'>";
-			foreach ($form->getErrorArray() as $key => $val ){
+			foreach ($form->getErrorArray() as $key => $val )
+			{
 				echo "{$val} <br>";
 			}
 			echo "</ul>";
 	}
-	else if (isset($_SESSION['success']) && !$_SESSION['success']) {
+	else if (isset($_SESSION['success']) && !$_SESSION['success']) 
+	{
 		echo "<ul class='error'>Klaida: {$_SESSION['message']}</ul>";
 	}
 	else if (isset($_SESSION['success']) && $_SESSION['success'])
