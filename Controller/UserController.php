@@ -9,6 +9,9 @@ class UserController{
         if (isset($_POST['login'])){
             $this->userLogin();
         }
+        else if(isset($_POST['register'])){
+            $this->userRegistration();
+        }
         else if ($session->logged_in) {
             $this->userLogout();
         }
@@ -42,6 +45,21 @@ class UserController{
             $_SESSION['error_array'] = $form->getErrorArray();
             header("Location: " . $session->referrer);
         }
+    }
+    function userRegistration(){
+
+        $registerValue = $_POST;
+         global $database;
+         $result = $database->getNextUserId();
+         
+         while($row = mysqli_fetch_array($result))
+        {
+            $nextUserIndex = $row;
+        }
+     
+        $SucessfullyInserted = $database->addNewUser($nextUserIndex[0],$registerValue,1);
+
+       header("Location: ../index.php");
     }
 }
 $UserController = new UserController();
