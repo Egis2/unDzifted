@@ -103,7 +103,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link" href='View/Patient/PatientEdit.php'>Paciento informacija</a>
+						<a class="nav-link" href='View/Patient/PatientInfo.php'>Paciento informacija</a>
 					</li>
 					<li class="nav-item">
           <?php
