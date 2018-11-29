@@ -103,10 +103,13 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link">Paciento informacija</a>
+						<a class="nav-link" href='View/Patient/PatientEdit.php'>Paciento informacija</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link">Rezervacijų sąrašas</a>
+          <?php
+            $id = $_SESSION['id'];
+            echo "<a class='nav-link' href='View/Patient/PatientReservations.php'>Rezervacijų sąrašas</a>";
+           ?>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link">Apsilankymų ataskaita</a>

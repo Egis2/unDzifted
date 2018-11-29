@@ -15,7 +15,7 @@ include("session.php");
             if (isset($_SESSION['prisijunges']))
             {
                 include("View/meniu.php");
-
+                
                 if ($session->isAdmin()){
                     echo "adminas";
                 }
@@ -29,7 +29,6 @@ include("session.php");
                     echo "daktaras spec";
                 }
 
-                var_dump($_SESSION);
             }
             else 
             {
