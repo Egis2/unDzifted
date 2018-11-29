@@ -12,12 +12,16 @@
  * correct.
  */
 
- 
+define("DB_SERVER", "localhost");
+define("DB_USER", "root");
+define("DB_PASS", "");
+define("DB_NAME", "egikut");
+/*
 define("DB_SERVER", "stud.if.ktu.lt");
 define("DB_USER", "egikut");
 define("DB_PASS", "phah8Ciet8ahquie");
 define("DB_NAME", "egikut");
-
+*/
 /*
 define("DB_SERVER", "localhost");
 define("DB_USER", "root");

@@ -16,14 +16,14 @@ class MySQLDB {
 
     }
 	
-    function confirmUserPass($username, $password) {
+    function confirmUserPass($useremail, $password) {
         /* Add slashes if necessary (for query) */
         if (!get_magic_quotes_gpc()) {
-            $username = addslashes($username);
+            $useremail = addslashes($useremail);
         }
 
         /* Verify that user is in database */
-        $q = "SELECT password FROM " . TBL_USERS . " WHERE username = '$username'";
+        $q = "SELECT password FROM " . TBL_USERS . " WHERE el_pastas = '$useremail'";
         $result = mysqli_query($this->connection, $q);
         if (!$result || (mysqli_num_rows($result) < 1)) {
             return 1; //Indicates username failure
@@ -69,11 +69,11 @@ class MySQLDB {
     }
 
  
-    function usernameTaken($username) {
+    function emailTaken($useremail) {
         if (!get_magic_quotes_gpc()) {
-            $username = addslashes($username);
+            $useremail = addslashes($useruseremailname);
         }
-        $q = "SELECT username FROM " . TBL_USERS . " WHERE username = '$username'";
+        $q = "SELECT username FROM " . TBL_USERS . " WHERE el_pastas = '$useremail'";
         $result = mysqli_query($this->connection, $q);
         return (mysqli_num_rows($result) > 0);
     }
@@ -95,8 +95,8 @@ class MySQLDB {
     }
 
     
-    function getUserInfo($username) {
-        $q = "SELECT * FROM " . TBL_USERS . " WHERE username = '$username'";
+    function getUserInfo($email) {
+        $q = "SELECT * FROM " . TBL_VARTOTOJAS . " WHERE el_pastas = '$email'";
         $result = mysqli_query($this->connection, $q);
         /* Error occurred, return given name by default */
         if (!$result || (mysqli_num_rows($result) < 1)) {

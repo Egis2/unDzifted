@@ -7,12 +7,6 @@ include("session.php");
 
     </head>
     <body>
-        <?php 
-            include("View/meniu.php");
-        ?>
-        <h1>  Informacinių sistemų projektas </h1>
-hhhh
-
         <h1>  Informaciniu sistemu projektas </h1>
         <?php
         if ($session->logged_in) {
