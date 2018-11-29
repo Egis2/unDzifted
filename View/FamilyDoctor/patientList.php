@@ -26,7 +26,8 @@
             <th>Asmens kodas</th>
             <th>Gimimo data</th>
             <th>Siuntimo išrašymas</th>
-            <th>Vaistų priskyrimas</th>
+            <th>Receptinis vaistas</th>
+            <th>Nereceptinis vaistas</th>
             <th>Biuletenio išrašymas</th>
             <th>Ligų istorija</th>
             <th>Tyrimų ataskaita</th>
@@ -40,11 +41,12 @@
                 <form action="patientConsultation.php">
                   <td><input class="btn btn-link" type="submit" value="Išrašyti siuntimą" name="siuntimas"></td>
                 </form>
+                <form action="patientPrescriptionMedicine.php">
+                  <td><input class="btn btn-link" type="submit" value="Receptinis" name="receptinis"></td>
+                </form>
                 <form action="">
-                  <td>
-                    <input class="btn btn-link" type="submit" value="Receptinis" name="receptinis">
-                    <input class="btn btn-link" type="submit" value="Nereceptinis" name="nereceptinis">
-                  </td>
+                  <td><input class="btn btn-link" type="submit" value="Nereceptinis" name="Nereceptinis"></td>
+                </form>
                 </form>
                 <form action="">
                   <td><input class="btn btn-link" type="submit" value="Išrašyti biuletenį" name="biuletenis"></td>
