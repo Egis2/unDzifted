@@ -60,7 +60,7 @@ class UserController{
             $nextUserIndex = $row;
         }
      
-        $SucessfullyInserted = $database->addNewUser($nextUserIndex[0],$registerValue,1);
+        $SucessfullyInserted = $database->addNewUser($nextUserIndex[0],$registerValue, PATIENT_NAME);
 
        header("Location: ../index.php");
     }
