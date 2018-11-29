@@ -52,7 +52,7 @@ define("TBL_TYRIMAS"," TYRIMAS");
 define("TBL_UZIMTUMAS","UZIMTUMAS");
 define("TBL_VAISTAS"," VAISTAS");
 define("TBL_VAISTU_ISRASAS"," VAISTU_ISRASAS");
-define("TBL_VARTOTOJAS"," VARTOTOJAS");
+define("TBL_VARTOTOJAS"," vartotojas");
 
 
 /**

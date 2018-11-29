@@ -23,7 +23,7 @@ class MySQLDB {
         }
 
         /* Verify that user is in database */
-        $q = "SELECT password FROM " . TBL_USERS . " WHERE el_pastas = '$useremail'";
+        $q = "SELECT slaptazodis FROM " . TBL_VARTOTOJAS . " WHERE " .  TBL_VARTOTOJAS .".el_pastas= '$useremail'";
         $result = mysqli_query($this->connection, $q);
         if (!$result || (mysqli_num_rows($result) < 1)) {
             return 1; //Indicates username failure
@@ -31,11 +31,11 @@ class MySQLDB {
 
         /* Retrieve password from result, strip slashes */
         $dbarray = mysqli_fetch_array($result);
-        $dbarray['password'] = stripslashes($dbarray['password']);
+        $dbarray['slaptazodis'] = stripslashes($dbarray['slaptazodis']);
         $password = stripslashes($password);
 
         /* Validate that password is correct */
-        if ($password === $dbarray['password']) {
+        if ($password === $dbarray['slaptazodis']) {
             return 0; //Success! Username and password confirmed
         } else {
             return 2; //Indicates password failure

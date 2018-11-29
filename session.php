@@ -1,8 +1,6 @@
 <?php
-
 include("database.php");
 include("form.php");
-
 class Session {
 
     var $useremail;     //Username given on sign-up
@@ -88,14 +86,17 @@ class Session {
     function login($subemail, $subpassword) {
         global $database, $form;
 
-        
         $field = "email";
         if (!$subemail || strlen($subemail = trim($subemail)) == 0) {
-            $form->setError($field, "* Neįvestas vartotojo el. paštas");
+            $form->setError($field, "* Neįvestas e-pašto adresas");
         } else {
-            if (preg_match("^([0-9a-z])*$", $subemail)) {
-                $form->setError($field, "* Netinkamai suformuluotas el. paštas");
+            $regex = "^[_+a-z0-9-]+(\.[_+a-z0-9-]+)*"
+                    . "@[a-z0-9-]+(\.[a-z0-9-]{1,})*"
+                    . "\.([a-z]{2,}){1}$";
+            if (preg_match($regex, $subemail)) {
+                $form->setError($field, "* Klaidingas e-pašto adresas");
             }
+            $subemail = stripslashes($subemail);
         }
 
         $field = "password";
@@ -108,8 +109,7 @@ class Session {
         }
 
         $subemail = stripslashes($subemail);
-        $result = $database->confirmUserPass($subemail, md5($subpassword));
-
+        $result = $database->confirmUserPass($subemail, $subpassword);
         if ($result == 1) {
             $field = "email";
             $form->setError($field, "* Vartotojo, su tokiu el. paštu, nėra");
