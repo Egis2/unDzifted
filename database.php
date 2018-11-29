@@ -78,16 +78,7 @@ class MySQLDB {
         return (mysqli_num_rows($result) > 0);
     }
 	
-    function addNewUser($username, $password, $email) {
-        /* If admin sign up, give admin user level */
-        if (strcasecmp($username, ADMIN_NAME) == 0) {
-            $ulevel = ADMIN_LEVEL;
-        } else {
-            $ulevel = USER_LEVEL;
-        }
-        $q = "INSERT INTO " . TBL_USERS . " VALUES ('$username', '$password', '0', '$ulevel', '$email', '0', '0', '500', '0')";
-        return mysqli_query($this->connection, $q);
-    }
+
 
     function updateUserField($username, $field, $value) {
         $q = "UPDATE " . TBL_USERS . " SET " . $field . " = '$value' WHERE username = '$username'";
@@ -115,6 +106,21 @@ class MySQLDB {
             $this->num_members = mysqli_num_rows($result);
         }
         return $this->num_members;
+    }
+
+
+    function getNextUserId(){
+        $query = "SELECT count(".TBL_VARTOTOJAS.".id_VARTOTOJAS)+1 FROM ". TBL_VARTOTOJAS;
+        $getCountOfUsers = mysqli_query($this->connection, $query);
+        return $getCountOfUsers;
+    }
+
+    function addNewUser($userId, $registerValue, $userType){
+        $query = "INSERT INTO vartotojas(vardas, pavarde,asmens_kodas, el_pastas,
+         slaptazodis, telefonas, id_VARTOTOJAS, gimimo_data, adresas, licencija_iki, typeSelector)
+          VALUES ('".$registerValue['vardas']."','".$registerValue['pavarde']."',".$registerValue['asmens_kodas'].",'".$registerValue['el_pastas']."',
+           '".$registerValue['slaptazodis']."', ".$registerValue['telefonas'].", ".$userId.",null,null,null,".$userType.")";
+        return mysqli_query($this->connection, $query);
     }
 
 	
