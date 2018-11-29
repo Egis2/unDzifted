@@ -86,7 +86,7 @@ class MySQLDB {
     }
 
     
-    function getUserInfo($email) {
+    function getUserInfoByEmail($email) {
         $q = "SELECT * FROM " . TBL_VARTOTOJAS . " WHERE el_pastas = '$email'";
         $result = mysqli_query($this->connection, $q);
         /* Error occurred, return given name by default */
@@ -97,7 +97,18 @@ class MySQLDB {
         $dbarray = mysqli_fetch_array($result);
         return $dbarray;
     }
-    
+
+    function getUserInfo($id) {
+        $q = "SELECT * FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS = '$id'";
+        $result = mysqli_query($this->connection, $q);
+        /* Error occurred, return given name by default */
+        if (!$result || (mysqli_num_rows($result) < 1)) {
+            return NULL;
+        }
+        /* Return result array */
+        $dbarray = mysqli_fetch_array($result);
+        return $dbarray;
+    }
 
     function getNumMembers() {
         if ($this->num_members < 0) {
@@ -123,6 +134,12 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function updatePatientInfo($registerValue){
+        $query = "UPDATE ". TBL_VARTOTOJAS . " SET vardas='".$registerValue['vardas']."' , pavarde='".$registerValue['pavarde'].
+        "' , asmens_kodas='".$registerValue['asmens_kodas']."', el_pastas='".$registerValue['el_pastas']."' , telefonas='".
+        $registerValue['telefonas']. "', gimimo_data='".$registerValue['gimimo_data']."' , slaptazodis='".$registerValue['slaptazodis']."' WHERE id_VARTOTOJAS='".$registerValue['submitEdit']."'";
+        return  mysqli_query($this->connection, $query);
+    }
 	
     /**
      * query - Performs the given query on the database and

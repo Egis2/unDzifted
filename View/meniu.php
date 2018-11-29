@@ -104,7 +104,7 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
             <?php
-            echo "<a class='nav-link' href='View/Patient/PatientEdit.php?id={$_SESSION['id']}'>Paciento informacija</a>";
+            echo "<a class='nav-link' href='View/Patient/PatientInfo.php?id={$_SESSION['id']}'>Paciento informacija</a>";
             ?>
 					</li>
 					<li class="nav-item">
@@ -146,7 +146,7 @@
 		else 
 		{
       // Jeigu neprisijunges;
-      
+
 }
 
 	if ($form->num_errors > 0 ){

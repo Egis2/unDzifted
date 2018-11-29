@@ -9,7 +9,10 @@ include("session.php");
         <link rel="stylesheet" type="text/css" href="Styles/styles.css">
     </head>
     <body>
-
+    <br>
+        <br>
+        <br>
+        <br>
         <?php
         var_dump($_SESSION);
             if (isset($_SESSION['prisijunges']))
