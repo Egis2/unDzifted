@@ -78,15 +78,6 @@ class MySQLDB {
         return (mysqli_num_rows($result) > 0);
     }
 	
-    //function addNewUser($username, $password, $email) 
-        /* If admin sign up, give admin user level */
-     /*   if (strcasecmp($username, ADMIN_NAME) == 0) {
-            $ulevel = ADMIN_LEVEL;
-        } else {
-            $ulevel = USER_LEVEL;
-        }
-        $q = "INSERT INTO " . TBL_USERS . " VALUES ('$username', '$password', '0', '$ulevel', '$email', '0', '0', '500', '0')";
-        return mysqli_query($this->connection, $q);*/
 
 
     function updateUserField($username, $field, $value) {

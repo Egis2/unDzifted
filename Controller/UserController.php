@@ -9,15 +9,11 @@ class UserController{
         if (isset($_POST['login'])){
             $this->userLogin();
         }
-<<<<<<< HEAD
         else if(isset($_POST['register'])){
             $this->userRegistration();
         }
-        else if ($session->logged_in) {
-=======
         else if (isset($_GET['logout'])) {
->>>>>>> 6623205fd3cc3c5d921cb719335af5b378061eb6
-            $this->userLogout();
+             $this->userLogout();
         }
         else if (isset($_POST['edit'])){
 
@@ -53,10 +49,9 @@ class UserController{
             header("Location: " . $session->referrer);
         }
     }
-<<<<<<< HEAD
     function userRegistration(){
 
-        $registerValue = $_POST;
+         $registerValue = $_POST;
          global $database;
          $result = $database->getNextUserId();
          
@@ -68,7 +63,6 @@ class UserController{
         $SucessfullyInserted = $database->addNewUser($nextUserIndex[0],$registerValue,1);
 
        header("Location: ../index.php");
-=======
 
     function userEdit(){
         $name = $_POST['email'];
@@ -79,7 +73,6 @@ class UserController{
         $code = $_POST['code'];
 
         $session->updateUser($name, $lastname, $adress, $phonenumber, $birthdate, $code);
->>>>>>> 6623205fd3cc3c5d921cb719335af5b378061eb6
     }
 }
 $UserController = new UserController();
