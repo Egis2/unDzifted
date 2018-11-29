@@ -30,3 +30,7 @@ body
     text-transform: uppercase !important;
      margin-right: 25px !important;
 }
+.table td
+{
+    vertical-align: middle !important;
+}
