@@ -9,25 +9,32 @@ class UserController{
         if (isset($_POST['login'])){
             $this->userLogin();
         }
+<<<<<<< HEAD
         else if(isset($_POST['register'])){
             $this->userRegistration();
         }
         else if ($session->logged_in) {
+=======
+        else if (isset($_GET['logout'])) {
+>>>>>>> 6623205fd3cc3c5d921cb719335af5b378061eb6
             $this->userLogout();
+        }
+        else if (isset($_POST['edit'])){
+
         }
         else {
             header("Location: ../index.php");
         }
     }
 
-
-
-
     // User Logout function
     function userLogout() {
-        global $session;
-        $retval = $session->logout();
-        header("Location: index.php");
+        
+        /*
+            Pasalinti $_SESSION elementus atsijungus.
+        */
+        session_unset();
+        header("Location: ../index.php");
     }
 
     function userLogin() {
@@ -46,6 +53,7 @@ class UserController{
             header("Location: " . $session->referrer);
         }
     }
+<<<<<<< HEAD
     function userRegistration(){
 
         $registerValue = $_POST;
@@ -60,6 +68,18 @@ class UserController{
         $SucessfullyInserted = $database->addNewUser($nextUserIndex[0],$registerValue,1);
 
        header("Location: ../index.php");
+=======
+
+    function userEdit(){
+        $name = $_POST['email'];
+        $lastname = $_POST['password'];
+        $adress = $_POST['adress'];
+        $phonenumber = $_POST['phone'];
+        $birthdate = $_POST['birthdate'];
+        $code = $_POST['code'];
+
+        $session->updateUser($name, $lastname, $adress, $phonenumber, $birthdate, $code);
+>>>>>>> 6623205fd3cc3c5d921cb719335af5b378061eb6
     }
 }
 $UserController = new UserController();

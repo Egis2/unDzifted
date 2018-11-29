@@ -51,7 +51,6 @@ class Session {
         $this->url = $_SESSION['url'] = $_SERVER['PHP_SELF'];
     }
 
-
     function checkLogin() {
         global $database;
         if (isset($_COOKIE['cookname']) && isset($_COOKIE['cookid'])) {
@@ -61,19 +60,8 @@ class Session {
 
         if (isset($_SESSION['username']) && isset($_SESSION['userid'])) {
             if ($database->confirmUserID($_SESSION['username'], $_SESSION['userid']) != 0) {
-                unset($_SESSION['username']);
-                unset($_SESSION['userid']);
                 return false;
             }
-
-            $this->userinfo = $database->getUserInfo($_SESSION['username']);
-            $this->username = $this->userinfo['username'];
-            $this->userid = $this->userinfo['userid'];
-            $this->userlevel = $this->userinfo['userlevel'];
-			$this->userbalance = $this->userinfo['balance'];
-			$this->usertotalwinnings = $this->userinfo['totalwinnings'];
-			$this->userwins = $this->userinfo['successfulguesses'];
-			$this->userlosses = $this->userinfo['failedguesses'];
             return true;
         }
 
@@ -120,34 +108,22 @@ class Session {
         if ($form->num_errors > 0) {
             return false;
         }
-        /*
-            Jeigu reikia kokiu nors duomenu
 
+        /*
+            Pildyti $_SESSION CIA, norint gauti info prisijungus
         */
+        $this->userinfo = $database->getUserInfo($subemail);
         $_SESSION['prisijunges'] = 1;
-        $this->logged_in = 1;
+        $_SESSION['userType'] = $this->userinfo['typeSelector'];
+        $_SESSION['vardas']= $this->userinfo['vardas'];
+        $_SESSION['pavarde']= $this->userinfo['pavarde'];
+        $_SESSION['id'] = $thos->userinfo['id_VARTOTOJAS'];
 
         if ($subremember) {
             setcookie("cookname", $this->useremail, time() + COOKIE_EXPIRE, COOKIE_PATH);
             setcookie("cookid", $this->userid, time() + COOKIE_EXPIRE, COOKIE_PATH);
         }
         return true;
-    }
-
-
-
-    function logout() {
-        global $database;
-		
-        if (isset($_COOKIE['cookname']) && isset($_COOKIE['cookid'])) {
-            setcookie("cookname", "", time() - COOKIE_EXPIRE, COOKIE_PATH);
-            setcookie("cookid", "", time() - COOKIE_EXPIRE, COOKIE_PATH);
-        }
-
-        unset($_SESSION['username']);
-        unset($_SESSION['userid']);
-
-        $this->logged_in = false;
     }
 
     function register($subuser, $subpass, $subemail) {
@@ -213,12 +189,19 @@ class Session {
     }
 
     function isAdmin() {
-        return ($this->userlevel == ADMIN_LEVEL ||
-                $this->username == ADMIN_NAME);
+        return ($_SESSION['userType'] == ADMIN_NAME);
     }
 
-    function isEmployee() {
-        return ($this->userlevel == EMPLOYEE_LEVEL);
+    function isPatient() {
+        return ($_SESSION['userType'] == PATIENT_NAME);
+    }
+
+    function isFamilyDoctor() {
+        return ($_SESSION['userType'] == FAMILY_DOCTOR_NAME);
+    }
+
+    function isDoctorSpecialist() {
+        return ($_SESSION['userType'] == DOCTOR_SPECIALIST_NAME);
     }
 
     function generateRandID() {
