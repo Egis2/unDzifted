@@ -10,13 +10,13 @@
         <h1>Gydymo įstaiga</h1>
     </div>
     <div class="form-group login">
-        <form method="POST">              
+        <form method="POST" action="../../Controller/UserController.php">              
             <center><b>Registracija</b></center>
 		        <p style="text-align: left;">Vardas:<br>
                     <input class="form-control" name="vardas" type="text" value=""><br>
                 </p>
                 <p style="text-align: left;">Pavardė:<br>
-                    <input class="form-control" name="pavardė" type="text" value=""><br>
+                    <input class="form-control" name="pavarde" type="text" value=""><br>
                 </p>
                 <p style="text-align: left;">Asmens kodas:<br>
                     <input class="form-control" name="asmens_kodas" type="text" value=""><br>
@@ -32,6 +32,7 @@
                 </p>  
                 <p>
                 <input class="btn btn-outline-dark" type="submit" value="Registruotis">
+                <input class="btn btn-outline-dark" type="hidden" name="register" value="2"/>
                 </p>
             </form>
 

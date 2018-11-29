@@ -1,4 +1,5 @@
 <h1> Paciento rezervacijos </h1>
 <?php
-    echo $_SESSION['vardas'];
+    echo "Gautas id:";
+    echo $_GET['id'];
 ?>

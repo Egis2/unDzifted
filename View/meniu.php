@@ -103,22 +103,29 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link" href='View/Patient/PatientInfo.php'>Paciento informacija</a>
+            <?php
+            echo "<a class='nav-link' href='View/Patient/PatientEdit.php?id={$_SESSION['id']}'>Paciento informacija</a>";
+            ?>
 					</li>
 					<li class="nav-item">
           <?php
-            $id = $_SESSION['id'];
-            echo "<a class='nav-link' href='View/Patient/PatientReservations.php'>Rezervacijų sąrašas</a>";
+              echo "<a class='nav-link' href='View/Patient/PatientReservations.php?id={$_SESSION['id']}'>Rezervacijų sąrašas</a>";
            ?>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link">Apsilankymų ataskaita</a>
+          <?php
+              echo "<a class='nav-link' href='View/Patient/PatientVisits.php?id={$_SESSION['id']}'>Apsilankymų ataskaita</a>";
+           ?>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link">Ligų ataskaita</a>
+          <?php
+              echo "<a class='nav-link' href='View/Patient/PatientIlnesses.php?id={$_SESSION['id']}'>Ligų ataskaita</a>";
+           ?>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link">Receptų istorija</a>
+          <?php
+              echo "<a class='nav-link' href='View/Patient/PatientRecipe.php?id={$_SESSION['id']}'>Receptų istorija</a>";
+           ?>
 					</li>
 				</ul>
 				<ul class="navbar-nav m1-auto">

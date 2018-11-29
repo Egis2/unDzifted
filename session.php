@@ -117,7 +117,7 @@ class Session {
         $_SESSION['userType'] = $this->userinfo['typeSelector'];
         $_SESSION['vardas']= $this->userinfo['vardas'];
         $_SESSION['pavarde']= $this->userinfo['pavarde'];
-        $_SESSION['id'] = $thos->userinfo['id_VARTOTOJAS'];
+        $_SESSION['id'] = $this->userinfo['id_VARTOTOJAS'];
 
         if ($subremember) {
             setcookie("cookname", $this->useremail, time() + COOKIE_EXPIRE, COOKIE_PATH);
