@@ -46,7 +46,7 @@
 
     <?php
 		}
-		if ($session->isFamilyDoctor())
+		else if ($session->isFamilyDoctor())
 		{
 	?>
 		
@@ -72,7 +72,7 @@
 
 	<?php
 		}
-		if ($session->isDoctorSpecialist()) 
+		else if ($session->isDoctorSpecialist()) 
 		{
 	?>
 		<nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
@@ -96,7 +96,7 @@
 		</nav>
 	<?php
 		}
-		if ($session->isPatient()) 
+		else if ($session->isPatient()) 
 		{
 	?>
 		<nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
@@ -145,14 +145,10 @@
 		}
 		else 
 		{
-?>
-<ul>
-	<li><a href="..">Pradžia</a></li>
-	<li><a href='/View/User/login.php'>Prisijungti</a> </li>
-</ul>
-
-<?php 	echo "<h1> Neprisijunges </h1>";
+      // Jeigu neprisijunges;
+      
 }
+
 	if ($form->num_errors > 0 ){
 		echo "<ul class='error'>";
 			foreach ($form->getErrorArray() as $key => $val )
