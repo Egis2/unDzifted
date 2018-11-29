@@ -1,3 +1,6 @@
+<?php
+    include("../../database.php");
+?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -12,29 +15,42 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="btn btn-outline-dark" href=PatientReservations.php>Atgal</a>
+            <?php
+                echo "<a class='btn btn-outline-dark' href='PatientReservations.php?id={$_GET['id']}'>Atgal</a>";
+             ?>
             </li>
         </div>
     </nav>
     <br> 
     <br>
+    <?php 
+        $query = "SELECT * FROM " . TBL_VARTOTOJAS . " where typeSelector='".FAMILY_DOCTOR_NAME."'";
+        $result = $database->query($query);
+    ?>
     <div class="form-group login">
-        <form method='post'>
+        <form method='post' action='../../Controller/PatientController.php'>
+        <?php
+            echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
+        ?>
             <center><b>Registracija pas gydytoją</b></center><br>
             <div style="text-align: left;">
-                <label for="vardas">Pasirinkti laiką:</label>
-                <select name="pavarde" class="form-control">
-                    <option value="Laikas1">1-as laisvas laikas</option>
-                    <option value="Laikas2">2-as laisvas laikas</option>
+                <label for="vardas">Pasirinkti gydytoją:</label>
+                <select name="gydytojas" class="form-control">
+                <?php
+                    foreach($result as $key => $val){
+                        echo "<option value='{$val['id_VARTOTOJAS']}'>{$val['vardas']}</option>";
+                    }
+                ?>
                 </select>
             </div>
-            <br>
             <div style="text-align: left;">
-                <label for="pavarde">Kabinetas:</label>
-                <input name='pavarde' type='text' class="form-control" readonly>
-            </div style="text-align: left;">
+                <label for="vardas">Pasirinkti laiką:</label>
+                <?php
+                    echo "<input name='laikas' type='datetime-local' class='form-control' value=''>";
+                ?>
+            </div>
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Registruotis pas gydytoją">
+            <input class="btn btn-outline-dark" type="submit" name='addReservation' value="Registruotis pas gydytoją">
         </form>
     </div>
 </body>
