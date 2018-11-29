@@ -53,9 +53,9 @@
 		<nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         	<div class="collapse navbar-collapse" id="navbarNav">
           		<ul class="navbar-nav mr-auto">
-            		<li class="nav-item">
-              		<a class="nav-link">Pacientų sąrašas</a>
-           			</li>
+							<?php
+            echo "<a class='nav-link' href='View/FamilyDoctor/patientList.php'>Pacientų sąrašas</a>";
+            ?>
 				</ul>
 				<ul class="navbar-nav m1-auto">
 					<li class="navbar-text">
