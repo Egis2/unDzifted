@@ -124,7 +124,7 @@
 					</li>
 					<li class="nav-item">
           <?php
-              echo "<a class='nav-link' href='View/Patient/PatientRecipe.php?id={$_SESSION['id']}'>Receptų istorija</a>";
+              echo "<a class='nav-link' href='View/Patient/PatientPrescription.php?id={$_SESSION['id']}'>Receptų istorija</a>";
            ?>
 					</li>
 				</ul>
