@@ -29,10 +29,27 @@ define("DB_NAME", "projektas");
  * hold the names of all the database tables used
  * in the script.
  */
-define("TBL_USERS", "users");
-define("TBL_MATCHES", "matches");
-define("TBL_PARTICIPANTS", "participants");
-define("TBL_BETS", "bets");
+define("TBL_ALGA", "ALGA");
+define("TBL_BIULETENIS", "BIULETENIS");
+define("TBL_DARBO_STATISTIKA", "DARBO_STATISTIKA");
+define("TBL_GYDIMAS", "GYDYMAS");
+define("TBL_KABINETAS", "KABINETAS");
+define("TBL_LIGA","LIGA");
+define("TBL_LIGOS_APRASAS","LIGOS_APRASAS");
+define("TBL_NURODYMAS","NURODYMAS");
+define("TBL_PACIENTO_LIGOS","PACIENTO_LIGOS");
+define("TBL_PROCEDURA","PROCEDURA");
+define("TBL_RECEPTAS","RECEPTAS");
+define("TBL_REZERVACIJA","REZERVACIJA");
+define("TBL_SEIMOS_GYDYTOJAS","SEIMOS_GYDYTOJAS");
+define("TBL_SIUNTIMAS"," SIUNTIMAS");
+define("TBL_SPECIALISTAS"," SPECIALISTAS");
+define("TBL_TYRIMAS"," TYRIMAS");
+define("TBL_UZIMTUMAS","UZIMTUMAS");
+define("TBL_VAISTAS"," VAISTAS");
+define("TBL_VAISTU_ISRASAS"," VAISTU_ISRASAS");
+define("TBL_VARTOTOJAS"," VARTOTOJAS");
+
 
 /**
  * Special Names and Level Constants - the admin

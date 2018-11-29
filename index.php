@@ -33,5 +33,6 @@ include("session.php");
                 echo "</td></tr></table></div><br></td></tr>";
             }
             ?>
+        <h1>  Informaciniu sistemu projektas </h1>
     </body>
 </html>
