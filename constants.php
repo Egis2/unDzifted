@@ -66,12 +66,13 @@ define("TBL_VARTOTOJAS"," vartotojas");
  */
 define("ADMIN_NAME", "Administratorius");
 define("PATIENT_NAME", "Pacientas");
-define("FAMILY_DOCTOR_NAME", "Šeimos gydytojas");
-define("DOCTOR_SEPCIALIST_NAME", "Gydytojas specialistas");
+define("FAMILY_DOCTOR_NAME", "Šeimos_gydytojas");
+define("DOCTOR_SPECIALIST_NAME", "Gydytojas_specialistas");
 /* sutvarkyti lygius */
-define("ADMIN_LEVEL", 9);
-define("EMPLOYEE_LEVEL", 5);
-define("USER_LEVEL", 1);
+define("ADMIN_LEVEL", 4);
+define("FAMILY_DOCTOR_LEVEL", 3);
+define("DOCTOR_SEPCIALIST_LEVEL", 2);
+define("PATIENT_LEVEL", 1);
 
 /**
  * Timeout Constants - these constants refer to

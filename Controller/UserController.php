@@ -9,7 +9,7 @@ class UserController{
         if (isset($_POST['login'])){
             $this->userLogin();
         }
-        else if ($session->logged_in) {
+        else if (isset($_GET['logout'])) {
             $this->userLogout();
         }
         else {
@@ -24,7 +24,9 @@ class UserController{
     function userLogout() {
         global $session;
         $retval = $session->logout();
-        header("Location: index.php");
+        unset($_SESSION['userType']);
+        unset($_SESSION['prisijunges']);
+        header("Location: ../index.php");
     }
 
     function userLogin() {

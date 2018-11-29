@@ -24,7 +24,11 @@
   <body>
 
     <?php
-
+      if ($_SESSION['userType'] == 'Pacientas')
+        echo "Cia pacientas";
+        else{
+          echo "Cia ne pacientas";
+                }
       if (($userlevel == $user_roles[ADMIN_LEVEL])) 
       {
     ?>
@@ -51,7 +55,7 @@
               ?>
             </li>
             <li class="nav-item">
-              <a class="btn btn-outline-dark" href="\logout.php">Atsijungti</a>
+              <a class="btn btn-outline-dark" href="Controller/UserController.php?logout=true">Atsijungti</a>
             </li>
           </ul>
         </div>
