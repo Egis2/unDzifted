@@ -119,7 +119,7 @@ class MySQLDB {
         $query = "INSERT INTO vartotojas(vardas, pavarde,asmens_kodas, el_pastas,
          slaptazodis, telefonas, id_VARTOTOJAS, gimimo_data, adresas, licencija_iki, typeSelector)
           VALUES ('".$registerValue['vardas']."','".$registerValue['pavarde']."',".$registerValue['asmens_kodas'].",'".$registerValue['el_pastas']."',
-           '".$registerValue['slaptazodis']."', ".$registerValue['telefonas'].", ".$userId.",null,null,null,".$userType.")";
+           '".$registerValue['slaptazodis']."', ".$registerValue['telefonas'].", ".$userId.",null,null,null,'".$userType."')";
         return mysqli_query($this->connection, $query);
     }
 
