@@ -13,18 +13,9 @@ include("session.php");
             <h1>Gydymo įstaiga</h1>
         </div>
         <?php
-            if ($session->logged_in)
+            if (isset($_SESSION['prisijunges']))
             {
-                include("include/meniu.php");
-                ?>
-                <div style="text-align: center;color:purple">
-                    <br><br>
-                    <h1>Lažybų punktas</h1>
-                    <h2>Egidijus Kutko IFF-6/12</h2>
-                </div><br>
-                <?php
-                //Jei vartotojas neprisijungęs, rodoma prisijungimo forma
-                //Jei atsiranda klaidų, rodomi pranešimai.
+                include("View/meniu.php");
             }
             else 
             {

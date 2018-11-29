@@ -10,12 +10,9 @@ class UserController{
             $this->userLogin();
         }
         else if ($session->logged_in) {
-            echo "Atejo cia";
-            header("Location: ../index.php");
             $this->userLogout();
         }
         else {
-            echo "Atejo cia";
             header("Location: ../index.php");
         }
     }

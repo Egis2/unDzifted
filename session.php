@@ -2,7 +2,6 @@
 include("database.php");
 include("form.php");
 class Session {
-
     var $useremail;     //Username given on sign-up
     var $userid;       //Random value generated on current login
     var $username;
@@ -121,23 +120,17 @@ class Session {
         if ($form->num_errors > 0) {
             return false;
         }
-    
-        $this->userinfo = $database->getUserInfo($subemail);
-        $this->username = $_SESSION['vardas'] = $this->userinfo['vardas'];
-        $this->userlastname = $this->userinfo['pavarde'];
-        $this->userid = $this->userinfo['id_VARTOTOJAS'];
-        $this->useremail = $this->userinfo['el_pastas'];
-        $this->userphonenumber = $this->userinfo['telefonas'];
-        $this->useraddress = $this->userinfo['adresas'];
-        $this->userlicense = $this->userinfo['licencija_iki'];
-        $this->userbirthdate = $this->userinfo['gimimo_data'];
-        $this->userlevel = $this->userinfo['typeSelector'];
+        /*
+            Jeigu reikia kokiu nors duomenu
+
+        */
+        $_SESSION['prisijunges'] = 1;
+        $this->logged_in = 1;
 
         if ($subremember) {
             setcookie("cookname", $this->useremail, time() + COOKIE_EXPIRE, COOKIE_PATH);
             setcookie("cookid", $this->userid, time() + COOKIE_EXPIRE, COOKIE_PATH);
         }
-
         return true;
     }
 

@@ -1,7 +1,7 @@
 <?php
   // meniu.php  rodomas meniu pagal vartotojo rolę
 
-  if (isset($session) && $session->logged_in) {
+  if (isset($_SESSION['prisijunges'])) {
 
   $user=$_SESSION['user'];
   $userlevel=$_SESSION['ulevel'];
