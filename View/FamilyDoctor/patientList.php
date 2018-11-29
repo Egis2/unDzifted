@@ -41,7 +41,10 @@
                   <td><input class="btn btn-link" type="submit" value="Išrašyti siuntimą" name="siuntimas"></td>
                 </form>
                 <form action="">
-                  <td><input class="btn btn-link" type="submit" value="Priskirti vaistus" name="vaistas"></td>
+                  <td>
+                    <input class="btn btn-link" type="submit" value="Receptinis" name="receptinis">
+                    <input class="btn btn-link" type="submit" value="Nereceptinis" name="nereceptinis">
+                  </td>
                 </form>
                 <form action="">
                   <td><input class="btn btn-link" type="submit" value="Išrašyti biuletenį" name="biuletenis"></td>
