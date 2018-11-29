@@ -34,7 +34,7 @@ define("TBL_BIULETENIS", "BIULETENIS");
 define("TBL_DARBO_STATISTIKA", "DARBO_STATISTIKA");
 define("TBL_GYDIMAS", "GYDYMAS");
 define("TBL_LIGA","LIGA");
-
+define("TBL_LIGA","LIGA");
 /**
  * Special Names and Level Constants - the admin
  * page will only be accessible to the user with
