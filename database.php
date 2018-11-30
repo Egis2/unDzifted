@@ -177,11 +177,18 @@ class MySQLDB {
         return $result;
     }
     
+    // need update
     function addNewSending($comment, $reason, $patientId, $familyDoctorId, $specialistID){
+       /*INSERT INTO siuntimas(priezastis, komentaras, fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS, fk_SPECIALISTASid_SPECIALISTAS) VALUES ('a,','a',
+    (SELECT vartotojas.id_VARTOTOJAS from vartotojas WHERE vartotojas.vardas = 'dsfghj' and vartotojas.pavarde = 'asdfgh'),
+    (SELECT vartotojas.id_VARTOTOJAS from vartotojas WHERE vartotojas.vardas = 'dfghg' and vartotojas.pavarde = 'sadfgh'),
+    (SELECT vartotojas.id_VARTOTOJAS from vartotojas WHERE vartotojas.vardas = 'pacientas' and vartotojas.pavarde = 'kfjwelds'))*/
+       
        $query = "INSERT INTO siuntimas(priezastis, komentaras,
        fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS,
        fk_SPECIALISTASid_SPECIALISTAS) VALUES ('".$reason."','".$comment."',".$patientId.",".$familyDoctorId.",".$specialistID.")";
-       return $query;
+        $result = mysqli_query($this->connection, $query);
+        return $result;
     }
     /**
      * query - Performs the given query on the database and
