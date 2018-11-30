@@ -107,9 +107,12 @@
                     <?php
                         echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
                     ?>
+                    <br>
                     <select name="filtras" class="form-control">
                         <option name=filtras1 value='1'>Rodyti praėjusias rezervacijas</option>";
                         <option name=filtras2 value='2'>Rodyti ateinančias rezervacijas</option>";
+                    </select>
+                    <br>
                     <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
                 </form>
             </td>

@@ -223,12 +223,18 @@ class MySQLDB {
         return $result;
     }
 
+<<<<<<< HEAD
     function getInfoAboutSpecialist($userID){
         $query ="SELECT ".TBL_SPECIALISTAS.".specialybe, CONCAT(".TBL_VARTOTOJAS.".vardas,' ',".TBL_VARTOTOJAS.".pavarde)
          AS fullName FROM ".TBL_SPECIALISTAS." INNER JOIN
          vartotojas ON ".TBL_VARTOTOJAS.".fk_GYDYTOJASid_VARTOTOJAS = vartotojas.";
          $result = mysqli_query($this->connection, $query);
         return $query;
+=======
+    function sendFromSpecialistToFamilyDoctor($id){
+        $query = "UPDATE " . TBL_TYRIMAS . " SET " . TBL_TYRIMAS .".send='1' WHERE id_TYRIMAS='$id'";
+        return mysqli_query($this->connection, $query);
+>>>>>>> 72f49b73b1c48f1f89daefab97a040cbeab5e619
     }
 
     /**
