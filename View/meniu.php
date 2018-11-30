@@ -79,7 +79,9 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link">Pacientų sąrašas</a>
+						<?php
+            			echo "<a class='nav-link' href='View/Specialist/PatientList.php'>Pacientų sąrašas</a>";
+            			?>
 					</li>
 				</ul>
 				<ul class="navbar-nav m1-auto">
