@@ -176,15 +176,20 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
-<<<<<<< HEAD
     
+    // need update
     function addNewSending($comment, $reason, $patientId, $familyDoctorId, $specialistID){
+       /*INSERT INTO siuntimas(priezastis, komentaras, fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS, fk_SPECIALISTASid_SPECIALISTAS) VALUES ('a,','a',
+    (SELECT vartotojas.id_VARTOTOJAS from vartotojas WHERE vartotojas.vardas = 'dsfghj' and vartotojas.pavarde = 'asdfgh'),
+    (SELECT vartotojas.id_VARTOTOJAS from vartotojas WHERE vartotojas.vardas = 'dfghg' and vartotojas.pavarde = 'sadfgh'),
+    (SELECT vartotojas.id_VARTOTOJAS from vartotojas WHERE vartotojas.vardas = 'pacientas' and vartotojas.pavarde = 'kfjwelds'))*/
+       
        $query = "INSERT INTO siuntimas(priezastis, komentaras,
        fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS,
        fk_SPECIALISTASid_SPECIALISTAS) VALUES ('".$reason."','".$comment."',".$patientId.",".$familyDoctorId.",".$specialistID.")";
-       return $query;
+        $result = mysqli_query($this->connection, $query);
+        return $result;
     }
-=======
 
     function getPrescriptionMedicines($id){
         $query = "SELECT priezastis, komentaras, fk_SPECIALISTASid_SPECIALISTAS FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS= ".$id;
@@ -192,7 +197,6 @@ class MySQLDB {
         return $result;
     }
 	
->>>>>>> 443ab080b5cceb9e4c79abbf7567484d4d8d82cf
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
