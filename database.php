@@ -164,6 +164,12 @@ class MySQLDB {
         return $result;
     }
 
+    function getAllIlnesses(){
+        $query = "Select CONCAT(pavadinimas,' ', ligos_kodas) AS liga from ".TBL_LIGA."";
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
     function getId($id){
         $query = "SELECT id_VARTOTOJAS FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
         $result = mysqli_query($this->connection, $query);
