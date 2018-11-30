@@ -46,6 +46,7 @@
                 ?>
                 </select>
             </div>
+            <br>
             <div style="text-align: left;">
                 <label for="vardas">Pasirinkti laiką:</label>
                 <?php
