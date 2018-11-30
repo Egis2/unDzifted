@@ -8,7 +8,9 @@
   <body>
 <?php
     include '../../session.php';
-    unset($_POST);
+    if(isset($_POST)){
+        unset($_POST);
+    }
     $id = $_GET['id'];
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);

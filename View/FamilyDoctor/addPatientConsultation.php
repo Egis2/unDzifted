@@ -7,6 +7,9 @@
   </head>
   <body>
     <?php
+    if(isset($_POST)){
+        unset($_POST);
+    }
     include '../../session.php';
     $id = $_GET['id'];
     global $database;
@@ -75,11 +78,13 @@
         </form>
         <?php
     global $database;
-    $pieces = explode(" ", $_POST['pacientas']);
-    $specialistInfo = explode(" ",$_POST['specialistSelect'][0]);
-    $result = $database->addNewSending($_POST['komentaras'],$_POST['priezastis'],$pieces[0],$pieces[1],$specialistInfo[0],$specialistInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
-    if($result == true){
-        echo "<div>irase sekmingai</div>";
+    if(isset($_POST)){
+        $pieces = explode(" ", $_POST['pacientas']);
+        $specialistInfo = explode(" ",$_POST['specialistSelect'][0]);
+        $result = $database->addNewSending($_POST['komentaras'],$_POST['priezastis'],$pieces[0],$pieces[1],$specialistInfo[0],$specialistInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
+        if($result == true){
+            echo "<div>irase sekmingai</div>";
+        }
     }
     ?>
     </div>

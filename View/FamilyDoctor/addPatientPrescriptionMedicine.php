@@ -7,7 +7,9 @@
   </head>
   <body>
 <?php
-    unset($_POST);
+     if(isset($_POST)){
+        unset($_POST);
+    }
     include '../../session.php';
     $id = $_GET['id'];
     global $database;
