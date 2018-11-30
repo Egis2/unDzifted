@@ -178,16 +178,14 @@ class MySQLDB {
     }
     
     // need update
-    function addNewSending($comment, $reason, $patientId, $familyDoctorId, $specialistID){
-       /*INSERT INTO siuntimas(priezastis, komentaras, fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS, fk_SPECIALISTASid_SPECIALISTAS) VALUES ('a,','a',
-    (SELECT vartotojas.id_VARTOTOJAS from vartotojas WHERE vartotojas.vardas = 'dsfghj' and vartotojas.pavarde = 'asdfgh'),
-    (SELECT vartotojas.id_VARTOTOJAS from vartotojas WHERE vartotojas.vardas = 'dfghg' and vartotojas.pavarde = 'sadfgh'),
-    (SELECT vartotojas.id_VARTOTOJAS from vartotojas WHERE vartotojas.vardas = 'pacientas' and vartotojas.pavarde = 'kfjwelds'))*/
-       
-       $query = "INSERT INTO siuntimas(priezastis, komentaras,
-       fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS,
-       fk_SPECIALISTASid_SPECIALISTAS) VALUES ('".$reason."','".$comment."',".$patientId.",".$familyDoctorId.",".$specialistID.")";
-        $result = mysqli_query($this->connection, $query);
+    function addNewSending($comment, $reason, $patientName, $patientSurname,$specialistName, $specialistSurname, $familyDoctorName, $familyDoctorSurname){
+
+        $query = "INSERT INTO siuntimas(priezastis, komentaras, fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS, fk_SPECIALISTASid_SPECIALISTAS) 
+        VALUES ('".$reason."','".$comment."',
+    (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." WHERE vartotojas.vardas = '".$patientName."' and vartotojas.pavarde = '".$patientSurname."'),
+    (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." WHERE vartotojas.vardas = '".$familyDoctorName."' and vartotojas.pavarde = '".$familyDoctorSurname."'),
+    (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." WHERE vartotojas.vardas = '".$specialistName."' and vartotojas.pavarde = '".$specialistSurname."'))";
+    $result = mysqli_query($this->connection, $query);
         return $result;
     }
     /**

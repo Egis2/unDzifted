@@ -7,7 +7,7 @@
   </head>
   <body>
     <?php
-    include '../../database.php';
+    include '../../session.php';
     $id = $_GET['id'];
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);
@@ -39,7 +39,7 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method="POST" action="../../Controller/FamilyDoctorsController.php">
+        <form method="POST" <!--action="../../Controller/FamilyDoctorsController.php"-->>
             <center><b>Siuntimas pas gydytoją specialistą</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
@@ -73,8 +73,15 @@
             <input class="btn btn-outline-dark" type="submit" value="Išrašyti siuntimą">
             <input class="btn btn-outline-dark" type="hidden" name="siuntimas" value="1"/>
         </form>
-
-        <?php var_dump($_POST);?>
+        <?php
+    global $database;
+    $pieces = explode(" ", $_POST['pacientas']);
+    $specialistInfo = explode(" ",$_POST['specialistSelect'][0]);
+    $result = $database->addNewSending($_POST['komentaras'],$_POST['priezastis'],$pieces[0],$pieces[1],$specialistInfo[0],$specialistInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
+    if($result == true){
+        echo "irase sekmingai";
+    }
+    ?>
     </div>
 </body>
 </html>
