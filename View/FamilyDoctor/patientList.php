@@ -65,10 +65,12 @@
                   /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
                 ?>
                 </td>
-                </form>
-                <form action="../../Controller/FamilyDoctorsController.php">
-                  <td><input class="btn btn-link" type="submit" value="Biuletenių sąrašas" name="biuletenis"></td>
-                </form>
+                <td>
+                <?php
+                  echo "<a class='btn btn-link' href='patientSickList.php?id={$row['id_VARTOTOJAS']}'>Biuletenių sąrašas</a>";
+                  /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+                ?>
+                </td>
                 <form action="../../Controller/FamilyDoctorsController.php">
                   <td><input class="btn btn-link" type="submit" value="Ligų aprašai" name="liga"></td>
                 </form>

@@ -176,6 +176,12 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
+
+    function getSickList($id){
+        $query = "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS= ".$id;
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
     
     // need update
     function addNewSending($comment, $reason, $patientName, $patientSurname,$specialistName, $specialistSurname, $familyDoctorName, $familyDoctorSurname){
