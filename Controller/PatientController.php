@@ -45,7 +45,7 @@ class PatientController {
             if ($database->query($query))
             {
                 $_SESSION['success'] = true;
-                $_SESSION['message'] = "Operacija buvo sėkminga.";
+                $_SESSION['message'] = "Užsiregistruota pas gydytoją sėkmingai.";
             }
             else{
                 $_SESSION['success'] = false;

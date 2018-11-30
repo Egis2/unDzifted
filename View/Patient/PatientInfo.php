@@ -10,7 +10,7 @@
   </head>
   <body>
  	<?php 
-        include("../errorDisplay.php");
+        include("../../session.php");
     ?>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -25,9 +25,23 @@
             </li>
         </div>
     </nav>
-    <br> 
-    <br>
 	<?php
+		 /* ALERT MENIU */
+		 if (isset($_SESSION['success']) && !$_SESSION['success']) 
+		 {
+			 echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+					 "<strong>{$_SESSION['message']}</strong>".
+				 "</div>";
+		 }
+		 else if (isset($_SESSION['success']) && $_SESSION['success'])
+		 {
+			 echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+			 "<strong>{$_SESSION['message']}</strong>".
+			 "</div>";
+		 }
+		 unset($_SESSION['success']);
+		 unset($_SESSION['message']);
+
 		global $database;
 		$req_user_info = $database->GetUserInfo($_GET['id']);
 	?>
