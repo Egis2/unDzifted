@@ -7,7 +7,6 @@
   </head>
   <body>
   <?php include '../../database.php';
-   include '../../constants.php';
     global $database;
     $result = $database->GetAllPatients($id);
     $index = 0;
