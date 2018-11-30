@@ -154,9 +154,14 @@ class MySQLDB {
     }
 
     function getNameAndSurname($id){
-        $query = "SELECT vardas,pavarde FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
+        $query = "SELECT CONCAT(vardas,' ', pavarde) AS fullName FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
         $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
 
+    function getAllSpecialists(){
+        $query = "Select vardas from ".TBL_VARTOTOJAS." Where typeSelector = '".DOCTOR_SPECIALIST_NAME."'";
+        $result = mysqli_query($this->connection, $query);
         return $result;
     }
 	

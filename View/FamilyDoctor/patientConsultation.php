@@ -12,11 +12,18 @@
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);
     $nameSurname = '';
- 
+    $getAllSpecialists = $database->getAllSpecialists();
 
     while($row = mysqli_fetch_array($result)){
-        $nameSurname= $row['vardas'];
+        $nameSurname= $row['fullName'];
     }
+
+    $speclists = array();
+    $indexofSpecialist = 0;
+    while($row = mysqli_fetch_array($getAllSpecialists)){
+        $speclists[]= $row;
+    }
+
    ?>
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
@@ -30,7 +37,7 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='post'>
+        <form method='POST' <!--action="../../Controller/FamilyDoctorsController.php"-->>
             <center><b>Siuntimas pas gydytoją specialistą</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
@@ -39,15 +46,20 @@
             <br>
             <div style="text-align: left;">
                 <label for="vardas">Gydytojas specialistas:</label>
-                <select name="specialistas" class="form-control">
-                    <option value="specialistas1">1-as gydytojas specialistas</option>
-                    <option value="specialistas2">2-as gydytojas specialistas</option>
-                </select>
+               <?php
+                echo "<select name='specialistSelect[]' class='form-control'>";
+            foreach($speclists as $speclist)
+            {
+                echo "<option value='".$speclists[$indexofSpecialist]['vardas']."'>".$speclists[$indexofSpecialist]['vardas']."</option>";
+                $indexofSpecialist = $indexofSpecialist + 1;
+            }
+            echo "</select>";
+        ?>
             </div>
             <br>
             <div style="text-align: left;">
                 <label for="priezastis">Siuntimo priežastis:</label>
-                <textarea class="form-control" rows="3" id="priezastis" oninvalid="this.setCustomValidity('Neužpildyta siuntimo priežastis')" oninput="this.setCustomValidity('')" required><?php var_dump($result);?></textarea>
+                <textarea class="form-control" rows="3" id="priezastis" oninvalid="this.setCustomValidity('Neužpildyta siuntimo priežastis')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
@@ -55,8 +67,12 @@
                 <textarea class="form-control" rows="3" id="komentaras" oninvalid="this.setCustomValidity('Neužpildytas siuntimo komentaras')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
+
             <input class="btn btn-outline-dark" type="submit" value="Išrašyti siuntimą">
+            <input class="btn btn-outline-dark" type="hidden" name="siuntimas" value="1"/>
         </form>
+
+        <?php var_dump($_POST);?>
     </div>
 </body>
 </html>

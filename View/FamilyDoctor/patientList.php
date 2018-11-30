@@ -48,7 +48,6 @@
                 <td><?php echo $row['gimimo_data'];?></td>
                 
                 
-                <form action="patientConsultation.php">
                   <td>
                   <?php
                     echo "<a class='btn btn-link' href='patientConsultation.php?id={$row['id_VARTOTOJAS']}'>Išrašyti siuntimą</a>";
