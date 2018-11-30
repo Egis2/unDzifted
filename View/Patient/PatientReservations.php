@@ -19,7 +19,7 @@
             </li>
             <li>
             <?php
-                echo "<a class='btn btn-outline-dark' href='PatientNewReservation.php?id={$_GET['id']}'>Registracija pas gydytoją</a>";
+                echo "<a class='nav-link' href='PatientNewReservation.php?id={$_GET['id']}'>Registracija pas gydytoją</a>";
              ?>
             </li>
         </div>

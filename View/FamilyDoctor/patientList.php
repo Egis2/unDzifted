@@ -7,9 +7,9 @@
   </head>
   <body>
   <?php 
-    include '../../database.php';
+    include '../../session.php';
     global $database;
-    $result = $database->GetAllPatients($id);
+    $result = $database->GetAllPatients($_SESSION['id']);
     $index = 0;
   ?>
     <br>
@@ -21,6 +21,8 @@
             </li>
         </div>
     </nav>
+    <br>
+    <br>
 
     <table class="table table-light table-bordered table-hover" style="width: 95%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
@@ -29,7 +31,7 @@
             <th>Asmens kodas</th>
             <th>Gimimo data</th>
             <th>Siuntimo išrašymas</th>
-            <th>Receptinis vaistas</th>
+            <th style="width: 8%;">Receptinis vaistas</th>
             <th>Nereceptinis vaistas</th>
             <th>Biuletenio išrašymas</th>
             <th>Ligų istorija</th>

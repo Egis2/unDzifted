@@ -16,13 +16,15 @@
             </li>
         </div>
     </nav>
+    <br>
+    <br>
 
     <table class="table table-light table-bordered table-hover" style="width: 95%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th style="width: 8%;">Vardas</th>
             <th style="width: 8%;">Pavardė</th>
             <th>Asmens kodas</th>
-            <th>Gimimo data</th>
+            <th style="width: 8%;">Gimimo data</th>
             <th>Tyrimai</th>
             <th>Receptinis vaistai</th>
             <th>Nereceptiniai vaistai</th>
