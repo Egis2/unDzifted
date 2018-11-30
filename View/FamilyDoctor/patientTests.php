@@ -1,3 +1,4 @@
+<?php    include ("../../session.php"); ?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -8,16 +9,15 @@
   <body>
 
 <?php 
-    include '../../database.php';
     global $database;
     $result = $database->getId($_GET['id']);
     $index = 0;
-    $tests = $database->getTests($_GET['id']);
 
     while($row = mysqli_fetch_array($result)){
         $id = $row['id_VARTOTOJAS'];
     }
 ?>
+
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -30,6 +30,62 @@
     <br>
     <br>
 
+    <?php 
+        if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
+        {
+            if (strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2'])){
+                $query = "SELECT * FROM ". TBL_TYRIMAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_TYRIMAS.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = "Operacija sėkminga. Rodomi laikai tarp: " . $_GET['laikas1'] . " ir " . $_GET['laikas2'] . ".";
+            }
+            else{
+                $_SESSION['success'] = false;
+                $_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavimui nenaudojami filtrai";
+                $query = "SELECT * FROM ". TBL_TYRIMAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
+            }
+        }
+        else
+        {
+            $query = "SELECT * FROM ". TBL_TYRIMAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
+        }
+
+         /* ALERT MENIU */
+         if (isset($_SESSION['success']) && !$_SESSION['success']) 
+         {
+             echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+                     "<strong>{$_SESSION['message']}</strong>".
+                 "</div>";
+         }
+         else if (isset($_SESSION['success']) && $_SESSION['success'])
+         {
+             echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+             "<strong>{$_SESSION['message']}</strong>".
+             "</div>";
+         }
+         unset($_SESSION['success']);
+         unset($_SESSION['message']);
+    ?>
+
+    <div class='form-group login'>
+        <form method='GET' action='patientTests.php?'>
+            <?php
+            echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
+            ?>
+            <div style="text-align: left;">
+                <label for="vardas">Tyrimai nuo:</label>
+                <input name='laikas1' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pradžios data')" oninput="this.setCustomValidity('')" required>
+            </div>
+            <br>
+            <div style="text-align: left;">
+                <label for="vardas">Tyrimai iki:</label>
+                <input name='laikas2' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pabaigos data')" oninput="this.setCustomValidity('')" required>
+            </div>
+            <br>
+            <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
+        </form>
+    </div>
+    <br>
+
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th style="width: 25%;">Tyrimo data</th>
@@ -37,18 +93,19 @@
             <th style="width: 25%;">Išvados</th>
         </thead>
         <tbody>
-        <?php
-        
-        while($row = mysqli_fetch_array($tests)){
-        ?>
-           <tr>
-               <td><?php echo $row['data'];?></td>
-               <td><?php echo $row['aprasymas'];?></td>
-               <td><?php echo $row['isvada'];?></td>
-            
-           </tr>
-        <?php }
-        ?>
+        <?php      
+            global $database;
+            $tests = $database->query($query);
+            foreach($tests as $key => $val){
+                $query = "SELECT * FROM ". TBL_TYRIMAS. " WHERE send='1'";
+                $test = mysqli_fetch_array($database->query($query));
+                if (mysqli_num_rows($database->query($query)) > 0){
+                echo "<tr><td>{$test['data']}</td>"
+                        ."<td>{$test['aprasymas']}</td>"
+                        ."<td>{$test['isvada']}</td></tr>";
+                }
+            }
+       ?>
         </tbody>
     </table>
 </body>

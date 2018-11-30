@@ -214,9 +214,9 @@ class MySQLDB {
          return $result;
     }
 
-    function MedicinExtract ($patientName, $patientSurname,$familyDoctorName, $familyDoctorSurname){
+    function MedicineExtract($data, $patientName, $patientSurname,$familyDoctorName, $familyDoctorSurname){
         $query = "INSERT INTO vaistu_israsas(israsymo_data, fk_GYDYTOJASid_VARTOTOJAS, fk_PACIENTASid_VARTOTOJAS) 
-        VALUES (".date("Y-m-d").",
+        VALUES ('".$data."',
         (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." where ".TBL_VARTOTOJAS.".vardas = '".$familyDoctorName."' and vartotojas.pavarde = '".$familyDoctorSurname."'),
         (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." where ".TBL_VARTOTOJAS.".vardas = '".$patientName."' and vartotojas.pavarde = '".$patientSurname."'))";
         $result = mysqli_query($this->connection, $query);
