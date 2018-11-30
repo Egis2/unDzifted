@@ -6,7 +6,8 @@
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
-  <?php include '../../database.php';
+  <?php 
+    include '../../database.php';
     global $database;
     $result = $database->GetAllPatients($id);
     $index = 0;
@@ -48,10 +49,10 @@
                 <td><?php echo $row['gimimo_data'];?></td>
                 
                 
-                <form action="patientConsultation.php">
                   <td>
                   <?php
-                    echo "<a class='btn btn-link' href='patientConsultation.php?id={$row['id_VARTOTOJAS']}'>Išrašyti siuntimą</a>";
+                    echo "<a class='btn btn-link' href='patientConsultations.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";
+                   /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
                   ?>
                   </td>
                 </form>

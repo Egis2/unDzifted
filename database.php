@@ -6,14 +6,13 @@ class MySQLDB {
 
     var $connection;         //The MySQL database connection
     var $num_members;        //Number of signed-up users
-
     /* Note: call getNumMembers() to access $num_members! */
 
     function MySQLDB() {
         /* Make connection to database */
         $this->connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME)
                 or die(mysql_error() . '<br><h1>Faile include/constants.php suveskite savo MySQLDB duomenis.</h1>');
-
+                $this->connection->set_charset("Utf8");
     }
 	
     function confirmUserPass($useremail, $password) {
@@ -154,9 +153,27 @@ class MySQLDB {
     }
 
     function getNameAndSurname($id){
-        $query = "SELECT vardas,pavarde FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
+        $query = "SELECT CONCAT(vardas,' ', pavarde) AS fullName FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
+    function getAllSpecialists(){
+        $query = "Select vardas from ".TBL_VARTOTOJAS." Where typeSelector = '".DOCTOR_SPECIALIST_NAME."'";
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
+    function getId($id){
+        $query = "SELECT id_VARTOTOJAS FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
         $result = mysqli_query($this->connection, $query);
 
+        return $result;
+    }
+
+    function getConsultations($id){
+        $query = "SELECT priezastis, komentaras, fk_SPECIALISTASid_SPECIALISTAS FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS= ".$id;
+        $result = mysqli_query($this->connection, $query);
         return $result;
     }
 	
