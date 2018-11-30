@@ -1,4 +1,4 @@
-<?php include ("../../database.php"); ?>
+<?php include ("../../session.php"); ?>
 <html>
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -15,8 +15,36 @@
                 <a class="btn btn-outline-dark" href=\unDzifted>Atgal</a>
             </li>
         </div>
-    </nav>  
-        <br><br><br>
+    </nav>
+    <br><br><br>
+    <?php
+        if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
+        {
+            if (strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2'])){
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = "Operacija sėkminga. Rodomi laikai tarp: " . $_GET['laikas1'] . " ir " . $_GET['laikas2'] . ".";
+            }
+            else{
+                $_SESSION['success'] = false;
+                $_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavymui nenaudojami filtrai";
+            }
+        }
+        /* ALERT MENIU */
+        if (isset($_SESSION['success']) && !$_SESSION['success']) 
+        {
+            echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+                    "<strong>{$_SESSION['message']}</strong>".
+                "</div>";
+        }
+        else if (isset($_SESSION['success']) && $_SESSION['success'])
+        {
+            echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+            "<strong>{$_SESSION['message']}</strong>".
+            "</div>";
+        }
+        unset($_SESSION['success']);
+        unset($_SESSION['message']);
+    ?>
             <div class='form-group login'>
             <form method='GET' action='PatientIlnesses.php?'>
                 <?php
@@ -35,6 +63,7 @@
                 <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
             </form>
         </div>
+        <br>
         <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th>Ligos Pavadinimas</th>
@@ -56,7 +85,7 @@
                 $liga = mysqli_fetch_array($database->query($query));
 
                 /* Jeigu laikų laukai buvo įvesti */
-                if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
+                if (isset($_GET['laikas1']) && isset($_GET['laikas2']) && strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) )
                     $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}' AND " . TBL_LIGOS_APRASAS.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";// AND ".TBL_VAISTU_ISRASAS .".israsymo_data <= '{$_GET['laikas2']}'";
                 else
                     $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}'";
