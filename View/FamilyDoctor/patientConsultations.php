@@ -14,8 +14,14 @@
     $index = 0;
     $consultations = $database->getConsultations($_GET['id']);
 
+    $getInfoAboutSpecialist = $database->getInfoAboutSpecialist($_GET['id']);
+    $specialistInfo;
     while($row = mysqli_fetch_array($result)){
         $id = $row['id_VARTOTOJAS'];
+    }
+
+    while($row = mysqli_fetch_array($getInfoAboutSpecialist)){
+        $specialistInfo = $row;
     }
 ?>
   
@@ -39,6 +45,7 @@
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th style="width: 15%;">Gydytojas specialistas</th>
+            <th style="width: 25%">Specialybe</th>
             <th style="width: 25%;">Priežastis</th>
             <th style="width: 25%;">Komentaras</th>
         </thead>
@@ -50,11 +57,13 @@
        ?>
            <tr>
                <td><?php echo $row['fk_SPECIALISTASid_SPECIALISTAS'];?></td>
+               <td>Nera</td>
                <td><?php echo $row['priezastis'];?></td>
                <td><?php echo $row['komentaras'];?></td>
-            
+               <?php var_dump($row);?>
            </tr>
         <?php }
+        var_dump($getInfoAboutSpecialist);
            ?>
         </tbody>
     </table>

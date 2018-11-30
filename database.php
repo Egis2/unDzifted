@@ -195,7 +195,7 @@ class MySQLDB {
         return $result;
     }
     
-    // need update
+
     function addNewSending($comment, $reason, $patientName, $patientSurname,$specialistName, $specialistSurname, $familyDoctorName, $familyDoctorSurname){
 
         $query = "INSERT INTO siuntimas(priezastis, komentaras, fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS, fk_SPECIALISTASid_SPECIALISTAS) 
@@ -221,6 +221,14 @@ class MySQLDB {
         (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." where ".TBL_VARTOTOJAS.".vardas = '".$patientName."' and vartotojas.pavarde = '".$patientSurname."'))";
         $result = mysqli_query($this->connection, $query);
         return $result;
+    }
+
+    function getInfoAboutSpecialist($userID){
+        $query ="SELECT ".TBL_SPECIALISTAS.".specialybe, CONCAT(".TBL_VARTOTOJAS.".vardas,' ',".TBL_VARTOTOJAS.".pavarde)
+         AS fullName FROM ".TBL_SPECIALISTAS." INNER JOIN
+         vartotojas ON ".TBL_VARTOTOJAS.".fk_GYDYTOJASid_VARTOTOJAS = ".$userID;
+         $result = mysqli_query($this->connection, $query);
+        return $query;
     }
 
     /**
