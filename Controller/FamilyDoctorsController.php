@@ -10,6 +10,7 @@ class FamilyDoctorController{
   }
 
   function postNewSiuntima(){
+    echo "?????";
     $registerValue = $_POST;
     global $database;
     $result = $database->getNextUserId();
