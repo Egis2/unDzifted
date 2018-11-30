@@ -45,7 +45,6 @@
         unset($_SESSION['success']);
         unset($_SESSION['message']);
     ?>
-        <br><br><br>
             <div class='form-group login'>
             <form method='GET' action='PatientIlnesses.php?'>
                 <?php
@@ -64,6 +63,7 @@
                 <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
             </form>
         </div>
+        <br>
         <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th>Ligos Pavadinimas</th>
