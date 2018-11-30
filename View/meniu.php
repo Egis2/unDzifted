@@ -111,13 +111,8 @@
 					</li>
 					<li class="nav-item">
           <?php
-              echo "<a class='nav-link' href='View/Patient/PatientReservations.php?id={$_SESSION['id']}'>Rezervacijų sąrašas</a>";
-           ?>
-					</li>
-					<li class="nav-item">
-          <?php
-              echo "<a class='nav-link' href='View/Patient/PatientVisits.php?id={$_SESSION['id']}'>Apsilankymų ataskaita</a>";
-           ?>
+              echo "<a class='nav-link' href='View/Patient/PatientReservations.php?id={$_SESSION['id']}'>Apsilankymai</a>";
+           ?>	
 					</li>
 					<li class="nav-item">
           <?php

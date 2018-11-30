@@ -20,15 +20,27 @@
     </nav>
     <br> 
     <br>
-    <?php
-    echo "<div class='form-group login'>";
-        echo "<form method='GET' action='PatientPrescription.php?'>";
-        echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
-        echo "<input name='laikas1' type='date' class='form-control' value=''>";
-        echo "<input name='laikas2' type='date' class='form-control' value=''>";
-        echo "<input class='btn btn-outline-dark' type='submit' value='Filtruoti'></form>";
-    echo "</div>";
-    ?>
+
+    <div class='form-group login'>
+        <form method='GET' action='PatientPrescription.php?'>
+            <?php
+            echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
+            ?>
+            <div style="text-align: left;">
+                <label for="vardas">Receptų istorija nuo:</label>
+                <input name='laikas1' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pradžios data')" oninput="this.setCustomValidity('')" required>
+            </div>
+            <br>
+            <div style="text-align: left;">
+                <label for="vardas">Receptų istorija iki:</label>
+                <input name='laikas2' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pabaigos data')" oninput="this.setCustomValidity('')" required>
+            </div>
+            <br>
+            <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
+        </form>
+    </div>
+    <br>
+
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th>Pavadinimas</th>
@@ -59,7 +71,7 @@
             }
             $vaistu_israsai = $database->query($query);
             foreach($vaistu_israsai as $key => $val){
-                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}'";
+                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}' AND receptinis='1'";
                 $vaistas = mysqli_fetch_array($database->query($query));
                 if (mysqli_num_rows($database->query($query)) > 0){
                 $query = "SELECT * FROM ". TBL_RECEPTAS ." WHERE fk_VAISTU_ISRASASid_VAISTU_ISRASAS ='{$val['id_VAISTU_ISRASAS']}' ";

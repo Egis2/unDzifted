@@ -35,42 +35,42 @@ include("../../database.php");
             <div style="text-align: left;">
                 <label for="vardas">Paciento vardas:</label>
                 <?php 
-						  echo "<input name='vardas' type='text' class='form-control' value='{$req_user_info['vardas']}'>";
+						  echo "<input name='vardas' type='text' class='form-control' value='{$req_user_info['vardas']}' oninvalid='this.setCustomValidity(\"Neužpildytas paciento vardas\")' oninput='this.setCustomValidity(\"\")' required>";
 					?>
             </div>
             <br>
             <div style="text-align: left;">
                 <label for="pavarde">Paciento pavardė:</label>
                 <?php
-                    echo "<input name='pavarde' type='text' class='form-control' value='{$req_user_info['pavarde']}'>"
+                    echo "<input name='pavarde' type='text' class='form-control' value='{$req_user_info['pavarde']}' oninvalid='this.setCustomValidity(\"Neužpildyta paciento pavardė\")' oninput='this.setCustomValidity(\"\")' required>";
                 ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="asmens_kodas">Paciento asmens kodas:</label>
                 <?php
-                    echo "<input name='asmens_kodas' type='text' class='form-control' value='{$req_user_info['asmens_kodas']}'>";
+                    echo "<input name='asmens_kodas' type='text' class='form-control' value='{$req_user_info['asmens_kodas']}' oninvalid='this.setCustomValidity(\"Neužpildytas paciento asmens kodas\")' oninput='this.setCustomValidity(\"\")' required>";
                 ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="el_pastas">Paciento el. paštas:</label>
                 <?php
-					  echo "<input name='el_pastas' type='email' class='form-control' value='{$req_user_info['el_pastas']}'>";
+					  echo "<input name='el_pastas' type='email' class='form-control' value='{$req_user_info['el_pastas']}' oninvalid='this.setCustomValidity(\"Neužpildytas paciento elektroninis paštas\")' oninput='this.setCustomValidity(\"\")' required>";
                 ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="telefonas">Paciento telefono numeris:</label>
                 <?php
-                    echo "<input name='telefonas' type='text' class='form-control'  value='{$req_user_info['telefonas']}'>";
+                    echo "<input name='telefonas' type='text' class='form-control'  value='{$req_user_info['telefonas']}' oninvalid='this.setCustomValidity(\"Neužpildytas paciento telefonas\")' oninput='this.setCustomValidity(\"\")' required>";
                 ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="gimimo_data">Paciento gimimo data:</label>
                 <?php
-					  echo "<input name='gimimo_data' type='date' class='form-control' value='{$req_user_info['gimimo_data']}'>";
+					  echo "<input name='gimimo_data' type='date' class='form-control' value='{$req_user_info['gimimo_data']}' oninvalid='this.setCustomValidity(\"Neužpildyta paciento gimimo data\")' oninput='this.setCustomValidity(\"\")' required>";
                 ?>
             </div style="text-align: left;">
             <br>

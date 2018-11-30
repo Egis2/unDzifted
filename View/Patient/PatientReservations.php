@@ -7,10 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
-  <br><br><br>
-    <?php 
-        include("../errorDisplay.php");
-    ?>
+  <br>
+
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
@@ -24,7 +22,30 @@
             </li>
         </div>
     </nav>
-    <br> 
+    <br>
+    <br>
+        <?php 
+        include("../errorDisplay.php");
+    ?>
+
+    <div class='form-group login'>
+        <form method='GET' action='PatientReservations.php?'>
+            <?php
+            echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
+            ?>
+            <div style="text-align: left;">
+                <label for="vardas">Apsilankymų istorija nuo:</label>
+                <input name='laikas1' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pradžios data')" oninput="this.setCustomValidity('')" required>
+            </div>
+            <br>
+            <div style="text-align: left;">
+                <label for="vardas">Apsilankymų istorija iki:</label>
+                <input name='laikas2' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pabaigos data')" oninput="this.setCustomValidity('')" required>
+            </div>
+            <br>
+            <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
+        </form>
+    </div>
     <br>
 
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
