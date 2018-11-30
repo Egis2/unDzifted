@@ -7,8 +7,9 @@
   </head>
   <body>
   <?php include '../../database.php';
+   include '../../constants.php';
     global $database;
-    $result = $database->GetAllPatients();
+    $result = $database->GetAllPatients($id);
     $index = 0;
   ?>
     <br>
@@ -38,15 +39,22 @@
         </thead>
         <tbody>
         <?php
+        
          while($row = mysqli_fetch_array($result)){
-         ?>
+        ?>
             <tr>
                 <td><?php echo $row['vardas'];?></td>
                 <td><?php echo $row['pavarde'];?></td>
                 <td><?php echo $row['asmens_kodas'];?></td>
                 <td><?php echo $row['gimimo_data'];?></td>
+                
+                
                 <form action="patientConsultation.php">
-                  <td><input class="btn btn-link" type="submit" value="Išrašyti siuntimą" name="siuntimas"></td>
+                  <td>
+                  <?php
+                    echo "<a class='btn btn-link' href='patientConsultation.php?id={$row['id_VARTOTOJAS']}'>Išrašyti siuntimą</a>";
+                  ?>
+                  </td>
                 </form>
                 <form action="patientPrescriptionMedicine.php">
                   <td><input class="btn btn-link" type="submit" value="Receptinis" name="receptinis"></td>

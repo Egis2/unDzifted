@@ -152,6 +152,13 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
+
+    function getNameAndSurname($id){
+        $query = "SELECT vardas,pavarde FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
+        $result = mysqli_query($this->connection, $query);
+
+        return $result;
+    }
 	
     /**
      * query - Performs the given query on the database and

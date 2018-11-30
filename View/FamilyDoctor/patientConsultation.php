@@ -6,7 +6,18 @@
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
+    <?php
+    include '../../database.php';
+    $id = $_GET['id'];
+    global $database;
+    $result = $database->getNameAndSurname($_GET['id']);
+    $nameSurname = '';
+ 
 
+    while($row = mysqli_fetch_array($result)){
+        $nameSurname[0]= $row['vardas'];
+    }
+   ?>
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -23,7 +34,7 @@
             <center><b>Siuntimas pas gydytoją specialistą</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
-                <input name='pacientas' type='text' class="form-control" readonly>
+                <input name='pacientas' type='text' class="form-control" value='<?php echo $nameSurname[0]; ?>' readonly >
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
@@ -36,7 +47,7 @@
             <br>
             <div style="text-align: left;">
                 <label for="priezastis">Siuntimo priežastis:</label>
-                <textarea class="form-control" rows="3" id="priezastis" oninvalid="this.setCustomValidity('Neužpildyta siuntimo priežastis')" oninput="this.setCustomValidity('')" required></textarea>
+                <textarea class="form-control" rows="3" id="priezastis" oninvalid="this.setCustomValidity('Neužpildyta siuntimo priežastis')" oninput="this.setCustomValidity('')" required><?php var_dump($result);?></textarea>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
