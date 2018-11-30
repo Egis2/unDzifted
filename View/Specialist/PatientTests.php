@@ -1,3 +1,5 @@
+<?php include("../../session.php")?>
+
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -32,14 +34,25 @@
             <th>Siuntimas šeimos gydytojui</th>
         </thead>
         <tbody>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <form action="SendPatientTestToFamilyDoctor.php">
-                  <td><input class="btn btn-link" type="submit" value="Siųsti šeimos gydytojui" name="tyrimas"></td>
-                </form>
-            </tr>
+            <?php 
+                global $database;
+                $query = "SELECT * FROM " . TBL_TYRIMAS . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id_pacientas']}'";
+                $result = $database->query($query);
+                foreach($result as $key => $val){
+                    echo "<tr><td>{$val['data']}</td>"
+                        ."<td>{$val['aprasymas']}</td>"
+                        ."<td>{$val['isvada']}</td>";
+                    if ($val['send'] == 0)
+                        echo "<form action=\"SendPatientTestToFamilyDoctor.php\">"
+                            ."<td><input class=\"btn btn-link\" type=\"submit\" value=\"Siųsti šeimos gydytojui\" name=\"tyrimas\">"
+                            ."<input type='hidden' name='id_pacientas' value='{$_GET['id_pacientas']}'>"
+                            ."<input type='hidden' name='id_tyrimas' value='{$val['id_TYRIMAS']}'></td>"
+                            ."</form></tr>";
+                    else{
+                        echo "<td>Tyrimas jau išsiūstas paciento šeimos gydytojui</td>";
+                    }
+                }
+            ?>
         </tbody>
     </table>
 </body>

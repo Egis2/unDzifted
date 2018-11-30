@@ -1,3 +1,4 @@
+<?php include("../../session.php") ?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -12,37 +13,49 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="btn btn-outline-dark" href=PatientTests.php>Atgal</a>
+            <?php 
+                echo "<a class=\"btn btn-outline-dark\" href='PatientTests.php?id_pacientas={$_GET['id_pacientas']}'>Atgal</a>";
+            ?>
             </li>
         </div>
     </nav>
     <br> 
     <br>
-
+    <?php 
+        global $database;
+        $query = "SELECT vardas FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS='{$_GET['id_pacientas']}'";
+        $result = $database->query($query);
+        $pacientas = mysqli_fetch_array($result);
+        $query = "SELECT * FROM " . TBL_TYRIMAS . " WHERE id_TYRIMAS='{$_GET['id_tyrimas']}'";
+        $result = $database->query($query);
+        $tyrimas = mysqli_fetch_array($result);
+    ?>
     <div class="form-group login">
-        <form method='post'>
+        <form method='post' action='../../Controller/SpecialistController.php'>
+            <?php echo "<input type='hidden' name='id_tyrimas' value='{$_GET['id_tyrimas']}'>";
+                  echo "<input type='hidden' name='id_pacientas' value='{$_GET['id_pacientas']}'>"; ?>
             <center><b>Siųsti tyrimo rezultatus šeimos gydytojui</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
-                <input name='pacientas' type='text' class="form-control" readonly>
+                <?php    echo "<input name='pacientas' type='text' class=\"form-control\" readonly value='{$pacientas['vardas']}'>"; ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="data">Tyrimo atlikimo data:</label>
-                <input class="form-control" type="date" name="data" readonly>
+                <?php echo "<input class=\"form-control\" type=\"date\" name=\"data\" readonly value='{$tyrimas['data']}'>"; ?>
             </div>
             <br>
             <div style="text-align: left;">
                 <label for="aprasymas">Tyrimo aprašymas:</label>
-                <textarea class="form-control" rows="3" name="aprasymas" readonly></textarea>
+                <?php echo "<textarea class=\"form-control\" rows=\"3\" name=\"aprasymas\" readonly>{$tyrimas['aprasymas']}</textarea>"; ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="isvada">Tyrimo išvados:</label>
-                <textarea class="form-control" rows="3" name="isvada" readonly></textarea>
+                <?php  echo "<textarea class=\"form-control\" rows=\"3\" name=\"isvada\" readonly>{$tyrimas['isvada']}</textarea>";  ?>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Siųsti šeimos gydytojui">
+            <input class="btn btn-outline-dark" type="submit" name='sendToFamilyDoctor' value="Siųsti šeimos gydytojui">
         </form>
     </div>
 </body>

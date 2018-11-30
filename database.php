@@ -223,6 +223,11 @@ class MySQLDB {
         return $result;
     }
 
+    function sendFromSpecialistToFamilyDoctor($id){
+        $query = "UPDATE " . TBL_TYRIMAS . " SET " . TBL_TYRIMAS .".send='1' WHERE id_TYRIMAS='$id'";
+        return mysqli_query($this->connection, $query);
+    }
+
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
