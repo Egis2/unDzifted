@@ -44,10 +44,10 @@
         <tbody>
         <?php 
             global $database;
-            $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
+            $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = {$_GET['id']}";
             $vaistu_israsai = $database->query($query);
             foreach($vaistu_israsai as $key => $val){
-                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}' AND receptinis='0'";
+                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE receptinis='0'";
                 $rows = mysqli_num_rows($database->query($query));
                 $vaistas = mysqli_fetch_array($database->query($query));
                 if (mysqli_num_rows($database->query($query)) > 0){
@@ -55,8 +55,10 @@
                             ."<td>{$vaistas['kiekis_mg']}</td>"
                             ."<td>{$vaistas['vartojimo_instrukcija']}</td>"
                             ."<td>{$val['israsymo_data']}</td></tr>";
-                }
-            }
+                
+                    }       
+                 }
+            
             // Nereceptinis - 0, Receptinis - 1
        ?>
         </tbody>

@@ -7,6 +7,9 @@
   </head>
   <body>
 <?php
+     if(isset($_POST)){
+        unset($_POST);
+    }
     include '../../session.php';
     $id = $_GET['id'];
     global $database;
@@ -62,9 +65,6 @@
         </form>
 
         <?php 
-        var_dump($_SESSION);
-        echo "=========================================================";
-        var_dump($_POST);
         if(isset($_POST)){
             $result = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],1);
 

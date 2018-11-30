@@ -8,6 +8,9 @@
   <body>
 <?php
     include '../../session.php';
+    if(isset($_POST)){
+        unset($_POST);
+    }
     $id = $_GET['id'];
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);
@@ -56,13 +59,15 @@
             <input class="btn btn-outline-dark" type="submit" value="Priskirti nereceptinį vaistą">
         </form>
         <?php 
-
-    $pacientInfo = explode(" ", $_POST['pacientas']);
+    $getMedicineExtract =NULL;
+    
     if(isset($_POST)){
+        $data = date("Y-m-d");
+        $pacientInfo = explode(" ", $_POST['pacientas']);
             $mediceAdd = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],0);
-            $medicineExtract = $database->MedicinExtract($pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
+            $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
 
-            if($mediceAdd == true && medicineExtract == true){
+            if($mediceAdd == true && getMedicineExtract == true){
                 echo "<div>Sėkmingai įtrepta</div>";
             } else {
                 echo "<div>Nesėkmingai įtrepta</div>";
