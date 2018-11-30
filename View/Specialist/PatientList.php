@@ -16,8 +16,6 @@
             </li>
         </div>
     </nav>
-    <br> 
-    <br>
 
     <table class="table table-light table-bordered table-hover" style="width: 95%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
