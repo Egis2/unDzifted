@@ -15,7 +15,7 @@
  
 
     while($row = mysqli_fetch_array($result)){
-        $nameSurname[0]= $row['vardas'];
+        $nameSurname= $row['vardas'];
     }
    ?>
     <br>
@@ -34,7 +34,7 @@
             <center><b>Siuntimas pas gydytoją specialistą</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
-                <input name='pacientas' type='text' class="form-control" value='<?php echo $nameSurname[0]; ?>' readonly >
+                <input name='pacientas' type='text' class="form-control" value='<?php echo $nameSurname; ?>' readonly >
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
