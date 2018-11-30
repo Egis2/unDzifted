@@ -53,13 +53,15 @@
                     $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
                 }
             }
-            else{
+            else
+            {
                 $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
             }
             $vaistu_israsai = $database->query($query);
             foreach($vaistu_israsai as $key => $val){
                 $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}'";
                 $vaistas = mysqli_fetch_array($database->query($query));
+                if (mysqli_num_rows($database->query($query)) > 0){
                 $query = "SELECT * FROM ". TBL_RECEPTAS ." WHERE fk_VAISTU_ISRASASid_VAISTU_ISRASAS ='{$val['id_VAISTU_ISRASAS']}' ";
                 $receptas = mysqli_fetch_array($database->query($query));
                 echo "<tr><td>{$vaistas['pavadinimas']}</td>"
@@ -67,6 +69,7 @@
                         ."<td>{$vaistas['vartojimo_instrukcija']}</td>"
                         ."<td>{$val['israsymo_data']}</td>"
                         ."<td>{$receptas['galioja_iki']}</td></tr>";
+                }
             }
             // Nereceptinis - 0, Receptinis - 1
        ?>
