@@ -1,3 +1,6 @@
+<?php 
+include("../../database.php");
+?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -15,7 +18,9 @@
                 <a class="btn btn-outline-dark" href=\unDzifted>Atgal</a>
             </li>
             <li>
-                <a class="nav-link" href=PatientNewReservation.php>Registracija pas gydytoją</a>
+            <?php
+                echo "<a class='btn btn-outline-dark' href='PatientNewReservation.php?id={$_GET['id']}'>Registracija pas gydytoją</a>";
+             ?>
             </li>
         </div>
     </nav>
@@ -30,12 +35,27 @@
             <th>Rezervacijos atšaukimas</th>
         </thead>
         <tbody>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td><input class="btn btn-link" type="submit" value="Atšaukti rezervaciją"></td>
-            </tr>
+        <?php
+            global $database;
+            $result = $database->getPatientReservations($_GET['id']);
+            foreach($result as $key => $val ){
+                $query = "SELECT vardas FROM " . TBL_VARTOTOJAS . " where id_VARTOTOJAS='{$val['fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS']}'";
+                $result2 = $database->query($query);
+                $secondary = mysqli_fetch_assoc($result2);
+                echo "<form action='' method='post'>";
+                echo "<tr>";
+                echo "<td>{$secondary['vardas']}</td><td>{$val['data']}</td><td>{$val['vieta']}</td>";
+                if ((strtotime(date("Y-m-d h:m:s")) + 86400) < strtotime($val['data']))
+                {
+                    echo "<td><input class='btn btn-link' type='submit' value='Atšaukti rezervaciją'></td>";
+                }
+                else{
+                    echo "<td>Atšaukti nebegalima</td>";
+                }
+                echo "</tr>";
+                echo "</form>";
+            }
+        ?>
         </tbody>
     </table>
 

@@ -7,9 +7,12 @@ class PatientController {
         if (isset($_POST['submitEdit'])){
             $this->editPatient();
         }
-        else {
-            header("Location: ../index.php");
+        if (isset($_POST['addReservation'])){
+            $this->addReservation();
         }
+        //else {
+      //      header("Location: ../index.php");
+      //  }
     }
 
 
@@ -22,6 +25,13 @@ class PatientController {
         header("Location: ../View/Patient/PatientInfo.php?id=".$_POST['submitEdit']);
         $_SESSION['vardas'] = $_POST['pavarde'];
         $_SESSION['pavarde'] = $_POST['pavarde'];
+    }
+
+    function addReservation(){
+        global $database;
+        $query = "INSERT INTO " . TBL_REZERVACIJA . " VALUES ('{$_POST['laikas']}', 'PAKEISTI', NULL, '{$_POST['gydytojas']}', '{$_POST['id']}')";
+        $database->query($query);
+        header("Location: ../View/Patient/PatientReservations.php?id=".$_POST['id']);
     }
 }
 $PatientController = new PatientController();

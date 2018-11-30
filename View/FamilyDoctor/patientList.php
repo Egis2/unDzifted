@@ -6,7 +6,11 @@
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
-
+  <?php include '../../database.php';
+    global $database;
+    $result = $database->GetAllPatients();
+    $index = 0;
+  ?>
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -33,11 +37,14 @@
             <th>Tyrimų ataskaita</th>
         </thead>
         <tbody>
+        <?php
+         while($row = mysqli_fetch_array($result)){
+         ?>
             <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
+                <td><?php echo $row['vardas'];?></td>
+                <td><?php echo $row['pavarde'];?></td>
+                <td><?php echo $row['asmens_kodas'];?></td>
+                <td><?php echo $row['gimimo_data'];?></td>
                 <form action="patientConsultation.php">
                   <td><input class="btn btn-link" type="submit" value="Išrašyti siuntimą" name="siuntimas"></td>
                 </form>
@@ -48,17 +55,19 @@
                   <td><input class="btn btn-link" type="submit" value="Nereceptinis" name="Nereceptinis"></td>
                 </form>
                 </form>
-                <form action="">
+                <form action="../../Controller/FamilyDoctorsController.php">
                   <td><input class="btn btn-link" type="submit" value="Išrašyti biuletenį" name="biuletenis"></td>
                 </form>
-                <form action="">
+                <form action="../../Controller/FamilyDoctorsController.php">
                   <td><input class="btn btn-link" type="submit" value="Nauja liga" name="liga"></td>
                 </form>
-                <form action="">
+                <form action="../../Controller/FamilyDoctorsController.php">
                   <td><input class="btn btn-link" type="submit" value="Peržiūrėti tyrimus" name="tyrimas"></td>
                 </form>
                 
             </tr>
+         <?php }
+            ?>
         </tbody>
     </table>
 

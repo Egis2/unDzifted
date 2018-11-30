@@ -146,6 +146,12 @@ class MySQLDB {
         $result= mysqli_query($this->connection, $getAllPatientsQuery);
         return $result;
     }
+
+    function getPatientReservations($id){
+        $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$id}'"; 
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
 	
     /**
      * query - Performs the given query on the database and
