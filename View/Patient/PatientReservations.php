@@ -27,25 +27,39 @@
         <?php 
         include("../errorDisplay.php");
     ?>
-
-    <div class='form-group login'>
-        <form method='GET' action='PatientReservations.php?'>
-            <?php
-            echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
-            ?>
-            <div style="text-align: left;">
-                <label for="vardas">Apsilankymų istorija nuo:</label>
-                <input name='laikas1' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pradžios data')" oninput="this.setCustomValidity('')" required>
-            </div>
-            <br>
-            <div style="text-align: left;">
-                <label for="vardas">Apsilankymų istorija iki:</label>
-                <input name='laikas2' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pabaigos data')" oninput="this.setCustomValidity('')" required>
-            </div>
-            <br>
-            <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
-        </form>
-    </div>
+        <table class="table table-light table-bordered table-hover" style="width: 60%; margin: 0 auto; text-align: center">
+            <tr>
+            <td>
+                <form method='GET' action='PatientReservations.php?'>
+                    <?php
+                    echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
+                    ?>
+                    <div style="text-align: left;">
+                        <label for="vardas">Apsilankymų istorija nuo:</label>
+                        <input name='laikas1' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pradžios data')" oninput="this.setCustomValidity('')" required>
+                    </div>
+                    <br>
+                    <div style="text-align: left;">
+                        <label for="vardas">Apsilankymų istorija iki:</label>
+                        <input name='laikas2' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pabaigos data')" oninput="this.setCustomValidity('')" required>
+                    </div>
+                    <br>
+                    <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
+                </form>
+            </td> 
+            <td valign='top'>
+                <form method='GET' action='PatientReservations.php?'>
+                    <?php
+                        echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
+                    ?>
+                    <select name="filtras" class="form-control">
+                        <option name=filtras1 value='1'>Rodyti praėjusias rezervacijas</option>";
+                        <option name=filtras2 value='2'>Rodyti ateinančias rezervacijas</option>";
+                    <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
+                </form>
+            </td>
+            </tr>
+        </table>
     <br>
 
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
@@ -61,7 +75,7 @@
             if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
             {
                 if (strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2'])){
-                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";// AND ".TBL_VAISTU_ISRASAS .".israsymo_data <= '{$_GET['laikas2']}'";
+                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";
                     //$_SESSION['success'] = true;
                     //$_SESSION['message'] = "Operacija sėkminga";
                 }
@@ -70,6 +84,15 @@
                     //$_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavymui nenaudojami filtrai";
                    $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
                 }
+            }
+            else if (isset($_GET['filtras']))
+            {
+                if ($_GET['filtras'] == 1 )
+                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data < CURDATE()";
+                else if ($_GET['filtras'] == 2)
+                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data >= CURDATE()";
+                else 
+                    $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
             }
             else
             {
