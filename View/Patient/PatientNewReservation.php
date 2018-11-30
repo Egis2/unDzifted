@@ -24,22 +24,25 @@
     <br> 
     <br>
     <?php 
-        $query = "SELECT * FROM " . TBL_VARTOTOJAS . " where typeSelector='".FAMILY_DOCTOR_NAME."'";
+        $query = "SELECT * FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS = (SELECT fk_GYDYTOJASid_VARTOTOJAS FROM " . TBL_GYDYMAS . " where fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}')";
         $result = $database->query($query);
     ?>
     <div class="form-group login">
-        <form method='post' action='../../Controller/PatientController.php'>
+        <form method='POST' action='../../Controller/PatientController.php'>
         <?php
             echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
         ?>
             <center><b>Registracija pas gydytoją</b></center><br>
             <div style="text-align: left;">
                 <label for="vardas">Pasirinkti gydytoją:</label>
-                <select name="gydytojas" class="form-control">
+                <!-- <select name="gydytojas" class="form-control"> -->
                 <?php
-                    foreach($result as $key => $val){
-                        echo "<option value='{$val['id_VARTOTOJAS']}'>{$val['vardas']}</option>";
-                    }
+                    $row = mysqli_fetch_array($result);
+                    echo "<input type='hidden' name='gydytojas' value='{$row['id_VARTOTOJAS']}'>";
+                    echo "<input type='text' class='form-control' readonly value='{$row['vardas']} {$row['pavarde']}'>";
+                    //foreach($result as $key => $val){
+                        //echo "<option name=gydytojas value='{$val['id_VARTOTOJAS']}'>{$val['vardas']} {$val['pavarde']}</option>";
+                    //}
                 ?>
                 </select>
             </div>

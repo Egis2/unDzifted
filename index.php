@@ -9,16 +9,10 @@ include("session.php");
         <link rel="stylesheet" type="text/css" href="Styles/styles.css">
     </head>
     <body>
-    <br>
-        <br>
-        <br>
-        <br>
         <?php
-        var_dump($_SESSION);
             if (isset($_SESSION['prisijunges']))
             {
                 include("View/meniu.php");
-                
                 if ($session->isAdmin()){
                     echo "adminas";
                 }
@@ -41,6 +35,8 @@ include("session.php");
                 }
                 include("View/User/login.php");
             }
+
+            var_dump($_SESSION);
         ?>
     </body>
 </html>

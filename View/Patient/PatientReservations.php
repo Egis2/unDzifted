@@ -1,6 +1,4 @@
-<?php 
-include("../../database.php");
-?>
+
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -9,8 +7,10 @@ include("../../database.php");
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
-
-    <br>
+  <br><br><br>
+    <?php 
+        include("../errorDisplay.php");
+    ?>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
@@ -39,15 +39,20 @@ include("../../database.php");
             global $database;
             $result = $database->getPatientReservations($_GET['id']);
             foreach($result as $key => $val ){
-                $query = "SELECT vardas FROM " . TBL_VARTOTOJAS . " where id_VARTOTOJAS='{$val['fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS']}'";
+                $query = "SELECT vardas, pavarde FROM " . TBL_VARTOTOJAS . " where id_VARTOTOJAS='{$val['fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS']}'";
                 $result2 = $database->query($query);
                 $secondary = mysqli_fetch_assoc($result2);
-                echo "<form action='' method='post'>";
+                echo "<form action='../../Controller/PatientController.php' method='POST'>";
+                echo "<input type='hidden' name='reservacijos_id' value='{$val['id_REZERVACIJA']}'>";
+                echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
                 echo "<tr>";
-                echo "<td>{$secondary['vardas']}</td><td>{$val['data']}</td><td>{$val['vieta']}</td>";
-                if ((strtotime(date("Y-m-d h:m:s")) + 86400) < strtotime($val['data']))
+                echo "<td>{$secondary['vardas']} {$secondary['pavarde']}</td><td>{$val['data']}</td><td>{$val['vieta']}</td>";
+                if ( (strtotime(date("Y-m-d h:m:s"))) > (strtotime($val['data']))){
+                    echo "<td>Susitikimas jau praėjo</td>";
+                }
+                else if ((strtotime(date("Y-m-d h:m:s")) + 86400) < strtotime($val['data']))
                 {
-                    echo "<td><input class='btn btn-link' type='submit' value='Atšaukti rezervaciją'></td>";
+                    echo "<td><input class='btn btn-link' name='deleteReservation' type='submit' value='Atšaukti rezervaciją'></td>";
                 }
                 else{
                     echo "<td>Atšaukti nebegalima</td>";

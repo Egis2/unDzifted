@@ -118,7 +118,8 @@ class Session {
         $_SESSION['vardas']= $this->userinfo['vardas'];
         $_SESSION['pavarde']= $this->userinfo['pavarde'];
         $_SESSION['id'] = $this->userinfo['id_VARTOTOJAS'];
-
+        $_SESSION['message'] = "test";
+        $_SESSION['success'] = true;
         if ($subremember) {
             setcookie("cookname", $this->useremail, time() + COOKIE_EXPIRE, COOKIE_PATH);
             setcookie("cookid", $this->userid, time() + COOKIE_EXPIRE, COOKIE_PATH);

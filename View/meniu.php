@@ -142,15 +142,15 @@
 				</ul>
 			</div>
 		</nav>
+<?php
+	}
 
-	<?php
-		}
-		else 
-		{
-      // Jeigu neprisijunges;
-
-}
-
+	else 
+	{
+      		// Jeigu neprisijunges;
+	}
+	echo "<br><br><br>";
+	// alter
 	if ($form->num_errors > 0 ){
 		echo "<ul class='error'>";
 			foreach ($form->getErrorArray() as $key => $val )
@@ -161,18 +161,19 @@
 	}
 	else if (isset($_SESSION['success']) && !$_SESSION['success']) 
 	{
-		echo "<ul class='error'>Klaida: {$_SESSION['message']}</ul>";
+		echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+				"<strong>{$_SESSION['message']}</strong>".
+			"</div>";
 	}
 	else if (isset($_SESSION['success']) && $_SESSION['success'])
-		echo "<ul class='success'> {$_SESSION['message']} </ul>";
-
-
-	unset($_SESSION['success']);
-	unset($_SESSION['message']);
-	unset($_SESSION['regsuccess']);
-	unset($_SESSION['value_array']);
-	unset($_SESSION['error_array']);
-  }
+	{
+		echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+		"<strong>{$_SESSION['message']}</strong>".
+		"</div>";
+	}
+	//unset($_SESSION['success']);
+	//unset($_SESSION['message']);
+}
 ?>
 	</body>
 </html>

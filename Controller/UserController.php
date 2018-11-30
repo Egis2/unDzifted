@@ -64,6 +64,7 @@ class UserController{
 
        header("Location: ../index.php");
     }
+    
     function userEdit(){
         $name = $_POST['email'];
         $lastname = $_POST['password'];

@@ -1,9 +1,6 @@
 <br>
 <br>
 <br>
-<?php 
-	include("../../database.php");
-?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -12,7 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
-    <br>
+ 	<?php 
+        include("../errorDisplay.php");
+    ?>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">

@@ -36,7 +36,7 @@ define("DB_NAME", "projektas");
 define("TBL_ALGA", "alga");
 define("TBL_BIULETENIS", "biuletenis");
 define("TBL_DARBO_STATISTIKA", "darbo_statistika");
-define("TBL_GYDIMAS", "gydymas");
+define("TBL_GYDYMAS", "gydymas");
 define("TBL_KABINETAS", "kabinetas");
 define("TBL_LIGA","liga");
 define("TBL_LIGOS_APRASAS","ligos_aprasas");
