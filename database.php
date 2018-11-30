@@ -176,6 +176,15 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
+<<<<<<< HEAD
+    
+    function addNewSending($comment, $reason, $patientId, $familyDoctorId, $specialistID){
+       $query = "INSERT INTO siuntimas(priezastis, komentaras,
+       fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS,
+       fk_SPECIALISTASid_SPECIALISTAS) VALUES ('".$reason."','".$comment."',".$patientId.",".$familyDoctorId.",".$specialistID.")";
+       return $query;
+    }
+=======
 
     function getPrescriptionMedicines($id){
         $query = "SELECT priezastis, komentaras, fk_SPECIALISTASid_SPECIALISTAS FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS= ".$id;
@@ -183,6 +192,7 @@ class MySQLDB {
         return $result;
     }
 	
+>>>>>>> 443ab080b5cceb9e4c79abbf7567484d4d8d82cf
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
