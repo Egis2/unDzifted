@@ -55,10 +55,12 @@
                    /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
                   ?>
                   </td>
-                </form>
-                <form action="patientPrescriptionMedicine.php">
-                  <td><input class="btn btn-link" type="submit" value="Receptinis" name="receptinis"></td>
-                </form>
+                  <td>
+                  <?php
+                    echo "<a class='btn btn-link' href='patientPrescriptionMedicines.php?id={$row['id_VARTOTOJAS']}'>Receptų sąrašas</a>";
+                   /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+                  ?>
+                  </td>
                 <form action="">
                   <td><input class="btn btn-link" type="submit" value="Nereceptinis" name="Nereceptinis"></td>
                 </form>
