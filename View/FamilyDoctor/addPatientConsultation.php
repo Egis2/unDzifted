@@ -30,7 +30,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="btn btn-outline-dark" href=patientList.php>Atgal</a>
+            <?php
+				echo "<a class='btn btn-outline-dark' href='patientConsultations.php?id={$id}'>Atgal</a>";
+            ?>
             </li>
         </div>
     </nav>
