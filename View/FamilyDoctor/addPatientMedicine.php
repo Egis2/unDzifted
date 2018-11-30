@@ -56,13 +56,13 @@
             <input class="btn btn-outline-dark" type="submit" value="Priskirti nereceptinį vaistą">
         </form>
         <?php 
-        var_dump($_SESSION);
-        echo "=========================================================";
-        var_dump($_POST);
-    if(isset($_POST)){
-            $result = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],1);
 
-            if($result == true){
+    $pacientInfo = explode(" ", $_POST['pacientas']);
+    if(isset($_POST)){
+            $mediceAdd = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],0);
+            $medicineExtract = $database->MedicinExtract($pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
+
+            if($mediceAdd == true && medicineExtract == true){
                 echo "<div>Sėkmingai įtrepta</div>";
             } else {
                 echo "<div>Nesėkmingai įtrepta</div>";

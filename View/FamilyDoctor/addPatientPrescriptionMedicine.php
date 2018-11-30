@@ -65,9 +65,15 @@
         var_dump($_SESSION);
         echo "=========================================================";
         var_dump($_POST);
+        if(isset($_POST)){
+            $result = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],1);
 
-       // $result = $database->addNewMedicine($_POST['pavadinimas']," "," ",1);
-
+            if($result == true){
+                echo "<div>Sėkmingai įtrepta</div>";
+            } else {
+                echo "<div>Nesėkmingai įtrepta</div>";
+            }
+        }
     ?>
     </div>
 </body>
