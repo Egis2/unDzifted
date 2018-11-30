@@ -22,8 +22,8 @@
         ?>
          <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
-            <th>Diagnozės kodas</th>
             <th>Ligos Pavadinimas</th>
+            <th>Diagnozės kodas</th>
             <th>Ligos aprašymas</th>
             <th>Data</th>
             <th>Išvados</th>
@@ -34,12 +34,20 @@
             $query = "SELECT * FROM " . TBL_PACIENTO_LIGOS . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'";
             $result = $database->query($query);
             $row = mysqli_num_rows($result);
-            echo "<tr><td>{$row}</td>"
-                 ."<td>test</td>"
-                 ."<td>test</td>"
-                 ."<td>test</td>"
-                 ."<td>test</td>"
-                 ."<td>test</td></tr>";
+            foreach ($result as $key => $val){
+                $query = "SELECT * FROM " . TBL_LIGA . " WHERE id_LIGA = '{$val['fk_LIGAid_LIGA']}'";
+                $liga = mysqli_fetch_array($database->query($query));
+                $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}'";
+                $aprasas = mysqli_fetch_array($database->query($query));
+                $query = "SELECT vardas, pavarde FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS = '{$aprasas['fk_GYDYTOJASid_VARTOTOJAS']}'";
+                $gydytojas = mysqli_fetch_array($database->query($query));
+                echo "<tr><td>{$liga['pavadinimas']}</td>"
+                ."<td>{$aprasas['diagnozes_kodas']}</td>"
+                ."<td>{$aprasas['aprasymas']}</td>"
+                ."<td>{$aprasas['data']}</td>"
+                ."<td>{$aprasas['isvada']}</td>"
+                ."<td>{$gydytojas['vardas']} {$gydytojas['pavarde']}</td></tr>";
+            }
         ?>
         </tbody>
         </table>
