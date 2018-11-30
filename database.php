@@ -164,6 +164,12 @@ class MySQLDB {
         return $result;
     }
 
+    function getAllIlnesses(){
+        $query = "Select CONCAT(pavadinimas,' ', ligos_kodas) AS liga from ".TBL_LIGA."";
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
     function getId($id){
         $query = "SELECT id_VARTOTOJAS FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
         $result = mysqli_query($this->connection, $query);
@@ -201,6 +207,16 @@ class MySQLDB {
          $result = mysqli_query($this->connection, $query);
          return $result;
     }
+
+    function MedicinExtract ($patientName, $patientSurname,$familyDoctorName, $familyDoctorSurname){
+        $query = "INSERT INTO vaistu_israsas(israsymo_data, fk_GYDYTOJASid_VARTOTOJAS, fk_PACIENTASid_VARTOTOJAS) 
+        VALUES (".date("Y-m-d").",
+        (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." where ".TBL_VARTOTOJAS.".vardas = '".$familyDoctorName."' and vartotojas.pavarde = '".$familyDoctorSurname."'),
+        (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." where ".TBL_VARTOTOJAS.".vardas = '".$patientName."' and vartotojas.pavarde = '".$patientSurname."'))";
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
