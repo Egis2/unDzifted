@@ -164,6 +164,12 @@ class MySQLDB {
         return $result;
     }
 
+    function getAllIlnesses(){
+        $query = "Select CONCAT(pavadinimas,' ', ligos_kodas) AS liga from ".TBL_LIGA."";
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
     function getId($id){
         $query = "SELECT id_VARTOTOJAS FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
         $result = mysqli_query($this->connection, $query);
@@ -179,6 +185,12 @@ class MySQLDB {
 
     function getSickList($id){
         $query = "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS= ".$id;
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
+    function getTests($id){
+        $query = "SELECT * FROM ".TBL_TYRIMAS." WHERE send = '1' AND fk_PACIENTASid_VARTOTOJAS= ".$id;
         $result = mysqli_query($this->connection, $query);
         return $result;
     }

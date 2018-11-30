@@ -1,6 +1,6 @@
 
+  <?php    include ("../../session.php"); ?>
 <html>
-  <?php    include ("../../database.php"); ?>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
     <title>Paciento receptų istorija</title>
@@ -19,7 +19,41 @@
     <br>
     <br> 
     <br>
+    <?php 
+        if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
+        {
+            if (strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2'])){
+                $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_VAISTU_ISRASAS.".israsymo_data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";// AND ".TBL_VAISTU_ISRASAS .".israsymo_data <= '{$_GET['laikas2']}'";
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = "Operacija sėkminga. Rodomi laikai tarp: " . $_GET['laikas1'] . " ir " . $_GET['laikas2'] . ".";
+            }
+            else{
+                $_SESSION['success'] = false;
+                $_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavymui nenaudojami filtrai";
+                $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
+            }
+        }
+        else
+        {
+            $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
+        }
 
+         /* ALERT MENIU */
+         if (isset($_SESSION['success']) && !$_SESSION['success']) 
+         {
+             echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+                     "<strong>{$_SESSION['message']}</strong>".
+                 "</div>";
+         }
+         else if (isset($_SESSION['success']) && $_SESSION['success'])
+         {
+             echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+             "<strong>{$_SESSION['message']}</strong>".
+             "</div>";
+         }
+         unset($_SESSION['success']);
+         unset($_SESSION['message']);
+    ?>
     <div class='form-group login'>
         <form method='GET' action='PatientPrescription.php?'>
             <?php
@@ -51,23 +85,6 @@
         <tbody>
         <?php      
             global $database;
-            if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
-            {
-                if (strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2'])){
-                    $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_VAISTU_ISRASAS.".israsymo_data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";// AND ".TBL_VAISTU_ISRASAS .".israsymo_data <= '{$_GET['laikas2']}'";
-                    //$_SESSION['success'] = true;
-                    //$_SESSION['message'] = "Operacija sėkminga";
-                }
-                else{
-                    //$_SESSION['success'] = false;
-                    //$_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavymui nenaudojami filtrai";
-                    $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
-                }
-            }
-            else
-            {
-                $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
-            }
             $vaistu_israsai = $database->query($query);
             foreach($vaistu_israsai as $key => $val){
                 $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}' AND receptinis='1'";

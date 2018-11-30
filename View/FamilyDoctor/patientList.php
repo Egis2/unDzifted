@@ -71,13 +71,18 @@
                   /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
                 ?>
                 </td>
-                <form action="../../Controller/FamilyDoctorsController.php">
-                  <td><input class="btn btn-link" type="submit" value="Ligų aprašai" name="liga"></td>
-                </form>
-                <form action="../../Controller/FamilyDoctorsController.php">
-                  <td><input class="btn btn-link" type="submit" value="Tyrimų sąrašas" name="tyrimas"></td>
-                </form>
-                
+                <td>
+                <?php
+                  echo "<a class='btn btn-link' href='patientIlnesses.php?id={$row['id_VARTOTOJAS']}'>Ligų aprašai</a>";
+                  /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+                ?>
+                </td>
+                <td>
+                <?php
+                  echo "<a class='btn btn-link' href='patientTests.php?id={$row['id_VARTOTOJAS']}'>Tyrimų sąrašas</a>";
+                  /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+                ?>
+                </td>
             </tr>
          <?php }
             ?>

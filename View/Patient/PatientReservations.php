@@ -25,7 +25,62 @@
     <br>
     <br>
         <?php 
-        include("../errorDisplay.php");
+            include("../../session.php");
+            if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
+            {
+                if (strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2'])){
+                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";
+                    $_SESSION['success'] = true;
+                    $_SESSION['message'] = "Operacija sėkminga. Rodomi laikai tarp: " . $_GET['laikas1'] . " ir " . $_GET['laikas2'] . ".";
+                }
+                else{
+                    $_SESSION['success'] = false;
+                    $_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavymui nenaudojami filtrai";
+                    $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
+                }
+            }
+            else if (isset($_GET['filtras']))
+            {
+                if ($_GET['filtras'] == 1 )
+                {
+                    $_SESSION['success'] = true;
+                    $_SESSION['message'] = "Rodomi praėją vizitai";
+                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data < CURDATE()";
+                }
+                else if ($_GET['filtras'] == 2)
+                {
+                    $_SESSION['success'] = true;
+                    $_SESSION['message'] = "Rodomi ateinantys vizitai";
+                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data >= CURDATE()";
+                }
+                else
+                {
+                    $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
+                    $_SESSION['success'] = false;
+                    $_SESSION['message'] = "Nerastas filtras";
+                } 
+            }
+            else
+            {
+                $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
+            }
+
+
+            /* ALERT MENIU */
+            if (isset($_SESSION['success']) && !$_SESSION['success']) 
+            {
+                echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+                        "<strong>{$_SESSION['message']}</strong>".
+                    "</div>";
+            }
+            else if (isset($_SESSION['success']) && $_SESSION['success'])
+            {
+                echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+                "<strong>{$_SESSION['message']}</strong>".
+                "</div>";
+            }
+            unset($_SESSION['success']);
+            unset($_SESSION['message']);
     ?>
         <table class="table table-light table-bordered table-hover" style="width: 60%; margin: 0 auto; text-align: center">
             <tr>
@@ -72,32 +127,6 @@
         <tbody>
         <?php
             global $database;
-            if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
-            {
-                if (strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2'])){
-                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";
-                    //$_SESSION['success'] = true;
-                    //$_SESSION['message'] = "Operacija sėkminga";
-                }
-                else{
-                    //$_SESSION['success'] = false;
-                    //$_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavymui nenaudojami filtrai";
-                   $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
-                }
-            }
-            else if (isset($_GET['filtras']))
-            {
-                if ($_GET['filtras'] == 1 )
-                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data < CURDATE()";
-                else if ($_GET['filtras'] == 2)
-                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data >= CURDATE()";
-                else 
-                    $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
-            }
-            else
-            {
-                $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
-            }
 
             //$query = $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
             $rezervacijos = $database->query($query);
