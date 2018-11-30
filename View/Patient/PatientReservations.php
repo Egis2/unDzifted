@@ -58,8 +58,27 @@
         <tbody>
         <?php
             global $database;
-            $result = $database->getPatientReservations($_GET['id']);
-            foreach($result as $key => $val ){
+            if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
+            {
+                if (strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2'])){
+                    $query = "SELECT * FROM ". TBL_REZERVACIJA ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_REZERVACIJA.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";// AND ".TBL_VAISTU_ISRASAS .".israsymo_data <= '{$_GET['laikas2']}'";
+                    //$_SESSION['success'] = true;
+                    //$_SESSION['message'] = "Operacija sėkminga";
+                }
+                else{
+                    //$_SESSION['success'] = false;
+                    //$_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavymui nenaudojami filtrai";
+                   $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
+                }
+            }
+            else
+            {
+                $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
+            }
+
+            //$query = $query = "SELECT * FROM ".TBL_REZERVACIJA." WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'"; 
+            $rezervacijos = $database->query($query);
+            foreach($rezervacijos as $key => $val ){
                 $query = "SELECT vardas, pavarde FROM " . TBL_VARTOTOJAS . " where id_VARTOTOJAS='{$val['fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS']}'";
                 $result2 = $database->query($query);
                 $secondary = mysqli_fetch_assoc($result2);

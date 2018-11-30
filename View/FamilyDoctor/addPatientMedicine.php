@@ -7,7 +7,7 @@
   </head>
   <body>
 <?php
-    include '../../database.php';
+    include '../../session.php';
     $id = $_GET['id'];
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);
@@ -50,11 +50,27 @@
             <br>
             <div style="text-align: left;">
                 <label for="vartojimo_instrukcija">Vartojimo instrukcija:</label>
-                <textarea class="form-control" rows="3" id="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
+                <textarea class="form-control" rows="3" name="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
             <input class="btn btn-outline-dark" type="submit" value="Priskirti nereceptinį vaistą">
         </form>
+        <?php 
+        var_dump($_SESSION);
+        echo "=========================================================";
+        var_dump($_POST);
+    if(isset($_POST)){
+            $result = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],1);
+
+            if($result == true){
+                echo "<div>Sėkmingai įtrepta</div>";
+            } else {
+                echo "<div>Nesėkmingai įtrepta</div>";
+            }
+        }
+    ?>
     </div>
+
+    
 </body>
 </html>

@@ -39,7 +39,7 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method="POST" <!--action="../../Controller/FamilyDoctorsController.php"-->>
+        <form method="POST">
             <center><b>Siuntimas pas gydytoją specialistą</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
@@ -79,7 +79,7 @@
     $specialistInfo = explode(" ",$_POST['specialistSelect'][0]);
     $result = $database->addNewSending($_POST['komentaras'],$_POST['priezastis'],$pieces[0],$pieces[1],$specialistInfo[0],$specialistInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
     if($result == true){
-        echo "irase sekmingai";
+        echo "<div>irase sekmingai</div>";
     }
     ?>
     </div>

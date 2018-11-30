@@ -7,7 +7,7 @@
   </head>
   <body>
 <?php
-    include '../../database.php';
+    include '../../session.php';
     $id = $_GET['id'];
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);
@@ -60,6 +60,15 @@
             <br>
             <input class="btn btn-outline-dark" type="submit" value="Priskirti receptinį vaistą">
         </form>
+
+        <?php 
+        var_dump($_SESSION);
+        echo "=========================================================";
+        var_dump($_POST);
+
+       // $result = $database->addNewMedicine($_POST['pavadinimas']," "," ",1);
+
+    ?>
     </div>
 </body>
 </html>

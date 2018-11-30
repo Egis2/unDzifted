@@ -17,10 +17,25 @@
         </div>
     </nav>  
         <br><br><br>
-        <?php
-            global $database;
-        ?>
-         <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
+            <div class='form-group login'>
+            <form method='GET' action='PatientIlnesses.php?'>
+                <?php
+                echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
+                ?>
+                <div style="text-align: left;">
+                    <label for="vardas">Ligų istorija nuo:</label>
+                    <input name='laikas1' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pradžios data')" oninput="this.setCustomValidity('')" required>
+                </div>
+                <br>
+                <div style="text-align: left;">
+                    <label for="vardas">Ligų istorija iki:</label>
+                    <input name='laikas2' type='date' class='form-control' value='' oninvalid="this.setCustomValidity('Nepasirinkta pabaigos data')" oninput="this.setCustomValidity('')" required>
+                </div>
+                <br>
+                <input class='btn btn-outline-dark' type='submit' value='Filtruoti'>
+            </form>
+        </div>
+        <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th>Ligos Pavadinimas</th>
             <th>Diagnozės kodas</th>
@@ -31,26 +46,38 @@
         </thead>
         <tbody>
         <?php 
+            global $database;
             $query = "SELECT * FROM " . TBL_PACIENTO_LIGOS . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'";
-            $result = $database->query($query);
-            $row = mysqli_num_rows($result);
-            foreach ($result as $key => $val){
+            $paciento_ligos = $database->query($query);
+
+            foreach ($paciento_ligos as $key => $val){
+                /* Paima liga */
                 $query = "SELECT * FROM " . TBL_LIGA . " WHERE id_LIGA = '{$val['fk_LIGAid_LIGA']}'";
                 $liga = mysqli_fetch_array($database->query($query));
-                $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}'";
+
+                /* Jeigu laikų laukai buvo įvesti */
+                if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
+                    $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}' AND " . TBL_LIGOS_APRASAS.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";// AND ".TBL_VAISTU_ISRASAS .".israsymo_data <= '{$_GET['laikas2']}'";
+                else
+                    $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}'";
                 $aprasas = mysqli_fetch_array($database->query($query));
-                $query = "SELECT vardas, pavarde FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS = '{$aprasas['fk_GYDYTOJASid_VARTOTOJAS']}'";
-                $gydytojas = mysqli_fetch_array($database->query($query));
-                echo "<tr><td>{$liga['pavadinimas']}</td>"
-                ."<td>{$aprasas['diagnozes_kodas']}</td>"
-                ."<td>{$aprasas['aprasymas']}</td>"
-                ."<td>{$aprasas['data']}</td>"
-                ."<td>{$aprasas['isvada']}</td>"
-                ."<td>{$gydytojas['vardas']} {$gydytojas['pavarde']}</td></tr>";
+
+                /* Jeigu SELECT operacija buvo sėkminga */
+                if (mysqli_num_rows($database->query($query)) > 0)  { 
+                    /* Paimamas Daktaros vardas ir pavardė */
+                    $query = "SELECT vardas, pavarde FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS = '{$aprasas['fk_GYDYTOJASid_VARTOTOJAS']}'";
+                    $gydytojas = mysqli_fetch_array($database->query($query));
+                   
+                    echo "<tr><td>{$liga['pavadinimas']}</td>"
+                    ."<td>{$aprasas['diagnozes_kodas']}</td>"
+                    ."<td>{$aprasas['aprasymas']}</td>"
+                    ."<td>{$aprasas['data']}</td>"
+                    ."<td>{$aprasas['isvada']}</td>"
+                    ."<td>{$gydytojas['vardas']} {$gydytojas['pavarde']}</td></tr>";
+                }
             }
         ?>
         </tbody>
         </table>
-        
     </body>
 </html>

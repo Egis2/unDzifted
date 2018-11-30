@@ -194,6 +194,13 @@ class MySQLDB {
     $result = mysqli_query($this->connection, $query);
         return $result;
     }
+
+    function addNewMedicine($nameOfMedicine, $instruction, $mg, $haveRecept){
+        $query = "INSERT INTO vaistas(pavadinimas, vartojimo_instrukcija, kiekis_mg, receptinis) 
+        VALUES ('".$nameOfMedicine."','".$instruction."',".$mg.",".$haveRecept.")";
+         $result = mysqli_query($this->connection, $query);
+         return $result;
+    }
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
