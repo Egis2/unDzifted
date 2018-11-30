@@ -52,7 +52,8 @@
                 <form action="patientConsultation.php">
                   <td>
                   <?php
-                    echo "<a class='btn btn-link' href='patientConsultation.php?id={$row['id_VARTOTOJAS']}'>Išrašyti siuntimą</a>";
+                    echo "<a class='btn btn-link' href='patientConsultations.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";
+                   /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
                   ?>
                   </td>
                 </form>
