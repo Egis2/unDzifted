@@ -18,7 +18,7 @@
             </li>
             <li>
 			<?php
-				echo "<a class='nav-link' href='AddPatientTest.php'>Pridėti tyrimą</a>";
+				echo "<a class='nav-link' href='AddPatientTest.php?id={$_GET['id']}'>Pridėti tyrimą</a>";
             ?>
             </li>
         </div>
@@ -36,7 +36,7 @@
         <tbody>
             <?php 
                 global $database;
-                $query = "SELECT * FROM " . TBL_TYRIMAS . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id_pacientas']}'";
+                $query = "SELECT * FROM " . TBL_TYRIMAS . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'";
                 $result = $database->query($query);
                 foreach($result as $key => $val){
                     echo "<tr><td>{$val['data']}</td>"
@@ -45,7 +45,7 @@
                     if ($val['send'] == 0)
                         echo "<form action=\"SendPatientTestToFamilyDoctor.php\">"
                             ."<td><input class=\"btn btn-link\" type=\"submit\" value=\"Siųsti šeimos gydytojui\" name=\"tyrimas\">"
-                            ."<input type='hidden' name='id_pacientas' value='{$_GET['id_pacientas']}'>"
+                            ."<input type='hidden' name='id' value='{$_GET['id']}'>"
                             ."<input type='hidden' name='id_tyrimas' value='{$val['id_TYRIMAS']}'></td>"
                             ."</form></tr>";
                     else{

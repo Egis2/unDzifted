@@ -14,7 +14,7 @@
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
             <?php 
-                echo "<a class=\"btn btn-outline-dark\" href='PatientTests.php?id_pacientas={$_GET['id_pacientas']}'>Atgal</a>";
+                echo "<a class=\"btn btn-outline-dark\" href='PatientTests.php?id={$_GET['id']}'>Atgal</a>";
             ?>
             </li>
         </div>
@@ -23,7 +23,7 @@
     <br>
     <?php 
         global $database;
-        $query = "SELECT vardas FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS='{$_GET['id_pacientas']}'";
+        $query = "SELECT vardas FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS='{$_GET['id']}'";
         $result = $database->query($query);
         $pacientas = mysqli_fetch_array($result);
         $query = "SELECT * FROM " . TBL_TYRIMAS . " WHERE id_TYRIMAS='{$_GET['id_tyrimas']}'";
@@ -33,7 +33,7 @@
     <div class="form-group login">
         <form method='post' action='../../Controller/SpecialistController.php'>
             <?php echo "<input type='hidden' name='id_tyrimas' value='{$_GET['id_tyrimas']}'>";
-                  echo "<input type='hidden' name='id_pacientas' value='{$_GET['id_pacientas']}'>"; ?>
+                  echo "<input type='hidden' name='id' value='{$_GET['id']}'>"; ?>
             <center><b>Siųsti tyrimo rezultatus šeimos gydytojui</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>

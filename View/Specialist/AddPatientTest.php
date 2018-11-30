@@ -1,3 +1,4 @@
+<?php include("../../session.php")?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -12,13 +13,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="btn btn-outline-dark" href=PatientTests.php>Atgal</a>
+            <?php echo "<a class=\"btn btn-outline-dark\" href='PatientTests.php?id={$_GET['id']}'>Atgal</a>" ?>
             </li>
         </div>
     </nav>
     <br> 
     <br>
-
+    <?php 
+        global $database;
+        $query = "SELECT vardas"
+    ?>
     <div class="form-group login">
         <form method='post'>
             <center><b>Naujas tyrimas</b></center><br>

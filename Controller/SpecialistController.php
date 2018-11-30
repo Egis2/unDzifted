@@ -13,7 +13,7 @@ class SpecialistController
   function sendToFamilyDoctor(){
     global $database;
     $result = $database->sendFromSpecialistToFamilyDoctor($_POST['id_tyrimas']);
-    header("Location: ../View/Specialist/PatientTests.php?id_pacientas={$_POST['id_pacientas']}");
+    header("Location: ../View/Specialist/PatientTests.php?id={$_POST['id']}");
   }
 
 }
