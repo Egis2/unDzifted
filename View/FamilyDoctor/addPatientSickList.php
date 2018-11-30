@@ -1,13 +1,13 @@
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
-    <title>Receptinio vaisto priskyrimas</title>
+    <title>Nedarbingumo lapelio išrašymas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
 <?php
-    include '../../session.php';
+    include '../../database.php';
     $id = $_GET['id'];
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);
@@ -23,7 +23,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
             <?php
-				echo "<a class='btn btn-outline-dark' href='patientPrescriptionMedicines.php?id={$id}'>Atgal</a>";
+				echo "<a class='btn btn-outline-dark' href='patientSickList.php?id={$id}'>Atgal</a>";
             ?>
             </li>
         </div>
@@ -32,43 +32,34 @@
     <br>
     <div class="form-group login">
         <form method='post'>
-            <center><b>Receptinis vaistas</b></center><br>
+            <center><b>Nedarbingumo lapelis</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
                 <input name='pacientas' type='text' class="form-control" value='<?php echo $nameSurname; ?>' readonly >
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
-                <label for="pavadinimas">Vaisto pavadinimas:</label>
-                <input name='pavadinimas' type='text' class="form-control" oninvalid="this.setCustomValidity('Neužpildytas vaisto pavadinimas')" oninput="this.setCustomValidity('')" required>
+                <label for="data_pradzios">Pradžios data:</label>
+                <input name='data_pradzios' type='date' class="form-control" oninvalid="this.setCustomValidity('Nepasirinkta pradžios data')" oninput="this.setCustomValidity('')" required>
             </div>
             <br>
             <div style="text-align: left;">
-                <label for="kiekis_mg">Kiekis (mg):</label>
-                <input name='kiekis_mg' type='number' value="1" min="1" max="1000" class="form-control">
+                <label for="data_pabaigos">Pabaigos data:</label>
+                <input name='data_pabaigos' type='date' class="form-control" oninvalid="this.setCustomValidity('Nepasirinkta pabaigos data')" oninput="this.setCustomValidity('')" required>
+            </div>
+            <br>
+            <div style="text-align: left;">
+                <label for="priezastis"">Priežastis:</label>
+                <textarea class="form-control" rows="3" name="priezastis"" oninvalid="this.setCustomValidity('Neužpildyta priežastis')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
-                <label for="vartojimo_instrukcija">Vartojimo instrukcija:</label>
-                <textarea class="form-control" rows="3" id="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
+                <label for="diagnozes_kodas">Diagnozės kodas:</label>
+                <input name='diagnozes_kodas' type='text' class="form-control" oninvalid="this.setCustomValidity('Neužpildytas diagnozės kodas')" oninput="this.setCustomValidity('')" required>
             </div style="text-align: left;">
             <br>
-            <div style="text-align: left;">
-                <label for="galioja_iki">Receptas galioja iki:</label>
-                <input name='galioja_iki' type='date' class="form-control" oninvalid="this.setCustomValidity('Nepasirinkta recepto galiojimo pabaigos data')" oninput="this.setCustomValidity('')" required>
-            </div style="text-align: left;">
-            <br>
-            <input class="btn btn-outline-dark" type="submit" value="Priskirti receptinį vaistą">
+            <input class="btn btn-outline-dark" type="submit" value="Išrašyti nedarbingumo lapelį">
         </form>
-
-        <?php 
-        var_dump($_SESSION);
-        echo "=========================================================";
-        var_dump($_POST);
-
-       // $result = $database->addNewMedicine($_POST['pavadinimas']," "," ",1);
-
-    ?>
     </div>
 </body>
 </html>

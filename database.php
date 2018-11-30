@@ -176,6 +176,12 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
+
+    function getSickList($id){
+        $query = "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS= ".$id;
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
     
     // need update
     function addNewSending($comment, $reason, $patientName, $patientSurname,$specialistName, $specialistSurname, $familyDoctorName, $familyDoctorSurname){
@@ -187,6 +193,13 @@ class MySQLDB {
     (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." WHERE vartotojas.vardas = '".$specialistName."' and vartotojas.pavarde = '".$specialistSurname."'))";
     $result = mysqli_query($this->connection, $query);
         return $result;
+    }
+
+    function addNewMedicine($nameOfMedicine, $instruction, $mg, $haveRecept){
+        $query = "INSERT INTO vaistas(pavadinimas, vartojimo_instrukcija, kiekis_mg, receptinis) 
+        VALUES ('".$nameOfMedicine."','".$instruction."',".$mg.",".$haveRecept.")";
+         $result = mysqli_query($this->connection, $query);
+         return $result;
     }
     /**
      * query - Performs the given query on the database and
