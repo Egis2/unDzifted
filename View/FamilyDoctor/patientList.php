@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
-  <?php include '../../database.php';
-   include '../../constants.php';
+  <?php 
+    include '../../database.php';
     global $database;
     $result = $database->GetAllPatients($id);
     $index = 0;
