@@ -226,7 +226,7 @@ class MySQLDB {
     function getInfoAboutSpecialist($userID){
         $query ="SELECT ".TBL_SPECIALISTAS.".specialybe, CONCAT(".TBL_VARTOTOJAS.".vardas,' ',".TBL_VARTOTOJAS.".pavarde)
          AS fullName FROM ".TBL_SPECIALISTAS." INNER JOIN
-         vartotojas ON ".TBL_VARTOTOJAS.".fk_GYDYTOJASid_VARTOTOJAS = ".$userID;
+         vartotojas ON ".TBL_VARTOTOJAS.".fk_GYDYTOJASid_VARTOTOJAS = vartotojas.";
          $result = mysqli_query($this->connection, $query);
         return $query;
     }
