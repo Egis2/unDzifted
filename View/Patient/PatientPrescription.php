@@ -1,3 +1,4 @@
+<?php include("../../database.php") ?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -28,13 +29,23 @@
             <th>Galioja iki</th>
         </thead>
         <tbody>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-            </tr>
+        <?php 
+            global $database;
+            $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
+            $vaistu_israsai = $database->query($query);
+            foreach($vaistu_israsai as $key => $val){
+                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}'";
+                $vaistas = mysqli_fetch_array($database->query($query));
+                $query = "SELECT * FROM ". TBL_RECEPTAS ." WHERE fk_VAISTU_ISRASASid_VAISTU_ISRASAS ='{$val['id_VAISTU_ISRASAS']}' ";
+                $receptas = mysqli_fetch_array($database->query($query));
+                echo "<tr><td>{$vaistas['pavadinimas']}</td>"
+                        ."<td>{$vaistas['kiekis_mg']}</td>"
+                        ."<td>{$vaistas['kiekis_mg']}</td>"
+                        ."<td>{$val['israsymo_data']}</td>"
+                        ."<td>{$receptas['galioja_iki']}</td></tr>";
+            }
+            // Nereceptinis - 0, Receptinis - 1
+       ?>
         </tbody>
     </table>
 </body>
