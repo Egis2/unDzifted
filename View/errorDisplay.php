@@ -12,6 +12,6 @@
         "<strong>{$_SESSION['message']}</strong>".
         "</div>";
     }
-    //unset($_SESSION['success']);
-    //unset($_SESSION['message']);
+    unset($_SESSION['success']);
+    unset($_SESSION['message']);
 ?>
