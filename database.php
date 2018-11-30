@@ -176,7 +176,13 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
-	
+    
+    function addNewSending($comment, $reason, $patientId, $familyDoctorId, $specialistID){
+       $query = "INSERT INTO siuntimas(priezastis, komentaras,
+       fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS,
+       fk_SPECIALISTASid_SPECIALISTAS) VALUES ('".$reason."','".$comment."',".$patientId.",".$familyDoctorId.",".$specialistID.")";
+       return $query;
+    }
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a

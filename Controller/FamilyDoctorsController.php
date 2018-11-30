@@ -10,10 +10,11 @@ class FamilyDoctorController{
   }
 
   function postNewSiuntima(){
-    var_dump($_POST);
-    if($_POST["siuntimas"] == 1){
-      
-    }
+    $registerValue = $_POST;
+    global $database;
+    $result = $database->getNextUserId();
+    var_dump($result);
+    
   }
 
 }
