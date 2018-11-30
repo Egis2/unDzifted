@@ -176,6 +176,12 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
+
+    function getPrescriptionMedicines($id){
+        $query = "SELECT priezastis, komentaras, fk_SPECIALISTASid_SPECIALISTAS FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS= ".$id;
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
 	
     /**
      * query - Performs the given query on the database and
