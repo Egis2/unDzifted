@@ -52,7 +52,7 @@
                 echo "<select name='specialistSelect[]' class='form-control'>";
             foreach($speclists as $speclist)
             {
-                echo "<option value='".$speclists[$indexofSpecialist]['vardas']."'>".$speclists[$indexofSpecialist]['vardas']."</option>";
+                echo "<option value='".$speclists[$indexofSpecialist]['specialistFullName']."'>".$speclists[$indexofSpecialist]['specialistFullName']."</option>";
                 $indexofSpecialist = $indexofSpecialist + 1;
             }
             echo "</select>";

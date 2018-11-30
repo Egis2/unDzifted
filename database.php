@@ -159,7 +159,7 @@ class MySQLDB {
     }
 
     function getAllSpecialists(){
-        $query = "Select vardas from ".TBL_VARTOTOJAS." Where typeSelector = '".DOCTOR_SPECIALIST_NAME."'";
+        $query = "Select CONCAT(vardas,' ', pavarde) AS specialistFullName from ".TBL_VARTOTOJAS." Where typeSelector = '".DOCTOR_SPECIALIST_NAME."'";
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
