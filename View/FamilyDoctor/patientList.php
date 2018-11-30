@@ -21,13 +21,11 @@
             </li>
         </div>
     </nav>
-    <br> 
-    <br>
 
-    <table class="table table-light table-bordered table-hover" style="width: 90%; margin: 0 auto; text-align: center">
+    <table class="table table-light table-bordered table-hover" style="width: 95%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
-            <th>Vardas</th>
-            <th>Pavardė</th>
+            <th style="width: 8%;">Vardas</th>
+            <th style="width: 8%;">Pavardė</th>
             <th>Asmens kodas</th>
             <th>Gimimo data</th>
             <th>Siuntimo išrašymas</th>
@@ -47,30 +45,33 @@
                 <td><?php echo $row['pavarde'];?></td>
                 <td><?php echo $row['asmens_kodas'];?></td>
                 <td><?php echo $row['gimimo_data'];?></td>
-                
-                
-                  <td>
-                  <?php
-                    echo "<a class='btn btn-link' href='patientConsultations.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";
-                   /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
-                  ?>
-                  </td>
-                </form>
-                <form action="patientPrescriptionMedicine.php">
-                  <td><input class="btn btn-link" type="submit" value="Receptinis" name="receptinis"></td>
-                </form>
-                <form action="">
-                  <td><input class="btn btn-link" type="submit" value="Nereceptinis" name="Nereceptinis"></td>
-                </form>
-                </form>
-                <form action="../../Controller/FamilyDoctorsController.php">
-                  <td><input class="btn btn-link" type="submit" value="Išrašyti biuletenį" name="biuletenis"></td>
-                </form>
-                <form action="../../Controller/FamilyDoctorsController.php">
-                  <td><input class="btn btn-link" type="submit" value="Nauja liga" name="liga"></td>
+                <td>
+                <?php
+                  echo "<a class='btn btn-link' href='patientConsultations.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";
+                  /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+                ?>
+                </td>
+                <td>
+                <?php
+                  echo "<a class='btn btn-link' href='patientPrescriptionMedicines.php?id={$row['id_VARTOTOJAS']}'>Receptinių vaistų sąrašas</a>";
+                  /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+                ?>
+                </td>
+                <td>
+                <?php
+                  echo "<a class='btn btn-link' href='patientMedicines.php?id={$row['id_VARTOTOJAS']}'>Nereceptinių vaistų sąrašas</a>";
+                  /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+                ?>
+                </td>
                 </form>
                 <form action="../../Controller/FamilyDoctorsController.php">
-                  <td><input class="btn btn-link" type="submit" value="Peržiūrėti tyrimus" name="tyrimas"></td>
+                  <td><input class="btn btn-link" type="submit" value="Biuletenių sąrašas" name="biuletenis"></td>
+                </form>
+                <form action="../../Controller/FamilyDoctorsController.php">
+                  <td><input class="btn btn-link" type="submit" value="Ligų aprašai" name="liga"></td>
+                </form>
+                <form action="../../Controller/FamilyDoctorsController.php">
+                  <td><input class="btn btn-link" type="submit" value="Tyrimų sąrašas" name="tyrimas"></td>
                 </form>
                 
             </tr>

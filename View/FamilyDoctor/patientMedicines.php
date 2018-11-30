@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
-    <title>Paciento siuntimai</title>
+    <title>Paciento nereceptiniai vaistai</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
@@ -12,13 +12,11 @@
     global $database;
     $result = $database->getId($_GET['id']);
     $index = 0;
-    $consultations = $database->getConsultations($_GET['id']);
 
     while($row = mysqli_fetch_array($result)){
         $id = $row['id_VARTOTOJAS'];
     }
 ?>
-  
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -28,7 +26,7 @@
             </li>
             <li>
 			<?php
-				echo "<a class='nav-link' href='addPatientConsultation.php?id={$id}'>Išrašyti siuntimą</a>";
+				echo "<a class='nav-link' href='addPatientMedicine.php?id={$id}'>Priskirti nereceptinį vaistą</a>";
             ?>
             </li>
         </div>
@@ -38,24 +36,29 @@
 
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
-            <th style="width: 15%;">Gydytojas specialistas</th>
-            <th style="width: 25%;">Priežastis</th>
-            <th style="width: 25%;">Komentaras</th>
+        <th>Pavadinimas</th>
+            <th>Kiekis (mg)</th>
+            <th>Vartojimo instrukcija</th>
+            <th>Išrašymo data</th>
         </thead>
         <tbody>
-
-         <?php
-        
-        while($row = mysqli_fetch_array($consultations)){
+        <?php 
+            global $database;
+            $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
+            $vaistu_israsai = $database->query($query);
+            foreach($vaistu_israsai as $key => $val){
+                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}' AND receptinis='0'";
+                $rows = mysqli_num_rows($database->query($query));
+                $vaistas = mysqli_fetch_array($database->query($query));
+                if (mysqli_num_rows($database->query($query)) > 0){
+                    echo "<tr><td>{$vaistas['pavadinimas']}</td>"
+                            ."<td>{$vaistas['kiekis_mg']}</td>"
+                            ."<td>{$vaistas['vartojimo_instrukcija']}</td>"
+                            ."<td>{$val['israsymo_data']}</td></tr>";
+                }
+            }
+            // Nereceptinis - 0, Receptinis - 1
        ?>
-           <tr>
-               <td><?php echo $row['fk_SPECIALISTASid_SPECIALISTAS'];?></td>
-               <td><?php echo $row['priezastis'];?></td>
-               <td><?php echo $row['komentaras'];?></td>
-            
-           </tr>
-        <?php }
-           ?>
         </tbody>
     </table>
 </body>

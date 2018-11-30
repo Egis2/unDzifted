@@ -39,7 +39,7 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='POST' <!--action="../../Controller/FamilyDoctorsController.php"-->>
+        <form method="POST" action="../../Controller/FamilyDoctorsController.php">
             <center><b>Siuntimas pas gydytoją specialistą</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
@@ -61,12 +61,12 @@
             <br>
             <div style="text-align: left;">
                 <label for="priezastis">Siuntimo priežastis:</label>
-                <textarea class="form-control" rows="3" id="priezastis" oninvalid="this.setCustomValidity('Neužpildyta siuntimo priežastis')" oninput="this.setCustomValidity('')" required></textarea>
+                <textarea class="form-control" rows="3" name="priezastis" oninvalid="this.setCustomValidity('Neužpildyta siuntimo priežastis')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="komentaras">Siuntimo komentaras:</label>
-                <textarea class="form-control" rows="3" id="komentaras" oninvalid="this.setCustomValidity('Neužpildytas siuntimo komentaras')" oninput="this.setCustomValidity('')" required></textarea>
+                <textarea class="form-control" rows="3" name="komentaras" oninvalid="this.setCustomValidity('Neužpildytas siuntimo komentaras')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
 
