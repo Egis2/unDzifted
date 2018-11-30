@@ -188,6 +188,12 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
+
+    function getTests($id){
+        $query = "SELECT * FROM ".TBL_TYRIMAS." WHERE send = '1' AND fk_PACIENTASid_VARTOTOJAS= ".$id;
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
     
     // need update
     function addNewSending($comment, $reason, $patientName, $patientSurname,$specialistName, $specialistSurname, $familyDoctorName, $familyDoctorSurname){
