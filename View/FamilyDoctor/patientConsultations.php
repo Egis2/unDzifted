@@ -14,15 +14,19 @@
     $index = 0;
     $consultations = $database->getConsultations($_GET['id']);
 
-    $getInfoAboutSpecialist = $database->getInfoAboutSpecialist($_GET['id']);
     $specialistInfo;
     while($row = mysqli_fetch_array($result)){
         $id = $row['id_VARTOTOJAS'];
     }
 
-    while($row = mysqli_fetch_array($getInfoAboutSpecialist)){
-        $specialistInfo = $row;
-    }
+    $specList = array();
+    $getInfoAboutSpecialist = $database->getSpecialisation($_GET['id']);
+                
+                while($name = mysqli_fetch_array($getInfoAboutSpecialist)){
+                  $specList[] = $name['spec'];
+                }
+                var_dump($specList);
+            $localIndex = 0;?>
 ?>
   
     <br>
@@ -56,14 +60,30 @@
         while($row = mysqli_fetch_array($consultations)){
        ?>
            <tr>
-               <td><?php echo $row['fk_SPECIALISTASid_SPECIALISTAS'];?></td>
-               <td>Nera</td>
+               <td><?php
+               $localID = 0;
+                $getSpecialization = $database->getInfoAboutSpecialist($specList[$localIndex]);
+                while($spec = mysqli_fetch_array($getSpecialization)){
+                    echo $spec['fullName'];
+                    $localID = $spec['id_VARTOTOJAS'];
+                }
+                $localIndex++;
+                ?></td>
+               <td>
+              <?php $rez = $specialistSpecialization = $database->specialistSpecialization($localID);
+              while($specNotName = mysqli_fetch_array($rez)){
+                echo $specNotName['specialybe'];
+            }
+              
+              
+              ?>
+               
+                </td>
                <td><?php echo $row['priezastis'];?></td>
                <td><?php echo $row['komentaras'];?></td>
-               <?php var_dump($row);?>
+               
            </tr>
         <?php }
-        var_dump($getInfoAboutSpecialist);
            ?>
         </tbody>
     </table>

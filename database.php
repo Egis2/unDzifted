@@ -223,19 +223,29 @@ class MySQLDB {
         return $result;
     }
 
-<<<<<<< HEAD
     function getInfoAboutSpecialist($userID){
-        $query ="SELECT ".TBL_SPECIALISTAS.".specialybe, CONCAT(".TBL_VARTOTOJAS.".vardas,' ',".TBL_VARTOTOJAS.".pavarde)
-         AS fullName FROM ".TBL_SPECIALISTAS." INNER JOIN
-         vartotojas ON ".TBL_VARTOTOJAS.".fk_GYDYTOJASid_VARTOTOJAS = vartotojas.";
+        $query ="SELECT id_VARTOTOJAS, concat(vardas,'  ' ,pavarde)as fullName FROM ".TBL_VARTOTOJAS." WHERE vartotojas.id_VARTOTOJAS =".$userID;
          $result = mysqli_query($this->connection, $query);
-        return $query;
-=======
+        return $result;
+    }
+
     function sendFromSpecialistToFamilyDoctor($id){
         $query = "UPDATE " . TBL_TYRIMAS . " SET " . TBL_TYRIMAS .".send='1' WHERE id_TYRIMAS='$id'";
         return mysqli_query($this->connection, $query);
->>>>>>> 72f49b73b1c48f1f89daefab97a040cbeab5e619
     }
+
+    function getSpecialisation($id){
+        $query = "SELECT fk_SPECIALISTASid_SPECIALISTAS as spec FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
+        return mysqli_query($this->connection, $query);
+        //return $query;
+    }
+
+    function specialistSpecialization($id){
+        $query ="SELECT specialybe FROM ".TBL_SPECIALISTAS." where id_SPECIALISTAS =".$id;
+        return mysqli_query($this->connection, $query);
+    }
+
+    
 
     /**
      * query - Performs the given query on the database and
