@@ -8,8 +8,6 @@
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
-
-    <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
@@ -18,6 +16,7 @@
             </li>
         </div>
     </nav>
+    <br>
     <br> 
     <br>
     <?php
