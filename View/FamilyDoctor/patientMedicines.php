@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
-    <title>Paciento receptiniai vaistai</title>
+    <title>Paciento nereceptiniai vaistai</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
@@ -26,7 +26,7 @@
             </li>
             <li>
 			<?php
-				echo "<a class='nav-link' href='addPatientPrescriptionMedicine.php?id={$id}'>Priskirti receptinį vaistą</a>";
+				echo "<a class='nav-link' href='addPatientMedicine.php?id={$id}'>Priskirti nereceptinį vaistą</a>";
             ?>
             </li>
         </div>
@@ -40,7 +40,6 @@
             <th>Kiekis (mg)</th>
             <th>Vartojimo instrukcija</th>
             <th>Išrašymo data</th>
-            <th>Galioja iki</th>
         </thead>
         <tbody>
         <?php 
@@ -48,17 +47,14 @@
             $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
             $vaistu_israsai = $database->query($query);
             foreach($vaistu_israsai as $key => $val){
-                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}'  AND receptinis='1'";
+                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}' AND receptinis='0'";
                 $rows = mysqli_num_rows($database->query($query));
                 $vaistas = mysqli_fetch_array($database->query($query));
                 if (mysqli_num_rows($database->query($query)) > 0){
-                    $query = "SELECT * FROM ". TBL_RECEPTAS ." WHERE fk_VAISTU_ISRASASid_VAISTU_ISRASAS ='{$val['id_VAISTU_ISRASAS']}' ";
-                    $receptas = mysqli_fetch_array($database->query($query));
                     echo "<tr><td>{$vaistas['pavadinimas']}</td>"
                             ."<td>{$vaistas['kiekis_mg']}</td>"
                             ."<td>{$vaistas['vartojimo_instrukcija']}</td>"
-                            ."<td>{$val['israsymo_data']}</td>"
-                            ."<td>{$receptas['galioja_iki']}</td></tr>";
+                            ."<td>{$val['israsymo_data']}</td></tr>";
                 }
             }
             // Nereceptinis - 0, Receptinis - 1
