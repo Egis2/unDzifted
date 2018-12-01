@@ -71,7 +71,7 @@
             </div>
             <br>
             <div style="text-align: left;">
-                <label for="specialybe">Gydyto specializacija:</label>
+                <label for="specialybe" name='specialybe'>Gydyto specializacija:</label>
                 <select class="form-control">
                     <option value="seimos_gydytojas">Šeimos gydytojas</option>
                     <option value="chirurgas">Chirurgas</option>

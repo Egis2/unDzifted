@@ -343,6 +343,13 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function updateDoctorInfo($id, $vardas, $pavarde, $asmens_kodas, $el_pastas, $slaptazodis, $telefonas, $gimimo_data, $licencija){
+        $query = "UPDATE ". TBL_VARTOTOJAS . " SET vardas='$vardas' , pavarde='$pavarde', asmens_kodas='$asmens_kodas',"
+        ." el_pastas='$el_pastas' , telefonas='$telefonas', gimimo_data='$gimimo_data',"
+        ." slaptazodis='$slaptazodis', licencija_iki='$licencija' WHERE id_VARTOTOJAS='$id'";
+        return mysqli_query($this->connection, $query);
+    }
+
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
