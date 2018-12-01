@@ -61,11 +61,11 @@
                 <input name='galioja_iki' type='date' class="form-control" oninvalid="this.setCustomValidity('Nepasirinkta recepto galiojimo pabaigos data')" oninput="this.setCustomValidity('')" required>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Priskirti receptinį vaistą">
+            <input class="btn btn-outline-dark" type="submit" name='newMedicine' value="Priskirti receptinį vaistą">
         </form>
 
         <?php 
-        if(isset($_POST)){
+        if(isset($_POST['newMedicine'])){
             $data = date("Y-m-d");
             $pacientInfo = explode(" ", $_POST['pacientas']);
             $result = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],1);
@@ -83,6 +83,7 @@
             } else {
                 echo "<div>Nesėkmingai įtrepta</div>";
             }
+            unset($_POST);
         }
     ?>
     </div>

@@ -302,6 +302,17 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function getAllSickness($id){
+        $query =  "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
+        return mysqli_query($this->connection, $query);
+    }
+
+    function addNewSickness($start, $end, $reason,$sickCode, $doctorId, $patientId){
+        $query="INSERT INTO ".TBL_BIULETENIS."(data_pradzios, data_pabaigos, priezastis, diagnozes_kodas,fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS, fk_PACIENTASid_VARTOTOJAS) "
+        ."VALUES ('{$start}','{$end}','{$reason}','{$sickCode}','{$doctorId}','{$patientId}')";
+        return mysqli_query($this->connection, $query);
+    }
+
     function isCabinetFreeAt($cabinetNumber, $time_from, $time_to){
         $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE ( ('$time_from' >= uzimta_nuo AND '$time_from' <= uzimta_iki )"
         ." OR ('$time_to' >= uzimta_nuo AND '$time_to' <= uzimta_iki ) OR ('$time_from' <= uzimta_nuo AND '$time_to' >= uzimta_iki ) ) "

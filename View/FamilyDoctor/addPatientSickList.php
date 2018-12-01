@@ -7,7 +7,7 @@
   </head>
   <body>
 <?php
-    include '../../database.php';
+    include '../../session.php';
     $id = $_GET['id'];
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);
@@ -58,8 +58,19 @@
                 <input name='diagnozes_kodas' type='text' class="form-control" oninvalid="this.setCustomValidity('Neužpildytas diagnozės kodas')" oninput="this.setCustomValidity('')" required>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Išrašyti nedarbingumo lapelį">
+            <input class="btn btn-outline-dark" type="submit" name="write" value="Išrašyti nedarbingumo lapelį">
         </form>
     </div>
+    <?php
+    
+    if(isset($_POST['write'])){
+        $newSickListMember = $database->addNewSickness($_POST['data_pradzios'], $_POST['data_pabaigos'],$_POST['priezastis'],$_POST['diagnozes_kodas'],1,$_GET['id']);
+    
+        if($newSickListMember){
+            echo "<div>Iterpta sekmingai</div>";
+        }
+    }
+    ?>
+   
 </body>
 </html>

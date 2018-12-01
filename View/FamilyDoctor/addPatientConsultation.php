@@ -70,12 +70,12 @@
             </div style="text-align: left;">
             <br>
 
-            <input class="btn btn-outline-dark" type="submit" value="Išrašyti siuntimą">
+            <input class="btn btn-outline-dark" type="submit" name="sending" value="Išrašyti siuntimą">
             <input class="btn btn-outline-dark" type="hidden" name="siuntimas" value="1"/>
         </form>
         <?php
     global $database;
-    if(isset($_POST)){
+    if(isset($_POST['sending'])){
         $pieces = explode(" ", $_POST['pacientas']);
         $specialistInfo = explode(" ",$_POST['specialistSelect'][0]);
         $result = $database->addNewSending($_POST['komentaras'],$_POST['priezastis'],$pieces[0],$pieces[1],$specialistInfo[0],$specialistInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
