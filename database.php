@@ -328,6 +328,13 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function setSallary($alga, $data, $id){
+        $query = "INSERT INTO " . TBL_ALGA . " VALUES('$alga', '$data', NULL, '$id' )";
+
+        return mysqli_query($this->connection, $query);
+      }
+<<<<<<< HEAD
+    
     function isCabinetFreeAt($cabinetNumber, $time_from, $time_to){
         $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE ( ('$time_from' >= uzimta_nuo AND '$time_from' <= uzimta_iki )"
         ." OR ('$time_to' >= uzimta_nuo AND '$time_to' <= uzimta_iki ) OR ('$time_from' <= uzimta_nuo AND '$time_to' >= uzimta_iki ) ) "
@@ -354,6 +361,8 @@ class MySQLDB {
         ." slaptazodis='$slaptazodis', licencija_iki='$licencija' WHERE id_VARTOTOJAS='$id'";
         return mysqli_query($this->connection, $query);
     }
+=======
+>>>>>>> 69f5bdb28ffd4ed84e2c35954c6cad35dabb4ebb
 
     function addNewSickness($start, $end, $reason,$sickCode, $patientId, $doctorId){
         $query="INSERT INTO ".TBL_BIULETENIS." VALUES ('{$start}', '{$end}', '{$reason}', '{$sickCode}', NULL, '{$doctorId}', '{$patientId}')";

@@ -124,7 +124,7 @@
         <thead class="thead-dark">
             <th>Gydytojas</th>
             <th>Laikas</th>
-            <th>Kabinetas</th>
+           <!-- <th>Kabinetas</th> -->
             <th>Rezervacijos atšaukimas</th>
         </thead>
         <tbody>
@@ -141,7 +141,7 @@
                 echo "<input type='hidden' name='reservacijos_id' value='{$val['id_REZERVACIJA']}'>";
                 echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
                 echo "<tr>";
-                echo "<td>{$secondary['vardas']} {$secondary['pavarde']}</td><td>{$val['data']}</td><td>{$val['vieta']}</td>";
+                echo "<td>{$secondary['vardas']} {$secondary['pavarde']}</td><td>{$val['data']}</td>"; //<td>{$val['vieta']}</td>";
                 if ( (strtotime(date("Y-m-d h:m:s"))) > (strtotime($val['data']))){
                     echo "<td>Susitikimas jau praėjo</td>";
                 }
