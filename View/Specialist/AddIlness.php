@@ -7,12 +7,32 @@
   </head>
   <body>
 
+<?php
+    include '../../session.php';
+    $id = $_GET['id'];
+    global $database;
+    $result = $database->getNameAndSurname($_GET['id']);
+    $nameSurname = '';
+    $getAllIlnesses = $database->getAllIlnesses();
+
+    while($row = mysqli_fetch_array($result)){
+        $nameSurname= $row['fullName'];
+    }
+
+    $ilnesses = array();
+    $indexofIlness = 0;
+    while($row = mysqli_fetch_array($getAllIlnesses)){
+        $ilnesses[]= $row;
+    }
+?>
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="btn btn-outline-dark" href=PatientIlnesses.php>Atgal</a>
+                <?php
+                    echo "<a class='btn btn-outline-dark' href='PatientIlnesses.php?id={$id}'>Atgal</a>";
+                ?>
             </li>
         </div>
     </nav>
@@ -23,15 +43,20 @@
             <center><b>Ligos aprašas</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
-                <input name='pacientas' type='text' class="form-control" readonly>
+                <input name='pacientas' type='text' class="form-control" value='<?php echo $nameSurname; ?>' readonly >
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="liga">Liga:</label>
-                <select name="liga" class="form-control">
-                    <option value="Liga1">1-a liga</option>
-                    <option value="Liga2">2-a liga</option>
-                </select>
+                <?php
+                echo "<select name='liga' class='form-control'>";
+                    foreach($ilnesses as $ilness)
+                    {
+                        echo "<option value='".$ilnesses[$indexofIlness]['liga']."'>".$ilnesses[$indexofIlness]['liga']."</option>";
+                        $indexofIlness = $indexofilness + 1;
+                    }
+                    echo "</select>";
+                ?>
             </div>
             <br>
             <div style="text-align: left;">

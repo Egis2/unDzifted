@@ -7,6 +7,18 @@
   </head>
   <body>
 
+<?php 
+    include '../../database.php';
+    global $database;
+    $result = $database->getId($_GET['id']);
+    $index = 0;
+    $consultations = $database->getConsultations($_GET['id']);
+
+    while($row = mysqli_fetch_array($result)){
+        $id = $row['id_VARTOTOJAS'];
+    }
+?>
+
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -16,7 +28,7 @@
             </li>
             <li>
 			<?php
-				echo "<a class='nav-link' href='AddIlness.php'>Pridėti naują ligos aprašą</a>";
+				echo "<a class='nav-link' href='AddIlness.php?id={$id}'>Pridėti naują ligos aprašą</a>";
             ?>
             </li>
         </div>
@@ -33,13 +45,31 @@
             <th style="width: 22%">Išvados</th>
         </thead>
         <tbody>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-            </tr>
+        <?php 
+            global $database;
+            $query = "SELECT * FROM " . TBL_PACIENTO_LIGOS . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'";
+            $paciento_ligos = $database->query($query);
+            foreach ($paciento_ligos as $key => $val){
+                /* Paima liga */
+                $query = "SELECT * FROM " . TBL_LIGA . " WHERE id_LIGA = '{$val['fk_LIGAid_LIGA']}'";
+                $liga = mysqli_fetch_array($database->query($query));
+                $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}'";
+                $aprasas = mysqli_fetch_array($database->query($query));
+
+                /* Jeigu SELECT operacija buvo sėkminga */
+                if (mysqli_num_rows($database->query($query)) > 0)  { 
+                    /* Paimamas Daktaros vardas ir pavardė */
+                    $query = "SELECT vardas, pavarde FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS = '{$aprasas['fk_GYDYTOJASid_VARTOTOJAS']}'";
+                    $gydytojas = mysqli_fetch_array($database->query($query));
+                   
+                    echo "<tr><td>{$liga['ligos_kodas']}</td>"
+                    ."<td>{$aprasas['diagnozes_kodas']}</td>"
+                    ."<td>{$aprasas['data']}</td>"
+                    ."<td>{$aprasas['aprasymas']}</td>"
+                    ."<td>{$aprasas['isvada']}</td></tr>";
+                }
+            }
+        ?>
         </tbody>
     </table>
 </body>
