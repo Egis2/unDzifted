@@ -101,6 +101,8 @@
         $_SESSION['message'] = "Pacientui '". $_POST['pacientas'] . " nepavyko užfiksuoti ligos: " . $dalys['0'];
       }
       
+        }
     }
+    ?>
 </body>
 </html>
