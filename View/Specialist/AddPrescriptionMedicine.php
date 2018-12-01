@@ -6,13 +6,28 @@
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
   <body>
+  <?php
+     if(isset($_POST)){
+        unset($_POST);
+    }
+    include '../../session.php';
+    $id = $_GET['id'];
+    global $database;
+    $result = $database->getNameAndSurname($_GET['id']);
+    $nameSurname = '';
 
+    while($row = mysqli_fetch_array($result)){
+        $nameSurname= $row['fullName'];
+    }
+?>
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="btn btn-outline-dark" href=PatientPrescriptionMedicines.php>Atgal</a>
+            <?php
+				echo "<a class='btn btn-outline-dark' href='PatientPrescriptionMedicines.php?id={$id}'>Atgal</a>";
+            ?>
             </li>
         </div>
     </nav>
@@ -23,7 +38,7 @@
             <center><b>Receptinis vaistas</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
-                <input name='pacientas' type='text' class="form-control" readonly>
+                <input name='pacientas' type='text' class="form-control" value='<?php echo $nameSurname; ?>' readonly >
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">

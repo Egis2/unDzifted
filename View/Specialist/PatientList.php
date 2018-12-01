@@ -52,7 +52,7 @@
                     ."</form>";
                 echo "<form action=\"PatientPrescriptionMedicines.php\">"
                     ."<td><input class=\"btn btn-link\" type=\"submit\" value=\"Receptinių vaistų sąrašas\" name=\"receptinis\"></td>"
-                    ."<input type='hidden' name='id_pacientas' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
+                    ."<input type='hidden' name='id' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
                     ."</form>";
                 echo "<form action=\"PatientMedicines.php\">"
                     ."<td><input class=\"btn btn-link\" type=\"submit\" value=\"Nereceptinių vaistų sąrašas\" name=\"Nereceptinis\"></td>"
