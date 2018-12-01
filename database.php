@@ -123,11 +123,17 @@ class MySQLDB {
     }
 
     function addNewUser($userId, $registerValue, $userType){
-        $query = "INSERT INTO vartotojas(vardas, pavarde,asmens_kodas, el_pastas,
-         slaptazodis, telefonas, id_VARTOTOJAS, gimimo_data, adresas, licencija_iki, typeSelector)
-          VALUES ('".$registerValue['vardas']."','".$registerValue['pavarde']."',".$registerValue['asmens_kodas'].",'".$registerValue['el_pastas']."',
-           '".$registerValue['slaptazodis']."', ".$registerValue['telefonas'].", ".$userId.",null,null,null,null,'".$userType."')";
-        return mysqli_query($this->connection, $query);
+        $query = "INSERT INTO ".TBL_VARTOTOJAS." VALUES ('{$registerValue['vardas']}','{$registerValue['pavarde']}','{$registerValue['asmens_kodas']}','{$registerValue['el_pastas']}',
+           '{$registerValue['slaptazodis']}', '{$registerValue['telefonas']}', NULL, NULL, NULL, NULL, NULL,'{$userType}')";
+        
+           if (mysqli_query($this->connection, $query)){
+            $query = "SELECT * FROM " .TBL_VARTOTOJAS . " WHERE typeSelector='". FAMILY_DOCTOR_NAME ."' AND dirba='1' ORDER BY RAND() ASC LIMIT 1";
+            $result= mysqli_fetch_array(mysqli_query($this->connection, $query));
+            $patRes =  $this->getUserInfoByEmail($registerValue['el_pastas']);
+            $query = "INSERT INTO " . TBL_GYDYMAS . " VALUES ('{$result['id_VARTOTOJAS']}', '{$patRes['id_VARTOTOJAS']}')";
+            return mysqli_query($this->connection, $query);
+        }
+        else return false;
     }
 
     function updatePatientInfo($registerValue){
@@ -331,9 +337,8 @@ class MySQLDB {
 
     function setSallary($alga, $data, $id){
         $query = "INSERT INTO " . TBL_ALGA . " VALUES('$alga', '$data', NULL, '$id' )";
-
         return mysqli_query($this->connection, $query);
-      }
+    }
     
     function isCabinetFreeAt($cabinetNumber, $time_from, $time_to){
         $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE ( ('$time_from' >= uzimta_nuo AND '$time_from' <= uzimta_iki )"
