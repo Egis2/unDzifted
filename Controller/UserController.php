@@ -51,18 +51,25 @@ class UserController{
     }
     function userRegistration(){
 
-         $registerValue = $_POST;
-         global $database;
-         $result = $database->getNextUserId();
-         
-         while($row = mysqli_fetch_array($result))
-        {
-            $nextUserIndex = $row;
-        }
-     
-        $SucessfullyInserted = $database->addNewUser($nextUserIndex[0],$registerValue, PATIENT_NAME);
+    $registerValue = $_POST;
+    global $database;
+    $result = $database->getNextUserId();
+    
+    while($row = mysqli_fetch_array($result))
+    {
+        $nextUserIndex = $row;
+    }
+    
+    if($database->addNewUser($nextUserIndex[0],$registerValue, PATIENT_NAME)){
+        $_SESSION['success'] = true;
+        $_SESSION['message'] = "Užregistruota sėkmingai.";
+    }
+    else{
+        $_SESSION['success'] = false;
+        $_SESSION['message'] = "Registracija nesėkminga.";
+    }
 
-       header("Location: ../index.php");
+    header("Location: ../index.php");
     }
     
     function userEdit(){

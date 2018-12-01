@@ -123,10 +123,13 @@ class MySQLDB {
     }
 
     function addNewUser($userId, $registerValue, $userType){
+        if ($this->emailTaken($registerValue['el_pastas'])){
+            return false;
+        }
         $query = "INSERT INTO ".TBL_VARTOTOJAS." VALUES ('{$registerValue['vardas']}','{$registerValue['pavarde']}','{$registerValue['asmens_kodas']}','{$registerValue['el_pastas']}',
            '{$registerValue['slaptazodis']}', '{$registerValue['telefonas']}', NULL, NULL, NULL, NULL, NULL,'{$userType}')";
         
-           if (mysqli_query($this->connection, $query)){
+        if (mysqli_query($this->connection, $query)){
             $query = "SELECT * FROM " .TBL_VARTOTOJAS . " WHERE typeSelector='". FAMILY_DOCTOR_NAME ."' AND dirba='1' ORDER BY RAND() ASC LIMIT 1";
             $result= mysqli_fetch_array(mysqli_query($this->connection, $query));
             $patRes =  $this->getUserInfoByEmail($registerValue['el_pastas']);
@@ -315,7 +318,7 @@ class MySQLDB {
     }
 
     function getAllPatientsTests($id){
-        $query = "SELECT data, aprasymas, isvada  FROM ".TBL_TYRIMAS." WHERE fk_PACIENTASid_VARTOTOJAS = ".$id." AND send = 1";
+        $query = "SELECT data, aprasymas, isvada  FROM ".TBL_TYRIMAS." WHERE fk_PACIENTASid_VARTOTOJAS = '$id' AND send = '1'";
         return mysqli_query($this->connection, $query);
     }
     

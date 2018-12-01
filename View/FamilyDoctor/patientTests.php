@@ -49,7 +49,7 @@
         }
         else
         {
-            $query = "SELECT * FROM ". TBL_TYRIMAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
+            $query = "SELECT * FROM ". TBL_TYRIMAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND send='1'";
         }
 
          /* ALERT MENIU */

@@ -144,7 +144,7 @@ class AdminController{
       $_SESSION['success'] = true;
       $_SESSION['message'] = "Alga nebuvo išmokėta";
     }
-    header("Location: ../View/Admin/doctorList.php");
+    header("Location: ../View/Admin/DoctorSalaries.php?id=".$_POST['id']);
   }
 
 }

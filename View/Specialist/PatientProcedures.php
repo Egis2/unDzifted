@@ -51,7 +51,7 @@
         <tbody>
         <?php 
                 global $database;
-                $query = "SELECT * FROM " . TBL_PROCEDURA . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'";
+                $query = "SELECT * FROM " . TBL_PROCEDURA . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}' ORDER BY data ASC";
                 $result = $database->query($query);
                 foreach($result as $key => $val){
                     echo "<tr><td>{$val['data']}</td>"
