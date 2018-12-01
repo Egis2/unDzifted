@@ -243,6 +243,20 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function newPatientIllness($ilnessId, $patientId){
+        $query = "INSERT INTO " . TBL_PACIENTO_LIGOS . " VALUES (NULL, '$ilnessId', '$patientId')";
+        return mysqli_query($this->connection, $query);
+    }
+    
+    function selectLastFromPatientIlness($patientId){
+        $query = "SELECT * FROM " . TBL_PACIENTO_LIGOS . " WHERE fk_PACIENTASid_VARTOTOJAS='$patientId' ORDER BY id_PACIENTO_LIGOS DESC LIMIT 1";
+        return mysqli_fetch_array(mysqli_query($this->connection, $query));
+    }
+    function newIllnessDescription($patientId, $doctorId, $patientIlnessId, $description, $date, $code, $result ){
+        $query = "INSERT INTO " . TBL_LIGOS_APRASAS . " VALUES('$description', '$date', '$code', '$result', NULL, '$doctorId', '$patientIlnessId', '$patientId')";
+        return mysqli_query($this->connection, $query);
+    }
+
     function getSpecialisation($id){
         $query = "SELECT fk_SPECIALISTASid_SPECIALISTAS as spec FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
         return mysqli_query($this->connection, $query);
