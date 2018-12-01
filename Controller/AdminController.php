@@ -40,6 +40,7 @@ class AdminController{
 
     header("Location: ../View/Admin/doctorList.php");
   }
+  
   function newDoctor(){
     global $database;
     
@@ -115,7 +116,6 @@ class AdminController{
         $_SESSION['message'] = $_POST['kabinetas'] . " kabinetas jau yra užimtas tarp " . $_POST['uzimta_nuo'] . " ir " . $_POST['uzimta_iki'];
       }
     }
-    //$database->addCabinet();
     header("Location: ../View/Admin/CabinetList.php");
   }
 

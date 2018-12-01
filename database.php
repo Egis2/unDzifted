@@ -156,7 +156,7 @@ class MySQLDB {
     }
 
     function getAllSpecialists(){
-        $query = "Select CONCAT(vardas,' ', pavarde) AS specialistFullName from ".TBL_VARTOTOJAS." Where typeSelector = '".DOCTOR_SPECIALIST_NAME."'";
+        $query = "Select CONCAT(vardas,' ', pavarde) AS specialistFullName from ".TBL_VARTOTOJAS." Where typeSelector = '".DOCTOR_SPECIALIST_NAME."' AND dirba='1'";
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
@@ -168,7 +168,7 @@ class MySQLDB {
     }
 
     function getDoctors(){
-        $query = "Select CONCAT(vardas,' ',pavarde) AS gydytojas FROM ".TBL_VARTOTOJAS." WHERE typeSelector='Seimos_gydytojas' OR typeSelector='Gydytojas_specialistas'";
+        $query = "Select id_VARTOTOJAS, CONCAT(vardas,' ',pavarde) AS gydytojas FROM ".TBL_VARTOTOJAS." WHERE (typeSelector='".FAMILY_DOCTOR_NAME."' OR typeSelector='".DOCTOR_SPECIALIST_NAME."') AND dirba='1'";
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
@@ -324,6 +324,22 @@ class MySQLDB {
     }
     function getCabinets($id, $start, $end){
         $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE (uzimta_nuo BETWEEN '".$start."' AND '".$end."') AND fk_GYDYTOJASid_VARTOTOJAS='$id'";
+        return mysqli_query($this->connection, $query);
+    }
+
+    function isCabinetFreeAt($cabinetNumber, $time_from, $time_to){
+        $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE ( ('$time_from' >= uzimta_nuo AND '$time_from' <= uzimta_iki )"
+        ." OR ('$time_to' >= uzimta_nuo AND '$time_to' <= uzimta_iki ) OR ('$time_from' <= uzimta_nuo AND '$time_to' >= uzimta_iki ) ) "
+        ." AND numeris='$cabinetNumber'";
+        
+        $rows = mysqli_num_rows(mysqli_query($this->connection, $query));
+        if ($rows == 0)
+            return true;
+        return false;
+    }
+
+    function addCabinet($cabinet, $section, $hardware, $time_from, $time_to, $doctor_id){
+        $query = "INSERT INTO " . TBL_KABINETAS . " VALUES('$cabinet', '$section', '$hardware', '$time_from', '$time_to', NULL, '$doctor_id' )";
         return mysqli_query($this->connection, $query);
     }
 
