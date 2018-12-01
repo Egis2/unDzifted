@@ -263,7 +263,16 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function getAllPatientsTests($id){
+        $query = "SELECT data, aprasymas, isvada  FROM ".TBL_TYRIMAS." WHERE fk_PACIENTASid_VARTOTOJAS = ".$id." AND send = 1";
+        return mysqli_query($this->connection, $query);
+    }
     
+    function getAllTestsWithSetTime($id, $start, $end){
+        $query= "SELECT data, aprasymas, isvada FROM ".TBL_TYRIMAS."
+        WHERE (data BETWEEN '".$start."' AND '".$end."') and send = 1";
+        return mysqli_query($this->connection, $query);
+    }
 
     /**
      * query - Performs the given query on the database and
