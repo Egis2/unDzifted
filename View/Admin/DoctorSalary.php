@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
-    <title>Gydytojo pridėjimas</title>
+    <title>Gydytojo algos nustatymas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
@@ -20,7 +20,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <?php
-                    echo "<a class='btn btn-outline-dark' href='doctorList.php'>Atgal</a>";
+                    echo "<a class='btn btn-outline-dark' href='DoctorSalaries.php?id={$_GET['id']}'>Atgal</a>";
                 ?>
             </li>
         </div>
@@ -29,18 +29,23 @@
     <br>
     <div class="form-group login">
         <form method='post'>
-            <center><b>Gydytojo pašalinimas</b></center><br>
+            <center><b>Gydytojo algos nustatymas</b></center><br>
             <div style="text-align: left;">
-                <label for="vardas">Gydytojo vardas ir pavarde:</label>
-                <input name='vardas' readonly type='text' class="form-control" value='<?php echo $row['vardas'], " ", $row['pavarde']; ?>' oninvalid="this.setCustomValidity('Neužpildytas gydytojo vardas')" oninput="this.setCustomValidity('')" required>
+                <label for="vardas">Gydytojas:</label>
+                <input name='vardas' type='text' class="form-control" value='<?php echo $row['vardas'], ' ', $row['pavarde']; ?>' readonly>
             </div>
             <br>
             <div style="text-align: left;">
-                <label for="asmens_kodas">Asmens kodas:</label>
-                <input name='asmens_kodas'readonly type='number' class="form-control" value='<?php echo $row['asmens_kodas']; ?>' oninvalid="this.setCustomValidity('Neužpildytas gydytojo asmens kodas')" oninput="this.setCustomValidity('')" required>
+                <label for="alga">Alga:</label>
+                <input name='alga' type='number' value='400' min='400' max='10000' class="form-control" oninvalid="this.setCustomValidity('Neužpildyta gydytojo alga')" oninput="this.setCustomValidity('')" required>
             </div>
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Pašalinti gydytoją">
+            <div style="text-align: left;">
+                <label for="ismokejimo_data">Išmokėjimo data:</label>
+                <input name='ismokejimo_data' type='date' class="form-control" oninvalid="this.setCustomValidity('Nepasirinkta algos išmokėjimo data')" oninput="this.setCustomValidity('')" required>
+            </div>
+            <br>
+            <input class="btn btn-outline-dark" type="submit" value="Nustatyti algą">
         </form>
     </div>
 </body>

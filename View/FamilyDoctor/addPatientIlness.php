@@ -85,6 +85,7 @@
         </form>
     </div>
     <?php
+    var_dump($_SESSION);
     if(isset($_POST['newPatientIlness'])){
         global $database;
     $dalys = explode(" ", $_POST['liga']);
@@ -100,6 +101,7 @@
         $_SESSION['success'] = false;
         $_SESSION['message'] = "Pacientui '". $_POST['pacientas'] . " nepavyko užfiksuoti ligos: " . $dalys['0'];
       }
+      
     }
 }
 

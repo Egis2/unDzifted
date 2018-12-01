@@ -83,7 +83,8 @@
             } else {
                 echo "<div>Nesėkmingai įtrepta</div>";
             }
-            unset($_POST);
+            
+            //header("Location: add.php?id={$id}");
         }
     ?>
     </div>

@@ -26,7 +26,7 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='post'>
+        <form method='POST' action='../../Controller/AdminController.php'>
             <center><b>Gydytojo pridėjimas</b></center><br>
             <div style="text-align: left;">
                 <label for="vardas">Gydytojo vardas:</label>
@@ -70,16 +70,16 @@
             <br>
             <div style="text-align: left;">
                 <label for="specialybe">Gydyto specializacija:</label>
-                <select class="form-control">
-                    <option value="seimos_gydytojas">Šeimos gydytojas</option>
-                    <option value="chirurgas">Chirurgas</option>
-                    <option value="oftalmologas">Oftalmologas</option>
-                    <option value="odontologas">Odontologas</option>
-                    <option value="pulmonologas">Pulmonologas</option>
+                <select class="form-control" name='specializacija'>
+                    <option value="Seimos_gydytojas">Šeimos gydytojas</option>
+                    <option value="Chirurgas">Chirurgas</option>
+                    <option value="Oftalmologas">Oftalmologas</option>
+                    <option value="Odontologas">Odontologas</option>
+                    <option value="Pulmonologas">Pulmonologas</option>
                 </select>
             </div>
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Pridėti gydytoją">
+            <input class="btn btn-outline-dark" type="submit" name='addDoctor' value="Pridėti gydytoją">
         </form>
     </div>
 </body>

@@ -64,14 +64,8 @@
     if(isset($_POST['newMedicine'])){
         $data = date("Y-m-d");
         $pacientInfo = explode(" ", $_POST['pacientas']);
-            $mediceAdd = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],0);
-            $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
-
-            if($mediceAdd == true && getMedicineExtract == true){
-                echo "<div>Sėkmingai įtrepta</div>";
-            } else {
-                echo "<div>Nesėkmingai įtrepta</div>";
-            }
+        $mediceAdd = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],0);
+        $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
         }
     ?>
     </div>
