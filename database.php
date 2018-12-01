@@ -150,7 +150,7 @@ class MySQLDB {
         $query ="SELECT id_VARTOTOJAS,vardas, pavarde, asmens_kodas, gimimo_data FROM ".TBL_VARTOTOJAS."
         INNER JOIN ".TBL_GYDYMAS." ON ".TBL_VARTOTOJAS.".id_VARTOTOJAS =".TBL_GYDYMAS.".fk_PACIENTASid_VARTOTOJAS where ".TBL_GYDYMAS.".fk_GYDYTOJASid_VARTOTOJAS =".$id ;
         $result= mysqli_query($this->connection, $query);
-        return $query;
+        return $result;
     }
 
     function getPatientReservations($id){
