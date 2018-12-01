@@ -10,23 +10,83 @@ class AdminController{
     else if (isset($_POST['addDoctor'])){
       $this->newDoctor();
     }
-
+    else if (isset($_POST['removeDoctor'])){
+      $this->removeDoctor();
+    }
     //else if (){
 
     //}
   }
 
-  function newDoctor(){
+  function removeDoctor(){
     global $database;
-    if ($database->emailTaken($_POST['email']))
+    $result = $database->getUserInfo($_POST['id']);
+    if ($result['typeSelector'] == FAMILY_DOCTOR_NAME || $result['typeSelector'] == DOCTOR_SPECIALIST_NAME)
     {
-
-      header("Location: ../View/Admin/doctorList.php");
-      return;
+      $query = "UPDATE " . TBL_VARTOTOJAS . " SET dirba='0' WHERE id_VARTOTOJAS='{$_POST['id']}'";
+      if ($database->query($query)){
+        $_SESSION['success'] = true;
+        $_SESSION['message'] = "Daktaras dabar bedarbis";
+      }
+      else{
+        $_SESSION['success'] = false;
+        $_SESSION['message'] = "Nepavyko padaryti daktaro bedarbiu";
+      }
     }
     else{
-      header("Location: ../View/Admin/AddDoctor.php");
+      $_SESSION['success'] = false;
+      $_SESSION['message'] = "Šalinamas ne daktaras";
     }
+
+    header("Location: ../View/Admin/doctorList.php");
+  }
+  
+  function newDoctor(){
+    global $database;
+    
+    if ($database->emailTaken($_POST['el_pastas']))
+    {
+      $_SESSION['success'] = false;
+      $_SESSION['message'] = "El. paštas '".$_POST['el_pastas']." užimtas";
+    }
+    else
+    {
+      /* Seimos gydytojo blokas. */
+      if ($_POST['specializacija'] == 'Seimos_gydytojas')
+      {
+          if ($database->newFamilyDoctor($_POST['vardas'], $_POST['pavarde'], $_POST['asmens_kodas'], $_POST['el_pastas'], $_POST['slaptazodis'], $_POST['telefonas'], $_POST['gimimo_data'], $_POST['licencija_iki']))
+          {
+            $result = $database->getUserInfoByEmail($_POST['el_pastas']);
+            $database->setAsFamilyDoctor($result['id_VARTOTOJAS']);
+
+            $_SESSION['success'] = true;
+            $_SESSION['message'] = "Šeimos gydytojo užregistruotas. El. Paštas - '". $_POST['el_pastas']."', slaptažodis - '".$_POST['slaptazodis']."'.";
+          }
+          else
+          {
+            $_SESSION['success'] = false;
+            $_SESSION['message'] = "Šeimos gydytojo nepavyko įkelti į duombazę.";
+          }
+      }
+      /* specialisto blokas */
+      else
+      {
+        if ($database->newSpecialistDoctor($_POST['vardas'], $_POST['pavarde'], $_POST['asmens_kodas'], $_POST['el_pastas'], $_POST['slaptazodis'], $_POST['telefonas'], $_POST['gimimo_data'], $_POST['licencija_iki'], $_POST['specializacija']))
+        {
+          $result = $database->getUserInfoByEmail($_POST['el_pastas']);
+          $database->setAsSpecialistDoctor($result['id_VARTOTOJAS'], $_POST['specializacija']);
+
+          $_SESSION['success'] = true;
+          $_SESSION['message'] = $result['id_VARTOTOJAS'] . " Gydytojas specialistas užregistruotas. El. Paštas - '". $_POST['el_pastas']."', slaptažodis - '".$_POST['slaptazodis']."'. Specialybė - ". $_POST['specializacija'];
+        }
+        else{
+          $_SESSION['success'] = false;
+          $_SESSION['message'] = "Gydytojo specialisto nepavyko įkelti į duombazę.";
+        }
+      }
+    }
+
+    header("Location: ../View/Admin/doctorList.php");
   }
 
   function assignCabinet(){
@@ -56,7 +116,6 @@ class AdminController{
         $_SESSION['message'] = $_POST['kabinetas'] . " kabinetas jau yra užimtas tarp " . $_POST['uzimta_nuo'] . " ir " . $_POST['uzimta_iki'];
       }
     }
-    //$database->addCabinet();
     header("Location: ../View/Admin/CabinetList.php");
   }
 
