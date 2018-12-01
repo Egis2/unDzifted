@@ -26,6 +26,24 @@
     <br>
     <br>
 
+    <?php 
+    /* ALERT MENIU */
+        if (isset($_SESSION['success']) && !$_SESSION['success']) 
+        {
+            echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+                    "<strong>{$_SESSION['message']}</strong>".
+                "</div>";
+        }
+        else if (isset($_SESSION['success']) && $_SESSION['success'])
+        {
+            echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+            "<strong>{$_SESSION['message']}</strong>".
+            "</div>";
+        }
+        unset($_SESSION['success']);
+        unset($_SESSION['message']);
+    ?>
+    <br>
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th style="width: 25%;">Tyrimo data</th>
@@ -48,8 +66,11 @@
                             ."<input type='hidden' name='id' value='{$_GET['id']}'>"
                             ."<input type='hidden' name='id_tyrimas' value='{$val['id_TYRIMAS']}'></td>"
                             ."</form></tr>";
-                    else{
+                    else if ($val['send'] == 1){
                         echo "<td>Tyrimas jau išsiūstas paciento šeimos gydytojui</td>";
+                    }
+                    else{
+                        echo "<td>Kažkas ne taip</td>";
                     }
                 }
             ?>

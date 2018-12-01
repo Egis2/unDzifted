@@ -21,14 +21,18 @@
     <br>
     <?php 
         global $database;
-        $query = "SELECT vardas"
+        $query = "SELECT vardas FROM ". TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS ='{$_GET['id']}'";
+        $result = $database->query($query);
+        $vartotojas = mysqli_fetch_array($result);
     ?>
     <div class="form-group login">
-        <form method='post'>
+        <form method='POST' action='../../Controller/SpecialistController.php'>
+            <?php echo "<input type='hidden' name='id_pacientas' value='{$_GET['id']}'>"; ?>
+            <?php echo "<input type='hidden' name='id_specialistas' value='{$_SESSION['id']}'>"; ?>
             <center><b>Naujas tyrimas</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
-                <input name='pacientas' type='text' class="form-control" readonly>
+                <?php echo "<input name='pacientas' type='text' class=\"form-control\" value='{$vartotojas['vardas']}' readonly>"; ?>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
@@ -46,7 +50,7 @@
                 <textarea class="form-control" rows="3" name="isvada" oninvalid="this.setCustomValidity('Neužpildytas siuntimo komentaras')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Pridėti tyrimą">
+            <input class="btn btn-outline-dark" type="submit" name='newPatientTest' value="Pridėti tyrimą">
         </form>
     </div>
 </body>
