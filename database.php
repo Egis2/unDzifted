@@ -274,14 +274,13 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
-<<<<<<< HEAD
 
     //*******************************ADMIN******************************************** */
     function getAllDoctors(){
         $getAllDoctorsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where typeSelector='Seimos_gydytojas' OR typeSelector = 'Gydytojas_specialistas'" ;
         $result= mysqli_query($this->connection, $getAllDoctorsQuery);
         return $result;
-=======
+    }
     function getMaxId(){
         $query = "SELECT MAX(id_VAISTU_ISRASAS) FROM ".TBL_VAISTU_ISRASAS;
         return mysqli_query($this->connection, $query);
@@ -294,7 +293,6 @@ class MySQLDB {
     function getAllPatientsTests($id){
         $query = "SELECT data, aprasymas, isvada  FROM ".TBL_TYRIMAS." WHERE fk_PACIENTASid_VARTOTOJAS = ".$id." AND send = 1";
         return mysqli_query($this->connection, $query);
->>>>>>> c515a6768cc1e9d23c1380c6d1a04dacbda0143e
     }
     
     function getAllTestsWithSetTime($id, $start, $end){
