@@ -81,7 +81,7 @@
                 </select>
             </div>
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Pridėti gydytoją">
+            <input class="btn btn-outline-dark" type="submit" value="Redaguoti gydytojo duomenis">
         </form>
     </div>
 </body>
