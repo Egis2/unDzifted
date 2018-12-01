@@ -78,7 +78,7 @@
                 </td>
                 <td>
                 <?php
-                  echo "<a class='btn btn-link' href='DoctorSalary.php?id={$row['id_VARTOTOJAS']}'>Alga</a>";
+                  echo "<a class='btn btn-link' href='DoctorSalaries.php?id={$row['id_VARTOTOJAS']}'>Algos</a>";
                   /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
                 ?>
                 </td>
