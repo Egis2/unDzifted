@@ -49,7 +49,7 @@
             $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
             $vaistu_israsai = $database->query($query);
             foreach($vaistu_israsai as $key => $val){
-                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['id_VAISTU_ISRASAS']}'  AND receptinis='1'"; // fk_VAISTASid_VAISTAS vietoj id_VAISTU_ISRASAS
+                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}'  AND receptinis='1'";
                 $rows = mysqli_num_rows($database->query($query));
                 $vaistas = mysqli_fetch_array($database->query($query));
                 if (mysqli_num_rows($database->query($query)) > 0){

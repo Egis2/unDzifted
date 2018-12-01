@@ -13,9 +13,25 @@ class AdminController{
     else if (isset($_POST['removeDoctor'])){
       $this->removeDoctor();
     }
+    else if (isset($_POST['editDoctor'])){
+      $this->editDoctor();
+    }
     //else if (){
 
     //}
+  }
+
+  function editDoctor(){
+    global $database;
+    if($database->updateDoctorInfo($_POST['id'], $_POST['vardas'], $_POST['pavarde'], $_POST['asmens_kodas'], $_POST['el_pastas'], $_POST['slaptazodis'], $_POST['telefonas'], $_POST['gimimo_data'], $_POST['licencija_iki'])){
+        $_SESSION['success'] = true;
+        $_SESSION['message'] = "Daktaro informacija buvo pakeista.";
+    }
+    else{
+        $_SESSION['success'] = false;
+        $_SESSION['message'] = "Operacija nebuvo sėkminga.";
+    }
+    header("Location: ../View/Admin/doctorList.php");
   }
 
   function removeDoctor(){
@@ -40,7 +56,7 @@ class AdminController{
 
     header("Location: ../View/Admin/doctorList.php");
   }
-  
+
   function newDoctor(){
     global $database;
     
@@ -97,7 +113,6 @@ class AdminController{
       header("Location: ../View/Admin/CabinetList.php");
       return;
     } 
-
     else{
       if ($database->isCabinetFreeAt($_POST['kabinetas'], $_POST['uzimta_nuo'], $_POST['uzimta_iki']))
       {
