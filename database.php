@@ -170,6 +170,12 @@ class MySQLDB {
         return $result;
     }
 
+    function getDoctors(){
+        $query = "Select CONCAT(vardas,' ',pavarde) AS gydytojas FROM ".TBL_VARTOTOJAS." WHERE typeSelector='Seimos_gydytojas' OR typeSelector='Gydytojas_specialistas'";
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
     function getId($id){
         $query = "SELECT id_VARTOTOJAS FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
         $result = mysqli_query($this->connection, $query);
