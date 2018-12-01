@@ -11,7 +11,8 @@
     global $database;
     $result = $database->GetAllDoctors($_SESSION['id']);
     $index = 0;
-  ?>
+    ?>
+
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -29,7 +30,23 @@
     </nav>
     <br>
     <br>
-
+    <?php 
+    /* ALERT MENIU */
+    if (isset($_SESSION['success']) && !$_SESSION['success']) 
+    {
+        echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+                "<strong>{$_SESSION['message']}</strong>".
+            "</div>";
+    }
+    else if (isset($_SESSION['success']) && $_SESSION['success'])
+    {
+        echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+        "<strong>{$_SESSION['message']}</strong>".
+        "</div>";
+    }
+    unset($_SESSION['success']);
+    unset($_SESSION['message']);
+    ?>
     <table class="table table-light table-bordered table-hover" style="width: 95%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th style="width: 8%;">Vardas</th>

@@ -18,15 +18,50 @@ class AdminController{
 
   function newDoctor(){
     global $database;
-    if ($database->emailTaken($_POST['email']))
+    
+    if ($database->emailTaken($_POST['el_pastas']))
     {
+      $_SESSION['success'] = false;
+      $_SESSION['message'] = "El. paštas '".$_POST['el_pastas']." užimtas";
+    }
+    else
+    {
+      /* Seimos gydytojo blokas. */
+      if ($_POST['specializacija'] == 'Seimos_gydytojas')
+      {
+          if ($database->newFamilyDoctor($_POST['vardas'], $_POST['pavarde'], $_POST['asmens_kodas'], $_POST['el_pastas'], $_POST['slaptazodis'], $_POST['telefonas'], $_POST['gimimo_data'], $_POST['licencija_iki']))
+          {
+            $result = $database->getUserInfoByEmail($_POST['el_pastas']);
+            $database->setAsFamilyDoctor($result['id_VARTOTOJAS']);
 
-      header("Location: ../View/Admin/doctorList.php");
-      return;
+            $_SESSION['success'] = true;
+            $_SESSION['message'] = "Šeimos gydytojo užregistruotas. El. Paštas - '". $_POST['el_pastas']."', slaptažodis - '".$_POST['slaptazodis']."'.";
+          }
+          else
+          {
+            $_SESSION['success'] = false;
+            $_SESSION['message'] = "Šeimos gydytojo nepavyko įkelti į duombazę.";
+          }
+      }
+      /* specialisto blokas */
+      else
+      {
+        if ($database->newSpecialistDoctor($_POST['vardas'], $_POST['pavarde'], $_POST['asmens_kodas'], $_POST['el_pastas'], $_POST['slaptazodis'], $_POST['telefonas'], $_POST['gimimo_data'], $_POST['licencija_iki'], $_POST['specializacija']))
+        {
+          $result = $database->getUserInfoByEmail($_POST['el_pastas']);
+          $database->setAsSpecialistDoctor($result['id_VARTOTOJAS'], $_POST['specializacija']);
+
+          $_SESSION['success'] = true;
+          $_SESSION['message'] = $result['id_VARTOTOJAS'] . " Gydytojas specialistas užregistruotas. El. Paštas - '". $_POST['el_pastas']."', slaptažodis - '".$_POST['slaptazodis']."'. Specialybė - ". $_POST['specializacija'];
+        }
+        else{
+          $_SESSION['success'] = false;
+          $_SESSION['message'] = "Gydytojo specialisto nepavyko įkelti į duombazę.";
+        }
+      }
     }
-    else{
-      header("Location: ../View/Admin/AddDoctor.php");
-    }
+
+    header("Location: ../View/Admin/doctorList.php");
   }
 
   function assignCabinet(){
