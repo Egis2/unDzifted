@@ -302,7 +302,6 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
-<<<<<<< HEAD
     function getAllSickness($id){
         $query =  "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
         return mysqli_query($this->connection, $query);
@@ -314,7 +313,6 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
-=======
     function isCabinetFreeAt($cabinetNumber, $time_from, $time_to){
         $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE ( ('$time_from' >= uzimta_nuo AND '$time_from' <= uzimta_iki )"
         ." OR ('$time_to' >= uzimta_nuo AND '$time_to' <= uzimta_iki ) OR ('$time_from' <= uzimta_nuo AND '$time_to' >= uzimta_iki ) ) "
@@ -329,7 +327,6 @@ class MySQLDB {
         $query = "INSERT INTO " . TBL_KABINETAS . " VALUES('$cabinet', '$section', '$hardware', '$time_from', '$time_to', NULL, '$doctor_id' )";
         return mysqli_query($this->connection, $query);
     }
->>>>>>> bdc943b28703f676aec7700ffba489882ab37185
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
