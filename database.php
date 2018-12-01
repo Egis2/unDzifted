@@ -249,6 +249,15 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function getMaxId(){
+        $query = "SELECT MAX(id_VAISTU_ISRASAS) FROM ".TBL_VAISTU_ISRASAS;
+        return mysqli_query($this->connection, $query);
+    }
+    function insertNewRecipe($date, $id){
+        $query = "INSERT INTO ".TBL_RECEPTAS."(galioja_iki, fk_VAISTU_ISRASASid_VAISTU_ISRASAS) VALUES ('".$date."',".$id.")";
+        return mysqli_query($this->connection, $query);
+    }
+
     
 
     /**
