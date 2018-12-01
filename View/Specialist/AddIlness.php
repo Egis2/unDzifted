@@ -39,7 +39,9 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='post'>
+        <form method='POST' action='../../Controller/SpecialistController.php'>
+            <?php echo "<input type='hidden' name='id_pacientas' value='{$_GET['id']}'>"; ?>
+            <?php echo "<input type='hidden' name='id_specialistas' value='{$_SESSION['id']}'>"; ?>
             <center><b>Ligos aprašas</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
@@ -75,11 +77,11 @@
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
-                <label for="isvada"">Išvados:</label>
+                <label for="isvada">Išvados:</label>
                 <textarea class="form-control" rows="3" name="isvada" oninvalid="this.setCustomValidity('Neužpildytos ligos išvados')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Pridėti ligos aprašą">
+            <input class="btn btn-outline-dark" type="submit" name='newPatientIlness' value="Pridėti ligos aprašą">
         </form>
     </div>
 </body>
