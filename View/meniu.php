@@ -28,7 +28,9 @@
 					<a class="nav-link">Gydytojų sąrašas</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link">Kabinetų sąrašas</a>
+				<?php
+            		echo "<a class='nav-link' href='View/Admin/CabinetList.php'>Kabinetų sąrašas</a>";
+            	?>
 				</li>
 			</ul>
 			<ul class="navbar-nav m1-auto">
