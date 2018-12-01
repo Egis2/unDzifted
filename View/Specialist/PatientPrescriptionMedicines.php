@@ -7,6 +7,17 @@
   </head>
   <body>
 
+<?php 
+    include '../../database.php';
+    global $database;
+    $result = $database->getId($_GET['id']);
+    $index = 0;
+
+    while($row = mysqli_fetch_array($result)){
+        $id = $row['id_VARTOTOJAS'];
+    }
+?>
+
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -16,7 +27,7 @@
             </li>
             <li>
 			<?php
-				echo "<a class='nav-link' href='AddPrescriptionMedicine.php'>Priskirti receptinį vaistą</a>";
+				echo "<a class='nav-link' href='AddPrescriptionMedicine.php?id={$id}'>Priskirti receptinį vaistą</a>";
             ?>
             </li>
         </div>
@@ -33,14 +44,27 @@
             <th>Galioja iki</th>
         </thead>
         <tbody>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-            </tr>
-        </tbody>
+        <?php 
+            global $database;
+            $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$id}'";
+            $vaistu_israsai = $database->query($query);
+            foreach($vaistu_israsai as $key => $val){
+                $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['id_VAISTU_ISRASAS']}'  AND receptinis='1'";
+                $rows = mysqli_num_rows($database->query($query));
+                $vaistas = mysqli_fetch_array($database->query($query));
+                if (mysqli_num_rows($database->query($query)) > 0){
+                    $query = "SELECT * FROM ". TBL_RECEPTAS ." WHERE fk_VAISTU_ISRASASid_VAISTU_ISRASAS ='{$val['id_VAISTU_ISRASAS']}' ";
+                    $receptas = mysqli_fetch_array($database->query($query));
+                    echo "<tr><td>{$vaistas['pavadinimas']}</td>"
+                            ."<td>{$vaistas['kiekis_mg']}</td>"
+                            ."<td>{$vaistas['vartojimo_instrukcija']}</td>"
+                            ."<td>{$val['israsymo_data']}</td>"
+                            ."<td>{$receptas['galioja_iki']}</td></tr>";
+                }
+            }
+            // Nereceptinis - 0, Receptinis - 1
+       ?>
+    </tbody>
     </table>
 </body>
 </html>

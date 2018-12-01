@@ -1,3 +1,4 @@
+<?php include("../../session.php")?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -16,7 +17,7 @@
             </li>
             <li>
 			<?php
-				echo "<a class='nav-link' href='AddProcedure.php'>Priskirti gydymo procedūrą</a>";
+				echo "<a class='nav-link' href='AddProcedure.php?id={$_GET['id']}'>Priskirti gydymo procedūrą</a>";
             ?>
             </li>
         </div>
@@ -24,18 +25,23 @@
     <br>
     <br>
 
-    <table class="table table-light table-bordered table-hover" style="width: 55%; margin: 0 auto; text-align: center">
+    <table class="table table-light table-bordered table-hover" style="width: 75%; margin: 0 auto; text-align: center;">
         <thead class="thead-dark">
             <th>Gydymo procedūros data</th>
             <th style="width: 20%;">Vieta</th>
             <th style="width: 50%;">Aprašymas</th>
         </thead>
         <tbody>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-            </tr>
+        <?php 
+                global $database;
+                $query = "SELECT * FROM " . TBL_PROCEDURA . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'";
+                $result = $database->query($query);
+                foreach($result as $key => $val){
+                    echo "<tr><td>{$val['data']}</td>"
+                        ."<td>{$val['vieta']}</td>"
+                        ."<td>{$val['aprasymas']}</td></tr>";
+                }
+            ?>
         </tbody>
     </table>
 </body>
