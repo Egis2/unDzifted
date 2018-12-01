@@ -328,13 +328,12 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
-<<<<<<< HEAD
     function setSallary($alga, $data, $id){
         $query = "INSERT INTO " . TBL_ALGA . " VALUES('$alga', '$data', NULL, '$id' )";
 
         return mysqli_query($this->connection, $query);
       }
-=======
+    
     function isCabinetFreeAt($cabinetNumber, $time_from, $time_to){
         $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE ( ('$time_from' >= uzimta_nuo AND '$time_from' <= uzimta_iki )"
         ." OR ('$time_to' >= uzimta_nuo AND '$time_to' <= uzimta_iki ) OR ('$time_from' <= uzimta_nuo AND '$time_to' >= uzimta_iki ) ) "
@@ -361,7 +360,6 @@ class MySQLDB {
         ." slaptazodis='$slaptazodis', licencija_iki='$licencija' WHERE id_VARTOTOJAS='$id'";
         return mysqli_query($this->connection, $query);
     }
->>>>>>> 070760c851bc7ff52ff3443fad1dabaf452ff5e5
 
     /**
      * query - Performs the given query on the database and
