@@ -71,17 +71,6 @@
                 <input name='licencija_iki' type='date' class="form-control" value='<?php echo $row['licencija_iki']; ?>' oninvalid="this.setCustomValidity('Nepasirinkta gydytojo licencijos galiojimo pabaigos data')" oninput="this.setCustomValidity('')" required>
             </div>
             <br>
-            <div style="text-align: left;">
-                <label for="specialybe" name='specialybe'>Gydyto specializacija:</label>
-                <select class="form-control">
-                    <option value="seimos_gydytojas">Šeimos gydytojas</option>
-                    <option value="chirurgas">Chirurgas</option>
-                    <option value="oftalmologas">Oftalmologas</option>
-                    <option value="odontologas">Odontologas</option>
-                    <option value="pulmonologas">Pulmonologas</option>
-                </select>
-            </div>
-            <br>
             <input class="btn btn-outline-dark" type="submit" name='editDoctor' value="Redaguoti gydytojo duomenis">
         </form>
     </div>

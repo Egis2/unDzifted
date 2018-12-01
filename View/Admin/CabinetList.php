@@ -55,7 +55,7 @@
         <tbody>
         <?php 
             global $database;
-            $query = "SELECT * FROM " . TBL_KABINETAS . " ";
+            $query = "SELECT * FROM " . TBL_KABINETAS . " ORDER BY numeris, uzimta_nuo ASC";
             $result = $database->query($query);
             foreach($result as $key => $val){
                 $query = "SELECT * FROM ". TBL_VARTOTOJAS. " WHERE id_VARTOTOJAS='{$val['fk_GYDYTOJASid_VARTOTOJAS']}'";
