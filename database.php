@@ -156,7 +156,7 @@ class MySQLDB {
     }
 
     function getAllSpecialists(){
-        $query = "Select CONCAT(vardas,' ', pavarde) AS specialistFullName from ".TBL_VARTOTOJAS." Where typeSelector = '".DOCTOR_SPECIALIST_NAME."'";
+        $query = "Select CONCAT(vardas,' ', pavarde) AS specialistFullName from ".TBL_VARTOTOJAS." Where typeSelector = '".DOCTOR_SPECIALIST_NAME."' AND dirba='1'";
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
@@ -168,7 +168,7 @@ class MySQLDB {
     }
 
     function getDoctors(){
-        $query = "Select CONCAT(vardas,' ',pavarde) AS gydytojas FROM ".TBL_VARTOTOJAS." WHERE typeSelector='Seimos_gydytojas' OR typeSelector='Gydytojas_specialistas'";
+        $query = "Select id_VARTOTOJAS, CONCAT(vardas,' ',pavarde) AS gydytojas FROM ".TBL_VARTOTOJAS." WHERE (typeSelector='".FAMILY_DOCTOR_NAME."' OR typeSelector='".DOCTOR_SPECIALIST_NAME."') AND dirba='1'";
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
@@ -216,11 +216,12 @@ class MySQLDB {
          return $result;
     }
 
-    function MedicineExtract($data, $patientName, $patientSurname,$familyDoctorName, $familyDoctorSurname){
-        $query = "INSERT INTO vaistu_israsas(israsymo_data, fk_GYDYTOJASid_VARTOTOJAS, fk_PACIENTASid_VARTOTOJAS) 
+    function MedicineExtract($data, $patientName, $patientSurname,$familyDoctorName, $familyDoctorSurname, $medicineID){
+        $query = "INSERT INTO vaistu_israsas(israsymo_data, fk_GYDYTOJASid_VARTOTOJAS, fk_PACIENTASid_VARTOTOJAS,fk_VAISTASid_VAISTAS) 
         VALUES ('".$data."',
         (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." where ".TBL_VARTOTOJAS.".vardas = '".$familyDoctorName."' and vartotojas.pavarde = '".$familyDoctorSurname."'),
-        (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." where ".TBL_VARTOTOJAS.".vardas = '".$patientName."' and vartotojas.pavarde = '".$patientSurname."'))";
+        (SELECT ".TBL_VARTOTOJAS.".id_VARTOTOJAS from ".TBL_VARTOTOJAS." where ".TBL_VARTOTOJAS.".vardas = '".$patientName."' and vartotojas.pavarde = '".$patientSurname."'),
+        ".$medicineID.")";
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
@@ -327,11 +328,40 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+<<<<<<< HEAD
     function setSallary($alga, $data, $id){
         $query = "INSERT INTO " . TBL_ALGA . " VALUES('$alga', '$data', NULL, '$id' )";
 
         return mysqli_query($this->connection, $query);
       }
+=======
+    function isCabinetFreeAt($cabinetNumber, $time_from, $time_to){
+        $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE ( ('$time_from' >= uzimta_nuo AND '$time_from' <= uzimta_iki )"
+        ." OR ('$time_to' >= uzimta_nuo AND '$time_to' <= uzimta_iki ) OR ('$time_from' <= uzimta_nuo AND '$time_to' >= uzimta_iki ) ) "
+        ." AND numeris='$cabinetNumber'";
+        
+        $rows = mysqli_num_rows(mysqli_query($this->connection, $query));
+        if ($rows == 0)
+            return true;
+        return false;
+    }
+
+    function addCabinet($cabinet, $section, $hardware, $time_from, $time_to, $doctor_id){
+        $query = "INSERT INTO " . TBL_KABINETAS . " VALUES('$cabinet', '$section', '$hardware', '$time_from', '$time_to', NULL, '$doctor_id' )";
+        return mysqli_query($this->connection, $query);
+    }
+
+    function getAllSickness($id){
+        $query =  "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
+        return mysqli_query($this->connection, $query);
+    }
+    function updateDoctorInfo($id, $vardas, $pavarde, $asmens_kodas, $el_pastas, $slaptazodis, $telefonas, $gimimo_data, $licencija){
+        $query = "UPDATE ". TBL_VARTOTOJAS . " SET vardas='$vardas' , pavarde='$pavarde', asmens_kodas='$asmens_kodas',"
+        ." el_pastas='$el_pastas' , telefonas='$telefonas', gimimo_data='$gimimo_data',"
+        ." slaptazodis='$slaptazodis', licencija_iki='$licencija' WHERE id_VARTOTOJAS='$id'";
+        return mysqli_query($this->connection, $query);
+    }
+>>>>>>> 070760c851bc7ff52ff3443fad1dabaf452ff5e5
 
     /**
      * query - Performs the given query on the database and

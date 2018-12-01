@@ -65,11 +65,15 @@
         $data = date("Y-m-d");
         $pacientInfo = explode(" ", $_POST['pacientas']);
         $mediceAdd = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],0);
-        $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
+        $getLastMedicineAddQuery = "SELECT Max(id_VAISTAS) FROM ".TBL_VAISTAS."";
+        $aa = $database->query($getLastMedicineAddQuery);
+        $lastMedicineID;
+        while($medicineID = mysqli_fetch_array($aa)){
+            $lastMedicineID= $medicineID[0];
+        }
+        $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde'],$lastMedicineID);
         }
     ?>
     </div>
-
-    
 </body>
 </html>
