@@ -7,14 +7,14 @@
   </head>
   <body>
 <?php
-     if(isset($_POST)){
-        unset($_POST);
-    }
+   //  if(isset($_POST)
+    
     include '../../session.php';
     $id = $_GET['id'];
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);
     $nameSurname = '';
+
 
     while($row = mysqli_fetch_array($result)){
         $nameSurname= $row['fullName'];
@@ -53,7 +53,7 @@
             <br>
             <div style="text-align: left;">
                 <label for="vartojimo_instrukcija">Vartojimo instrukcija:</label>
-                <textarea class="form-control" rows="3" id="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
+                <textarea class="form-control" rows="3" name="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
@@ -66,9 +66,19 @@
 
         <?php 
         if(isset($_POST)){
+            $data = date("Y-m-d");
+            $pacientInfo = explode(" ", $_POST['pacientas']);
             $result = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],1);
+            $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
+            $getMaximumID = $database->getMaxId();
+            while($maxVaistuIsrasasID = mysqli_fetch_array($getMaximumID)){
+                $recipeID = $maxVaistuIsrasasID;
+            }
+            var_dump($recipeID[0]);
+            $insertNew = $database->insertNewRecipe($_POST['galioja_iki'],$recipeID[0]);
 
-            if($result == true){
+            var_dump($insertNew);
+            if($result == true && $getMedicineExtract == true  && $insertNew == true){
                 echo "<div>Sėkmingai įtrepta</div>";
             } else {
                 echo "<div>Nesėkmingai įtrepta</div>";
