@@ -48,7 +48,7 @@
                     ."<td>{$pacientas['gimimo_data']}</td>";
                 echo "<form action=\"PatientTests.php?id_pacientas=\">"
                     ."<td><input class=\"btn btn-link\" type=\"submit\" value=\"Tyrimų sąrašas\" name=\"tyrimas\"></td>"
-                    ."<input type='hidden' name='id_pacientas' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
+                    ."<input type='hidden' name='id' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
                     ."</form>";
                 echo "<form action=\"PatientPrescriptionMedicines.php\">"
                     ."<td><input class=\"btn btn-link\" type=\"submit\" value=\"Receptinių vaistų sąrašas\" name=\"receptinis\"></td>"
@@ -56,15 +56,15 @@
                     ."</form>";
                 echo "<form action=\"PatientMedicines.php\">"
                     ."<td><input class=\"btn btn-link\" type=\"submit\" value=\"Nereceptinių vaistų sąrašas\" name=\"Nereceptinis\"></td>"
-                    ."<input type='hidden' name='id_pacientas' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
+                    ."<input type='hidden' name='id' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
                     ."</form>";
                 echo "<form action=\"PatientProcedures.php\">"
                     ."<td><input class=\"btn btn-link\" type=\"submit\" value=\"Gydymo procedūrų sąrašas\" name=\"biuletenis\"></td>"
-                    ."<input type='hidden' name='id_pacientas' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
+                    ."<input type='hidden' name='id' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
                     ."</form>";
                 echo "<form action=\"PatientIlnesses.php\">"
                     ."<td><input class=\"btn btn-link\" type=\"submit\" value=\"Ligų aprašai\" name=\"liga\"></td>"
-                    ."<input type='hidden' name='id_pacientas' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
+                    ."<input type='hidden' name='id' value='{$val['fk_PACIENTASid_VARTOTOJAS']}'>"
                     ."</form>";
 
             }

@@ -195,7 +195,7 @@ class MySQLDB {
         return $result;
     }
     
-    // need update
+
     function addNewSending($comment, $reason, $patientName, $patientSurname,$specialistName, $specialistSurname, $familyDoctorName, $familyDoctorSurname){
 
         $query = "INSERT INTO siuntimas(priezastis, komentaras, fk_PACIENTASid_VARTOTOJAS, fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS, fk_SPECIALISTASid_SPECIALISTAS) 
@@ -222,6 +222,30 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
+
+    function getInfoAboutSpecialist($userID){
+        $query ="SELECT id_VARTOTOJAS, concat(vardas,'  ' ,pavarde)as fullName FROM ".TBL_VARTOTOJAS." WHERE vartotojas.id_VARTOTOJAS =".$userID;
+         $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
+    function sendFromSpecialistToFamilyDoctor($id){
+        $query = "UPDATE " . TBL_TYRIMAS . " SET " . TBL_TYRIMAS .".send='1' WHERE id_TYRIMAS='$id'";
+        return mysqli_query($this->connection, $query);
+    }
+
+    function getSpecialisation($id){
+        $query = "SELECT fk_SPECIALISTASid_SPECIALISTAS as spec FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
+        return mysqli_query($this->connection, $query);
+        //return $query;
+    }
+
+    function specialistSpecialization($id){
+        $query ="SELECT specialybe FROM ".TBL_SPECIALISTAS." where id_SPECIALISTAS =".$id;
+        return mysqli_query($this->connection, $query);
+    }
+
+    
 
     /**
      * query - Performs the given query on the database and
