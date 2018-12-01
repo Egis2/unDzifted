@@ -31,7 +31,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <?php
-                    echo "<a class='btn btn-outline-dark' href='patientIlnesses.php?id={$id}'>Atgal</a>";
+                    echo "<a class='btn btn-outline-dark' href='PatientIlnesses.php?id={$id}'>Atgal</a>";
                 ?>
             </li>
         </div>
@@ -39,7 +39,9 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='post'>
+        <form method='POST' action='../../Controller/SpecialistController.php'>
+            <?php echo "<input type='hidden' name='id_pacientas' value='{$_GET['id']}'>"; ?>
+            <?php echo "<input type='hidden' name='id_specialistas' value='{$_SESSION['id']}'>"; ?>
             <center><b>Ligos aprašas</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
@@ -75,12 +77,33 @@
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
-                <label for="isvada"">Išvados:</label>
+                <label for="isvada">Išvados:</label>
                 <textarea class="form-control" rows="3" name="isvada" oninvalid="this.setCustomValidity('Neužpildytos ligos išvados')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Pridėti ligos aprašą">
+            <input class="btn btn-outline-dark" type="submit" name='newPatientIlness' value="Pridėti ligos aprašą">
         </form>
     </div>
+    <?php
+    if(isset($_POST['newPatientIlness'])){
+        global $database;
+    $dalys = explode(" ", $_POST['liga']);
+    $query = "SELECT id_LIGA FROM " . TBL_LIGA . " WHERE ligos_kodas='{$dalys['1']}' AND pavadinimas='{$dalys['0']}'";
+    $liga = mysqli_fetch_array($database->query($query));
+     if ($database->newPatientIllness($liga['id_LIGA'], $_POST['id_pacientas'])){
+      $paciento_ligos_id = $database->selectLastFromPatientIlness($_POST['id_pacientas']);
+      if($database->newIllnessDescription($paciento_ligos_id['id_PACIENTO_LIGOS'], $_POST['id_specialistas'], $liga['id_LIGA'], $_POST['aprasymas'], $_POST['data'], $_POST['diagnozes_kodas'], $_POST['isvada'])){
+        $_SESSION['success'] = true;
+        $_SESSION['message'] = "Pacientui '". $_POST['pacientas'] . "' užfiksuota liga: " . $dalys['0'];
+      }
+      else{
+        $_SESSION['success'] = false;
+        $_SESSION['message'] = "Pacientui '". $_POST['pacientas'] . " nepavyko užfiksuoti ligos: " . $dalys['0'];
+      }
+    }
+}
+
+
+    ?>
 </body>
 </html>
