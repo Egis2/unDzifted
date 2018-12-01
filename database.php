@@ -194,7 +194,6 @@ class MySQLDB {
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
-    
 
     function addNewSending($comment, $reason, $patientName, $patientSurname,$specialistName, $specialistSurname, $familyDoctorName, $familyDoctorSurname){
 
