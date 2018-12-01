@@ -46,7 +46,7 @@
         <tbody>
         <?php 
             global $database;
-            $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$id}'";
+            $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
             $vaistu_israsai = $database->query($query);
             foreach($vaistu_israsai as $key => $val){
                 $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['id_VAISTU_ISRASAS']}'  AND receptinis='1'";
@@ -64,7 +64,7 @@
             }
             // Nereceptinis - 0, Receptinis - 1
        ?>
-    </tbody>
+       </tbody>
     </table>
 </body>
 </html>
