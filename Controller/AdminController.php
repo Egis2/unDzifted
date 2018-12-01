@@ -10,12 +10,36 @@ class AdminController{
     else if (isset($_POST['addDoctor'])){
       $this->newDoctor();
     }
-
+    else if (isset($_POST['removeDoctor'])){
+      $this->removeDoctor();
+    }
     //else if (){
 
     //}
   }
 
+  function removeDoctor(){
+    global $database;
+    $result = $database->getUserInfo($_POST['id']);
+    if ($result['typeSelector'] == FAMILY_DOCTOR_NAME || $result['typeSelector'] == DOCTOR_SPECIALIST_NAME)
+    {
+      $query = "UPDATE " . TBL_VARTOTOJAS . " SET dirba='0' WHERE id_VARTOTOJAS='{$_POST['id']}'";
+      if ($database->query($query)){
+        $_SESSION['success'] = true;
+        $_SESSION['message'] = "Daktaras dabar bedarbis";
+      }
+      else{
+        $_SESSION['success'] = false;
+        $_SESSION['message'] = "Nepavyko padaryti daktaro bedarbiu";
+      }
+    }
+    else{
+      $_SESSION['success'] = false;
+      $_SESSION['message'] = "Šalinamas ne daktaras";
+    }
+
+    header("Location: ../View/Admin/doctorList.php");
+  }
   function newDoctor(){
     global $database;
     

@@ -126,7 +126,7 @@ class MySQLDB {
         $query = "INSERT INTO vartotojas(vardas, pavarde,asmens_kodas, el_pastas,
          slaptazodis, telefonas, id_VARTOTOJAS, gimimo_data, adresas, licencija_iki, typeSelector)
           VALUES ('".$registerValue['vardas']."','".$registerValue['pavarde']."',".$registerValue['asmens_kodas'].",'".$registerValue['el_pastas']."',
-           '".$registerValue['slaptazodis']."', ".$registerValue['telefonas'].", ".$userId.",null,null,null,'".$userType."')";
+           '".$registerValue['slaptazodis']."', ".$registerValue['telefonas'].", ".$userId.",null,null,null,null,'".$userType."')";
         return mysqli_query($this->connection, $query);
     }
 
@@ -274,7 +274,7 @@ class MySQLDB {
     //*******************************ADMIN******************************************** */
     function newFamilyDoctor($vardas, $pavarde, $asmens_kodas, $el_pastas, $slaptazodis, $telefonas, $gimimo_data, $licencija){
         $query = "INSERT INTO " .TBL_VARTOTOJAS." VALUES('$vardas', '$pavarde', '$asmens_kodas',"
-        . "'$el_pastas', '$slaptazodis', '$telefonas', NULL, '$gimimo_data', NULL, '$licencija', '".FAMILY_DOCTOR_NAME. "')";
+        . "'$el_pastas', '$slaptazodis', '$telefonas', NULL, '$gimimo_data', NULL, '$licencija', '1', '".FAMILY_DOCTOR_NAME. "')";
         return mysqli_query($this->connection, $query);
     }
     function setAsFamilyDoctor($doctorId){
@@ -284,7 +284,7 @@ class MySQLDB {
 
     function newSpecialistDoctor($vardas, $pavarde, $asmens_kodas, $el_pastas, $slaptazodis, $telefonas, $gimimo_data, $licencija, $specialybe){
         $query = "INSERT INTO " .TBL_VARTOTOJAS." VALUES('$vardas', '$pavarde', '$asmens_kodas',"
-        . "'$el_pastas', '$slaptazodis', '$telefonas', NULL, '$gimimo_data', NULL, '$licencija', '".DOCTOR_SPECIALIST_NAME."')";
+        . "'$el_pastas', '$slaptazodis', '$telefonas', NULL, '$gimimo_data', NULL, '$licencija','1', '".DOCTOR_SPECIALIST_NAME."')";
         return mysqli_query($this->connection, $query);
     }
     function setAsSpecialistDoctor($doctorId, $specialization){
@@ -294,7 +294,7 @@ class MySQLDB {
 
 
     function getAllDoctors(){
-        $getAllDoctorsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where typeSelector='Seimos_gydytojas' OR typeSelector = 'Gydytojas_specialistas'" ;
+        $getAllDoctorsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where (typeSelector='".DOCTOR_SPECIALIST_NAME ."' OR typeSelector = '".FAMILY_DOCTOR_NAME."') AND dirba='1'" ;
         $result= mysqli_query($this->connection, $getAllDoctorsQuery);
         return $result;
     }

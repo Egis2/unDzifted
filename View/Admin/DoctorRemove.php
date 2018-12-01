@@ -28,7 +28,8 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='post'>
+        <form method='POST' action='../../Controller/AdminController.php'>
+            <input type='hidden' name='id' value='<?php echo $_GET['id']?>'>
             <center><b>Gydytojo pašalinimas</b></center><br>
             <div style="text-align: left;">
                 <label for="vardas">Gydytojo vardas ir pavarde:</label>
@@ -40,7 +41,7 @@
                 <input name='asmens_kodas'readonly type='number' class="form-control" value='<?php echo $row['asmens_kodas']; ?>' oninvalid="this.setCustomValidity('Neužpildytas gydytojo asmens kodas')" oninput="this.setCustomValidity('')" required>
             </div>
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Pašalinti gydytoją">
+            <input class="btn btn-outline-dark" type="submit" name='removeDoctor' value="Pašalinti gydytoją">
         </form>
     </div>
 </body>
