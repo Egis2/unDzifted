@@ -13,18 +13,9 @@ class AdminController{
     else if (isset($_POST['removeDoctor'])){
       $this->removeDoctor();
     }
-<<<<<<< HEAD
     else if (isset($_POST['setSallary'])){
       $this->setSallary();
     }
-=======
-    else if (isset($_POST['editDoctor'])){
-      $this->editDoctor();
-    }
-    //else if (){
-
-    //}
->>>>>>> 070760c851bc7ff52ff3443fad1dabaf452ff5e5
   }
 
   function editDoctor(){
