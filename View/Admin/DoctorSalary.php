@@ -28,7 +28,8 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='post'>
+        <form method='post' action='../../Controller/AdminController.php'>
+        <input type='hidden' name='id' value='<?php echo $_GET['id']; ?>'>
             <center><b>Gydytojo algos nustatymas</b></center><br>
             <div style="text-align: left;">
                 <label for="vardas">Gydytojas:</label>
@@ -45,7 +46,7 @@
                 <input name='ismokejimo_data' type='date' class="form-control" oninvalid="this.setCustomValidity('Nepasirinkta algos išmokėjimo data')" oninput="this.setCustomValidity('')" required>
             </div>
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Nustatyti algą">
+            <input class="btn btn-outline-dark" type="submit" name='setSallary' value="Nustatyti algą">
         </form>
     </div>
 </body>

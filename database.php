@@ -328,6 +328,13 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+<<<<<<< HEAD
+    function setSallary($alga, $data, $id){
+        $query = "INSERT INTO " . TBL_ALGA . " VALUES('$alga', '$data', NULL, '$id' )";
+
+        return mysqli_query($this->connection, $query);
+      }
+=======
     function isCabinetFreeAt($cabinetNumber, $time_from, $time_to){
         $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE ( ('$time_from' >= uzimta_nuo AND '$time_from' <= uzimta_iki )"
         ." OR ('$time_to' >= uzimta_nuo AND '$time_to' <= uzimta_iki ) OR ('$time_from' <= uzimta_nuo AND '$time_to' >= uzimta_iki ) ) "
@@ -344,12 +351,17 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function getAllSickness($id){
+        $query =  "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
+        return mysqli_query($this->connection, $query);
+    }
     function updateDoctorInfo($id, $vardas, $pavarde, $asmens_kodas, $el_pastas, $slaptazodis, $telefonas, $gimimo_data, $licencija){
         $query = "UPDATE ". TBL_VARTOTOJAS . " SET vardas='$vardas' , pavarde='$pavarde', asmens_kodas='$asmens_kodas',"
         ." el_pastas='$el_pastas' , telefonas='$telefonas', gimimo_data='$gimimo_data',"
         ." slaptazodis='$slaptazodis', licencija_iki='$licencija' WHERE id_VARTOTOJAS='$id'";
         return mysqli_query($this->connection, $query);
     }
+>>>>>>> 070760c851bc7ff52ff3443fad1dabaf452ff5e5
 
     /**
      * query - Performs the given query on the database and
