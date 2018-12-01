@@ -69,10 +69,7 @@ class MySQLDB {
 
  
     function emailTaken($useremail) {
-        if (!get_magic_quotes_gpc()) {
-            $useremail = addslashes($useruseremailname);
-        }
-        $q = "SELECT username FROM " . TBL_USERS . " WHERE el_pastas = '$useremail'";
+        $q = "SELECT * FROM " . TBL_VARTOTOJAS . " WHERE el_pastas = '$useremail'";
         $result = mysqli_query($this->connection, $q);
         return (mysqli_num_rows($result) > 0);
     }
@@ -272,6 +269,29 @@ class MySQLDB {
         $query ="SELECT specialybe FROM ".TBL_SPECIALISTAS." where id_SPECIALISTAS =".$id;
         return mysqli_query($this->connection, $query);
     }
+
+
+    //*******************************ADMIN******************************************** */
+    function newFamilyDoctor($vardas, $pavarde, $asmens_kodas, $el_pastas, $slaptazodis, $telefonas, $gimimo_data, $licencija){
+        $query = "INSERT INTO " .TBL_VARTOTOJAS." VALUES('$vardas', '$pavarde', '$asmens_kodas',"
+        . "'$el_pastas', '$slaptazodis', '$telefonas', NULL, '$gimimo_data', NULL, '$licencija', '".FAMILY_DOCTOR_NAME. "')";
+        return mysqli_query($this->connection, $query);
+    }
+    function setAsFamilyDoctor($doctorId){
+        $query = "INSERT INTO " . TBL_SEIMOS_GYDYTOJAS. " VALUES ('$doctorId', '$doctorId')";
+        return mysqli_query($this->connection, $query);
+    }
+
+    function newSpecialistDoctor($vardas, $pavarde, $asmens_kodas, $el_pastas, $slaptazodis, $telefonas, $gimimo_data, $licencija, $specialybe){
+        $query = "INSERT INTO " .TBL_VARTOTOJAS." VALUES('$vardas', '$pavarde', '$asmens_kodas',"
+        . "'$el_pastas', '$slaptazodis', '$telefonas', NULL, '$gimimo_data', NULL, '$licencija', '".DOCTOR_SPECIALIST_NAME."')";
+        return mysqli_query($this->connection, $query);
+    }
+    function setAsSpecialistDoctor($doctorId, $specialization){
+        $query = "INSERT INTO " . TBL_SPECIALISTAS . " VALUES ('$specialization', '$doctorId', '$doctorId')";
+        return mysqli_query($this->connection, $query);
+    }
+
 
     function getAllDoctors(){
         $getAllDoctorsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where typeSelector='Seimos_gydytojas' OR typeSelector = 'Gydytojas_specialistas'" ;
