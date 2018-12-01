@@ -12,7 +12,7 @@
     global $database;
     $result = $database->getId($_GET['id']);
     $index = 0;
-    $sicklist = $database->getSickList($_GET['id']);
+    $sicklist = $database->getAllSickness($_GET['id']);
 
     while($row = mysqli_fetch_array($result)){
         $id = $row['id_VARTOTOJAS'];

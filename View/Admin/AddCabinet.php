@@ -64,7 +64,13 @@
             <br>
             <div style="text-align: left;">
                 <label for="skyrius">Skyrius:</label>
-                <input name='skyrius' type='text' class="form-control" oninvalid="this.setCustomValidity('Neužpildyta, kuriame skyriuje yra kabinetas')" oninput="this.setCustomValidity('')" required>
+                <select class="form-control">
+                    <option value="seimos_gydytojas">Konsultacinis</option>
+                    <option value="chirurgas">Chirurgijos</option>
+                    <option value="oftalmologas">Oftalmologijos</option>
+                    <option value="odontologas">Odontologijos</option>
+                    <option value="pulmonologas">Pulmonologijos</option>
+                </select>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
