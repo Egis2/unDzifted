@@ -21,9 +21,11 @@
     <br>
     <?php 
         global $database;
-        $query = "SELECT vardas FROM ". TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS ='{$_GET['id']}'";
-        $result = $database->query($query);
-        $vartotojas = mysqli_fetch_array($result);
+        $result = $database->getNameAndSurname($_GET['id']);
+        $nameSurname = '';
+        while($row = mysqli_fetch_array($result)){
+            $nameSurname= $row['fullName'];
+        }
     ?>
     <div class="form-group login">
         <form method='POST' action='../../Controller/SpecialistController.php'>
@@ -32,7 +34,7 @@
             <center><b>Naujas tyrimas</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
-                <?php echo "<input name='pacientas' type='text' class=\"form-control\" value='{$vartotojas['vardas']}' readonly>"; ?>
+                <input name='pacientas' type='text' class="form-control" value='<?php echo $nameSurname; ?>' readonly>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
