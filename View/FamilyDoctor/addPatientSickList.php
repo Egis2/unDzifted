@@ -64,10 +64,13 @@
     <?php
     
     if(isset($_POST['write'])){
-        $newSickListMember = $database->addNewSickness($_POST['data_pradzios'], $_POST['data_pabaigos'],$_POST['priezastis'],$_POST['diagnozes_kodas'],1,$_GET['id']);
+        $newSickListMember = $database->addNewSickness($_POST['data_pradzios'], $_POST['data_pabaigos'],$_POST['priezastis'],$_POST['diagnozes_kodas'],$_GET['id'],$_SESSION['id']);
     
-        if($newSickListMember){
+        var_dump($newSickListMember);
+        if($newSickListMember == true){
             echo "<div>Iterpta sekmingai</div>";
+        } else {
+            echo "<div>Iterpta nesekmingai</div>";
         }
     }
     ?>
