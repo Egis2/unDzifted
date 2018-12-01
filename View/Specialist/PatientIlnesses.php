@@ -53,12 +53,7 @@
                 /* Paima liga */
                 $query = "SELECT * FROM " . TBL_LIGA . " WHERE id_LIGA = '{$val['fk_LIGAid_LIGA']}'";
                 $liga = mysqli_fetch_array($database->query($query));
-
-                /* Jeigu laikų laukai buvo įvesti */
-                if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
-                    $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}' AND " . TBL_LIGOS_APRASAS.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";// AND ".TBL_VAISTU_ISRASAS .".israsymo_data <= '{$_GET['laikas2']}'";
-                else
-                    $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}'";
+                $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}'";
                 $aprasas = mysqli_fetch_array($database->query($query));
 
                 /* Jeigu SELECT operacija buvo sėkminga */
