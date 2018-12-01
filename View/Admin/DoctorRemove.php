@@ -34,6 +34,7 @@
                 <label for="vardas">Gydytojo vardas ir pavarde:</label>
                 <input name='vardas' readonly type='text' class="form-control" value='<?php echo $row['vardas'], " ", $row['pavarde']; ?>' oninvalid="this.setCustomValidity('Neužpildytas gydytojo vardas')" oninput="this.setCustomValidity('')" required>
             </div>
+            <br>
             <div style="text-align: left;">
                 <label for="asmens_kodas">Asmens kodas:</label>
                 <input name='asmens_kodas'readonly type='number' class="form-control" value='<?php echo $row['asmens_kodas']; ?>' oninvalid="this.setCustomValidity('Neužpildytas gydytojo asmens kodas')" oninput="this.setCustomValidity('')" required>
