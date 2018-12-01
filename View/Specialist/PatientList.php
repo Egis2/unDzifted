@@ -37,7 +37,7 @@
         <tbody>
         <?php
             global $database;
-            $query = "SELECT * FROM " . TBL_SIUNTIMAS . " WHERE fk_SPECIALISTASid_SPECIALISTAS='{$_SESSION['id']}'";
+            $query = "SELECT * FROM " . TBL_SIUNTIMAS . " WHERE fk_SPECIALISTASid_SPECIALISTAS='{$_SESSION['id']}' GROUP BY fk_PACIENTASid_VARTOTOJAS,fk_SPECIALISTASid_SPECIALISTAS";
             $result = $database->query($query);
             foreach($result as $key => $val){
                 $query = "SELECT * FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS = '{$val['fk_PACIENTASid_VARTOTOJAS']}'";

@@ -7,9 +7,6 @@
   </head>
   <body>
   <?php
-     if(isset($_POST)){
-        unset($_POST);
-    }
     include '../../session.php';
     $id = $_GET['id'];
     global $database;
@@ -53,7 +50,7 @@
             <br>
             <div style="text-align: left;">
                 <label for="vartojimo_instrukcija">Vartojimo instrukcija:</label>
-                <textarea class="form-control" rows="3" id="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
+                <textarea class="form-control" rows="3" name="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
@@ -61,8 +58,28 @@
                 <input name='galioja_iki' type='date' class="form-control" oninvalid="this.setCustomValidity('Nepasirinkta recepto galiojimo pabaigos data')" oninput="this.setCustomValidity('')" required>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Priskirti receptinį vaistą">
+            <input class="btn btn-outline-dark" type="submit" name="newMedicine" value="Priskirti receptinį vaistą">
         </form>
     </div>
+    <?php 
+        if(isset($_POST['newMedicine'])){
+            $data = date("Y-m-d");
+            $pacientInfo = explode(" ", $_POST['pacientas']);
+            $result = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],1);
+            $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
+            $getMaximumID = $database->getMaxId();
+            while($maxVaistuIsrasasID = mysqli_fetch_array($getMaximumID)){
+                $recipeID = $maxVaistuIsrasasID;
+            }
+            $insertNew = $database->insertNewRecipe($_POST['galioja_iki'],$recipeID[0]);
+
+            if($result == true && $getMedicineExtract == true  && $insertNew == true){
+                echo "<div>Sėkmingai įtrepta</div>";
+            } else {
+                echo "<div>Nesėkmingai įtrepta</div>";
+            }
+            
+        }
+        ?>
 </body>
 </html>
