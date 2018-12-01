@@ -53,30 +53,61 @@
             <th style="width: 8%;">Pavardė</th>
             <th>Asmens kodas</th>
             <th>Licencijos galiojimas</th>
-            <th>Gydytojo tipas</th>
-            <th>Ligų istorija</th>
-            <th>Tyrimų ataskaita</th>
+            <th>Specialybė</th>
+            <th>Redagavimas</th>
+            <th>Pašalinimas</th>
+            <th>Alga</th>
+            <th>Grafikas</th>
+            <th>Statistika</th>
         </thead>
         <tbody>
         <?php
-        
          while($row = mysqli_fetch_array($result)){
         ?>
+        
             <tr>
                 <td><?php echo $row['vardas'];?></td>
                 <td><?php echo $row['pavarde'];?></td>
                 <td><?php echo $row['asmens_kodas'];?></td>
                 <td><?php echo $row['licencija_iki'];?></td>
-                <td><?php echo $row['typeSelector'];?></td>
+                <td><?php
+                    if ($row['typeSelector'] == FAMILY_DOCTOR_NAME)
+                        {
+                            echo "Šeimos gydytojas";
+                        }
+                    else
+                        {
+                          echo "Specialistas";
+                        }
+        ?></td>
                 <td>
                 <?php
-                  echo "<a class='btn btn-link' href='patientIlnesses.php?id={$row['id_VARTOTOJAS']}'>Ligų aprašai</a>";
+                  echo "<a class='btn btn-link' href='DoctorEdit.php?id={$row['id_VARTOTOJAS']}'>Redaguoti</a>";
+                  /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+//getSpecialisation
+?>
+                </td>
+                <td>
+                <?php
+                  echo "<a class='btn btn-link' href='DoctorRemove.php?id={$row['id_VARTOTOJAS']}'>Pašalinti</a>";
                   /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
                 ?>
                 </td>
                 <td>
                 <?php
-                  echo "<a class='btn btn-link' href='patientTests.php?id={$row['id_VARTOTOJAS']}'>Tyrimų sąrašas</a>";
+                  echo "<a class='btn btn-link' href='DoctorSalaries.php?id={$row['id_VARTOTOJAS']}'>Algos</a>";
+                  /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+                ?>
+                </td>
+                <td>
+                <?php
+                  echo "<a class='btn btn-link' href='DoctorSchedule.php?id={$row['id_VARTOTOJAS']}'>Grafikas</a>";
+                  /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
+                ?>
+                </td>
+                <td>
+                <?php
+                  echo "<a class='btn btn-link' href='DoctorStatistics.php?id={$row['id_VARTOTOJAS']}'>Statistika</a>";
                   /* echo "<a class='btn btn-link' href='addPatientConsultation.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";*/
                 ?>
                 </td>

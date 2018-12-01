@@ -66,11 +66,11 @@
             <div style="text-align: left;">
                 <label for="skyrius">Skyrius:</label>
                 <select class="form-control" name='skyrius'>
-                    <option value="seimos_gydytojas">Konsultacinis</option>
-                    <option value="chirurgas">Chirurgijos</option>
-                    <option value="oftalmologas">Oftalmologijos</option>
-                    <option value="odontologas">Odontologijos</option>
-                    <option value="pulmonologas">Pulmonologijos</option>
+                    <option value="Konsultacinis">Konsultacinis</option>
+                    <option value="Chirurgijos">Chirurgijos</option>
+                    <option value="Oftalmologijos">Oftalmologijos</option>
+                    <option value="Odontologijos">Odontologijos</option>
+                    <option value="Pulmonologijos">Pulmonologijos</option>
                 </select>
             </div style="text-align: left;">
             <br>

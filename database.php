@@ -168,7 +168,7 @@ class MySQLDB {
     }
 
     function getDoctors(){
-        $query = "Select id_VARTOTOJAS, CONCAT(vardas,' ',pavarde,' ') AS gydytojas FROM ".TBL_VARTOTOJAS." WHERE typeSelector='Seimos_gydytojas' OR typeSelector='Gydytojas_specialistas'";
+        $query = "Select CONCAT(vardas,' ',pavarde) AS gydytojas FROM ".TBL_VARTOTOJAS." WHERE typeSelector='Seimos_gydytojas' OR typeSelector='Gydytojas_specialistas'";
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
@@ -265,7 +265,6 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
         //return $query;
     }
-
     function specialistSpecialization($id){
         $query ="SELECT specialybe FROM ".TBL_SPECIALISTAS." where id_SPECIALISTAS =".$id;
         return mysqli_query($this->connection, $query);
@@ -299,7 +298,6 @@ class MySQLDB {
         $result= mysqli_query($this->connection, $getAllDoctorsQuery);
         return $result;
     }
-
     function getMaxId(){
         $query = "SELECT MAX(id_VAISTU_ISRASAS) FROM ".TBL_VAISTU_ISRASAS;
         return mysqli_query($this->connection, $query);
@@ -320,31 +318,6 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
-    function getAllSickness($id){
-        $query =  "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
-        return mysqli_query($this->connection, $query);
-    }
-
-    function addNewSickness($start, $end, $reason,$sickCode, $doctorId, $patientId){
-        $query="INSERT INTO ".TBL_BIULETENIS."(data_pradzios, data_pabaigos, priezastis, diagnozes_kodas,fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS, fk_PACIENTASid_VARTOTOJAS) "
-        ."VALUES ('{$start}','{$end}','{$reason}','{$sickCode}','{$doctorId}','{$patientId}')";
-        return mysqli_query($this->connection, $query);
-    }
-
-    function isCabinetFreeAt($cabinetNumber, $time_from, $time_to){
-        $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE ( ('$time_from' >= uzimta_nuo AND '$time_from' <= uzimta_iki )"
-        ." OR ('$time_to' >= uzimta_nuo AND '$time_to' <= uzimta_iki ) OR ('$time_from' <= uzimta_nuo AND '$time_to' >= uzimta_iki ) ) "
-        ." AND numeris='$cabinetNumber'";
-        
-        $rows = mysqli_num_rows(mysqli_query($this->connection, $query));
-        if ($rows == 0)
-            return true;
-        return false;
-    }
-    function addCabinet($cabinet, $section, $hardware, $time_from, $time_to, $doctor_id){
-        $query = "INSERT INTO " . TBL_KABINETAS . " VALUES('$cabinet', '$section', '$hardware', '$time_from', '$time_to', NULL, '$doctor_id' )";
-        return mysqli_query($this->connection, $query);
-    }
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
