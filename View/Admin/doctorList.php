@@ -36,7 +36,7 @@
             <th style="width: 8%;">Pavardė</th>
             <th>Asmens kodas</th>
             <th>Licencijos galiojimas</th>
-            <th>Specialybe</th>
+            <th>Specialybė</th>
             <th>Redagavimas</th>
             <th>Pašalinimas</th>
             <th>Alga</th>

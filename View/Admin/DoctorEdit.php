@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
-    <title>Gydytojo pridėjimas</title>
+    <title>Gydytojo duomenų redagavimas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
@@ -29,7 +29,7 @@
     <br>
     <div class="form-group login">
         <form method='post'>
-            <center><b>Gydytojo pridėjimas</b></center><br>
+            <center><b>Gydytojo duomenų redagavimas</b></center><br>
             <div style="text-align: left;">
                 <label for="vardas">Gydytojo vardas:</label>
                 <input name='vardas' type='text' class="form-control" value='<?php echo $row['vardas']; ?>' oninvalid="this.setCustomValidity('Neužpildytas gydytojo vardas')" oninput="this.setCustomValidity('')" required>
