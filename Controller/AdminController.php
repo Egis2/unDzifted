@@ -7,10 +7,26 @@ class AdminController{
     if (isset($_POST['assignCabinet'])){
       $this->assignCabinet();
     }
+    else if (isset($_POST['addDoctor'])){
+      $this->newDoctor();
+    }
 
     //else if (){
 
     //}
+  }
+
+  function newDoctor(){
+    global $database;
+    if ($database->emailTaken($_POST['email']))
+    {
+
+      header("Location: ../View/Admin/doctorList.php");
+      return;
+    }
+    else{
+      header("Location: ../View/Admin/AddDoctor.php");
+    }
   }
 
   function assignCabinet(){
@@ -25,8 +41,7 @@ class AdminController{
     else{
       if ($database->isCabinetFreeAt($_POST['kabinetas'], $_POST['uzimta_nuo'], $_POST['uzimta_iki']))
       {
-        $dalys = explode(" ", $_POST['gydytojas']);
-        if ($database->addCabinet($_POST['kabinetas'], $_POST['skyrius'], $_POST['irangos_aprasymas'], $_POST['uzimta_nuo'], $_POST['uzimta_iki'], $dalys['2'])){
+        if ($database->addCabinet($_POST['kabinetas'], $_POST['skyrius'], $_POST['irangos_aprasymas'], $_POST['uzimta_nuo'], $_POST['uzimta_iki'], $_POST['gydytojas'])){
           $_SESSION['success'] = true;
           $_SESSION['message'] = "Paskirtas kabinetas ".$_POST['kabinetas']." nuo " . $_POST['uzimta_nuo'] . " iki ". $_POST['uzimta_iki'];
         }
