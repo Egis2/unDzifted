@@ -1,3 +1,4 @@
+<?php  include('../../session.php');?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
@@ -24,6 +25,23 @@
     </nav>
     <br>
     <br>
+    <?php 
+    /* ALERT MENIU */
+        if (isset($_SESSION['success']) && !$_SESSION['success']) 
+        {
+            echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+                    "<strong>{$_SESSION['message']}</strong>".
+                "</div>";
+        }
+        else if (isset($_SESSION['success']) && $_SESSION['success'])
+        {
+            echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+            "<strong>{$_SESSION['message']}</strong>".
+            "</div>";
+        }
+        unset($_SESSION['success']);
+        unset($_SESSION['message']);
+    ?>
 
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
@@ -36,7 +54,6 @@
         </thead>
         <tbody>
         <?php 
-            include '../../database.php';
             global $database;
             $query = "SELECT * FROM " . TBL_KABINETAS . " ";
             $result = $database->query($query);

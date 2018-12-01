@@ -19,6 +19,12 @@
             <li class="nav-item">
                 <a class="btn btn-outline-dark" href=\unDzifted>Atgal</a>
             </li>
+                <li>
+                <?php
+                    echo "<a class='nav-link' href='AddDoctor.php'>Gydytojo pridėjimas</a>";
+                ?>
+                </li>
+            <ul>
         </div>
     </nav>
     <br>

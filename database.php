@@ -273,12 +273,6 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
-    function specialistSpecializationAAAAAAAAAAA($id){
-        $query ="SELECT * FROM ".TBL_SPECIALISTAS." where id_SPECIALISTAS =".$id;
-        return mysqli_query($this->connection, $query);
-    }
-
-    //*******************************ADMIN******************************************** */
     function getAllDoctors(){
         $getAllDoctorsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where typeSelector='Seimos_gydytojas' OR typeSelector = 'Gydytojas_specialistas'" ;
         $result= mysqli_query($this->connection, $getAllDoctorsQuery);
