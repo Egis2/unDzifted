@@ -297,6 +297,15 @@ class MySQLDB {
         WHERE (data BETWEEN '".$start."' AND '".$end."') and send = 1";
         return mysqli_query($this->connection, $query);
     }
+    
+    function getCabinetsAll($id){
+        $query = "SELECT * FROM " . TBL_KABINETAS . " Where fk_GYDYTOJASid_VARTOTOJAS='$id'";
+        return mysqli_query($this->connection, $query);
+    }
+    function getCabinets($id, $start, $end){
+        $query = "SELECT * FROM " . TBL_KABINETAS . " WHERE (uzimta_nuo BETWEEN '".$start."' AND '".$end."') AND fk_GYDYTOJASid_VARTOTOJAS='$id'";
+        return mysqli_query($this->connection, $query);
+    }
 
     /**
      * query - Performs the given query on the database and
