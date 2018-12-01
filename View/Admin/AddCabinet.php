@@ -9,7 +9,6 @@
 
 <?php
     include '../../session.php';
-    $id = $_GET['id'];
     global $database;
     $getDoctors = $database->getDoctors();
 
@@ -19,6 +18,7 @@
         $doctors[]= $row;
     }
 ?>
+    <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
@@ -54,12 +54,12 @@
             <br>
             <div style="text-align: left;">
                 <label for="uzimta_nuo">Užimti kabinetą nuo:</label>
-                <input name='uzimta_nuo' type='datetime-local' class="form-control" oninvalid="this.setCustomValidity('Neužiplidyta kabineto užimtumo pradžios data')" oninput="this.setCustomValidity('')" required>
+                <input name='uzimta_nuo' type='datetime-local' class="form-control" oninvalid="this.setCustomValidity('Neužplidyta kabineto užimtumo pradžios data')" oninput="this.setCustomValidity('')" required>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
                 <label for="uzimta_iki">Užimti kabinetą iki:</label>
-                <input name='uzimta_iki' type='datetime-local' class="form-control" oninvalid="this.setCustomValidity('Neužiplidyta kabineto užimtumo pabaigos data')" oninput="this.setCustomValidity('')" required>
+                <input name='uzimta_iki' type='datetime-local' class="form-control" oninvalid="this.setCustomValidity('Neužplidyta kabineto užimtumo pabaigos data')" oninput="this.setCustomValidity('')" required>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
