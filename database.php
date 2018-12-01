@@ -355,6 +355,13 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function addNewSickness($start, $end, $reason,$sickCode, $patientId, $doctorId){
+        $query="INSERT INTO ".TBL_BIULETENIS." VALUES ('{$start}', '{$end}', '{$reason}', '{$sickCode}', NULL, '{$doctorId}', '{$patientId}')";
+      
+         return mysqli_query($this->connection, $query);
+        //return $query;
+    }
+
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
