@@ -327,6 +327,12 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function setSallary($alga, $data, $id){
+        $query = "INSERT INTO " . TBL_ALGA . " VALUES('$alga', '$data', NULL, '$id' )";
+
+        return mysqli_query($this->connection, $query);
+      }
+
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a

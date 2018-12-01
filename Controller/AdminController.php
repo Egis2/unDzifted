@@ -13,9 +13,9 @@ class AdminController{
     else if (isset($_POST['removeDoctor'])){
       $this->removeDoctor();
     }
-    //else if (){
-
-    //}
+    else if (isset($_POST['setSallary'])){
+      $this->setSallary();
+    }
   }
 
   function removeDoctor(){
@@ -117,6 +117,12 @@ class AdminController{
     }
     //$database->addCabinet();
     header("Location: ../View/Admin/CabinetList.php");
+  }
+
+  function setSallary(){
+    global $database;
+    $database -> setSallary($_POST['alga'], $_POST['ismokejimo_data'], $_POST['id']);
+    header("Location: ../View/Admin/doctorList.php");
   }
 
 }
