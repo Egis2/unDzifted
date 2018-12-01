@@ -344,12 +344,10 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
-<<<<<<< HEAD
     function getAllSickness($id){
         $query =  "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
         return mysqli_query($this->connection, $query);
     }
-=======
     function updateDoctorInfo($id, $vardas, $pavarde, $asmens_kodas, $el_pastas, $slaptazodis, $telefonas, $gimimo_data, $licencija){
         $query = "UPDATE ". TBL_VARTOTOJAS . " SET vardas='$vardas' , pavarde='$pavarde', asmens_kodas='$asmens_kodas',"
         ." el_pastas='$el_pastas' , telefonas='$telefonas', gimimo_data='$gimimo_data',"
@@ -357,7 +355,6 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
->>>>>>> 283b445fd03e9c5d43fec8ad84b4d1f8350a30d7
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
