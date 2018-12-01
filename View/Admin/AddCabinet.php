@@ -45,7 +45,8 @@
                 echo "<select name='gydytojas' class='form-control'>";
                     foreach($doctors as $doctor)
                     {
-                        echo "<option value='".$doctors[$indexofDoctors]['gydytojas']."'>".$doctors[$indexofDoctors]['gydytojas']."</option>";
+                     //   echo "<input type='hidden name='id_daktaras' value='".$doctor[$indexofDoctors]['id_VARTOTOJAS']."'>";
+                        echo "<option value='".$doctors[$indexofDoctors]['id_VARTOTOJAS']."'>".$doctors[$indexofDoctors]['gydytojas']."</option>";
                         $indexofDoctors = $indexofDoctors + 1;
                     }
                     echo "</select>";
@@ -64,7 +65,7 @@
             <br>
             <div style="text-align: left;">
                 <label for="skyrius">Skyrius:</label>
-                <select class="form-control">
+                <select class="form-control" name='skyrius'>
                     <option value="seimos_gydytojas">Konsultacinis</option>
                     <option value="chirurgas">Chirurgijos</option>
                     <option value="oftalmologas">Oftalmologijos</option>
