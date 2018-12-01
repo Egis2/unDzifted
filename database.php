@@ -344,6 +344,10 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function getAllSickness($id){
+        $query =  "SELECT data_pradzios, data_pabaigos, priezastis, diagnozes_kodas FROM ".TBL_BIULETENIS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
+        return mysqli_query($this->connection, $query);
+    }
     /**
      * query - Performs the given query on the database and
      * returns the result, which may be false, true or a
