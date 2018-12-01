@@ -32,7 +32,7 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='post'>
+        <form method='POST' action='../../Controller/AdminController.php'>
             <center><b>Kabineto priskyrimas</b></center><br>
             <div style="text-align: left;">
                 <label for="kabinetas">Kabineto numeris:</label>
@@ -72,7 +72,7 @@
                 <textarea class="form-control" rows="3" name="irangos_aprasymas" oninvalid="this.setCustomValidity('Neužpildytas reikalingos įrangos aprašymas')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Priskirti kabinetą gydytojui">
+            <input class="btn btn-outline-dark" type="submit" name='assignCabinet' value="Priskirti kabinetą gydytojui">
         </form>
     </div>
 </body>
