@@ -8,7 +8,7 @@
   <body>
 
 <?php
-    include '../../database.php';
+    include '../../session.php';
     $id = $_GET['id'];
     global $database;
     $result = $database->getNameAndSurname($_GET['id']);
@@ -31,7 +31,9 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='post'>
+        <form method='POST' action='../../Controller/SpecialistController.php'>
+            <?php echo "<input type='hidden' name='id_pacientas' value='{$_GET['id']}'>"; ?>
+            <?php echo "<input type='hidden' name='id_specialistas' value='{$_SESSION['id']}'>"; ?>
             <center><b>Gydymo procedūra</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
@@ -53,7 +55,7 @@
                 <textarea class="form-control" rows="3" name="aprasymas" oninvalid="this.setCustomValidity('Neužpildytas gydymo procedūros aprašymas')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Priskirti gydymo procedūrą">
+            <input class="btn btn-outline-dark" type="submit" name='newProcedure' value="Priskirti gydymo procedūrą">
         </form>
     </div>
 </body>

@@ -23,9 +23,12 @@
     <br>
     <?php 
         global $database;
-        $query = "SELECT vardas FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS='{$_GET['id']}'";
-        $result = $database->query($query);
-        $pacientas = mysqli_fetch_array($result);
+        $result = $database->getNameAndSurname($_GET['id']);
+        $nameSurname = '';
+        while($row = mysqli_fetch_array($result)){
+            $nameSurname= $row['fullName'];
+        }
+        
         $query = "SELECT * FROM " . TBL_TYRIMAS . " WHERE id_TYRIMAS='{$_GET['id_tyrimas']}'";
         $result = $database->query($query);
         $tyrimas = mysqli_fetch_array($result);
@@ -37,7 +40,7 @@
             <center><b>Siųsti tyrimo rezultatus šeimos gydytojui</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
-                <?php    echo "<input name='pacientas' type='text' class=\"form-control\" readonly value='{$pacientas['vardas']}'>"; ?>
+                <input name='pacientas' type='text' class="form-control" readonly value='<?php echo $nameSurname; ?>'>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">

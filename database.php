@@ -238,6 +238,11 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function newProcedure($patientId, $specialistId, $date, $place, $description){
+        $query = "INSERT INTO " . TBL_PROCEDURA . " VALUES('$date', '$place', '$description', NULL, '$patientId', '$specialistId')";
+        return mysqli_query($this->connection, $query);
+    }
+
     function getSpecialisation($id){
         $query = "SELECT fk_SPECIALISTASid_SPECIALISTAS as spec FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
         return mysqli_query($this->connection, $query);
