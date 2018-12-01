@@ -11,11 +11,14 @@
 <?php 
     global $database;
     $result = $database->getId($_GET['id']);
-    $index = 0;
+    $isSelected = 0;
 
     while($row = mysqli_fetch_array($result)){
         $id = $row['id_VARTOTOJAS'];
     }
+
+
+
 ?>
 
     <br>
@@ -34,15 +37,15 @@
         if (isset($_GET['laikas1']) && isset($_GET['laikas2']))
         {
             if (strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2'])){
-                $query = "SELECT * FROM ". TBL_TYRIMAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}' AND " . TBL_TYRIMAS.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";
+                $isSelected = 1;
                 $_SESSION['success'] = true;
                 $_SESSION['message'] = "Operacija sėkminga. Rodomi laikai tarp: " . $_GET['laikas1'] . " ir " . $_GET['laikas2'] . ".";
             }
             else{
+                $isSelected = 0;
                 $_SESSION['success'] = false;
                 $_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavimui nenaudojami filtrai";
-                $query = "SELECT * FROM ". TBL_TYRIMAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
-            }
+                }
         }
         else
         {
@@ -95,18 +98,30 @@
         <tbody>
         <?php      
             global $database;
-            $tests = $database->query($query);
-            foreach($tests as $key => $val){
-                $query = "SELECT * FROM ". TBL_TYRIMAS. " WHERE send='1'";
-                $test = mysqli_fetch_array($database->query($query));
-                if (mysqli_num_rows($database->query($query)) > 0){
-                echo "<tr><td>{$test['data']}</td>"
-                        ."<td>{$test['aprasymas']}</td>"
-                        ."<td>{$test['isvada']}</td></tr>";
+            if($isSelected == 0){
+            $getSpecifiedTests = $database->getAllPatientsTests($_GET['id']);
+            while($row = mysqli_fetch_array($getSpecifiedTests)){
+                echo "<tr><td>{$row['data']}</td>"
+                        ."<td>{$row['aprasymas']}</td>"
+                        ."<td>{$row['isvada']}</td></tr>";
                 }
+            } else {
+                $getSpecifiedTests = $database->getAllTestsWithSetTime($_GET['id'], $_GET['laikas1'], $_GET['laikas2']);
+                while($row2 = mysqli_fetch_array($getSpecifiedTests)){
+                    echo "<tr><td>{$row2['data']}</td>"
+                            ."<td>{$row2['aprasymas']}</td>"
+                            ."<td>{$row2['isvada']}</td></tr>";
+                    }
+            
             }
        ?>
         </tbody>
     </table>
+
+    <?php 
+   
+   
+
+    ?>
 </body>
 </html>

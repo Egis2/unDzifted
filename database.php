@@ -170,6 +170,12 @@ class MySQLDB {
         return $result;
     }
 
+    function getDoctors(){
+        $query = "Select CONCAT(vardas,' ',pavarde) AS gydytojas FROM ".TBL_VARTOTOJAS." WHERE typeSelector='Seimos_gydytojas' OR typeSelector='Gydytojas_specialistas'";
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+
     function getId($id){
         $query = "SELECT id_VARTOTOJAS FROM ".TBL_VARTOTOJAS." WHERE id_VARTOTOJAS= ".$id;
         $result = mysqli_query($this->connection, $query);
@@ -243,6 +249,20 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function newPatientIllness($ilnessId, $patientId){
+        $query = "INSERT INTO " . TBL_PACIENTO_LIGOS . " VALUES (NULL, '$ilnessId', '$patientId')";
+        return mysqli_query($this->connection, $query);
+    }
+    
+    function selectLastFromPatientIlness($patientId){
+        $query = "SELECT * FROM " . TBL_PACIENTO_LIGOS . " WHERE fk_PACIENTASid_VARTOTOJAS='$patientId' ORDER BY id_PACIENTO_LIGOS DESC LIMIT 1";
+        return mysqli_fetch_array(mysqli_query($this->connection, $query));
+    }
+    function newIllnessDescription($patientId, $doctorId, $patientIlnessId, $description, $date, $code, $result ){
+        $query = "INSERT INTO " . TBL_LIGOS_APRASAS . " VALUES('$description', '$date', '$code', '$result', NULL, '$doctorId', '$patientIlnessId', '$patientId')";
+        return mysqli_query($this->connection, $query);
+    }
+
     function getSpecialisation($id){
         $query = "SELECT fk_SPECIALISTASid_SPECIALISTAS as spec FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
         return mysqli_query($this->connection, $query);
@@ -254,14 +274,34 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+<<<<<<< HEAD
 
     //*******************************ADMIN******************************************** */
     function getAllDoctors(){
         $getAllDoctorsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where typeSelector='Seimos_gydytojas' OR typeSelector = 'Gydytojas_specialistas'" ;
         $result= mysqli_query($this->connection, $getAllDoctorsQuery);
         return $result;
+=======
+    function getMaxId(){
+        $query = "SELECT MAX(id_VAISTU_ISRASAS) FROM ".TBL_VAISTU_ISRASAS;
+        return mysqli_query($this->connection, $query);
+    }
+    function insertNewRecipe($date, $id){
+        $query = "INSERT INTO ".TBL_RECEPTAS."(galioja_iki, fk_VAISTU_ISRASASid_VAISTU_ISRASAS) VALUES ('".$date."',".$id.")";
+        return mysqli_query($this->connection, $query);
+    }
+
+    function getAllPatientsTests($id){
+        $query = "SELECT data, aprasymas, isvada  FROM ".TBL_TYRIMAS." WHERE fk_PACIENTASid_VARTOTOJAS = ".$id." AND send = 1";
+        return mysqli_query($this->connection, $query);
+>>>>>>> c515a6768cc1e9d23c1380c6d1a04dacbda0143e
     }
     
+    function getAllTestsWithSetTime($id, $start, $end){
+        $query= "SELECT data, aprasymas, isvada FROM ".TBL_TYRIMAS."
+        WHERE (data BETWEEN '".$start."' AND '".$end."') and send = 1";
+        return mysqli_query($this->connection, $query);
+    }
 
     /**
      * query - Performs the given query on the database and
