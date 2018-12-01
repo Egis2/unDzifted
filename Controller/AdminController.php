@@ -23,9 +23,7 @@ class AdminController{
 
   function editDoctor(){
     global $database;
-    $result = $database->getUserInfo($_POST['id']);
-
-    if($database->updateDoctorInfo($_POST)){
+    if($database->updateDoctorInfo($_POST['id'], $_POST['vardas'], $_POST['pavarde'], $_POST['asmens_kodas'], $_POST['el_pastas'], $_POST['slaptazodis'], $_POST['telefonas'], $_POST['gimimo_data'], $_POST['licencija_iki'])){
         $_SESSION['success'] = true;
         $_SESSION['message'] = "Daktaro informacija buvo pakeista.";
     }

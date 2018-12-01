@@ -28,7 +28,8 @@
     <br> 
     <br>
     <div class="form-group login">
-        <form method='post'>
+        <form method='POST' action='../../Controller/AdminController.php'>
+            <input type='hidden' name='id' value='<?php echo $_GET['id'] ?>'>
             <center><b>Gydytojo duomenų redagavimas</b></center><br>
             <div style="text-align: left;">
                 <label for="vardas">Gydytojo vardas:</label>
@@ -81,7 +82,7 @@
                 </select>
             </div>
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Redaguoti gydytojo duomenis">
+            <input class="btn btn-outline-dark" type="submit" name='editDoctor' value="Redaguoti gydytojo duomenis">
         </form>
     </div>
 </body>
