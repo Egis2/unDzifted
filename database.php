@@ -234,6 +234,11 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function newPatientTest($patientId, $specialistId, $date, $description, $result){
+        $query = "INSERT INTO " . TBL_TYRIMAS . " VALUES ('$date', '0', '$description', '$result', NULL, '$specialistId', '$patientId')";
+        return mysqli_query($this->connection, $query);
+    }
+
     function getSpecialisation($id){
         $query = "SELECT fk_SPECIALISTASid_SPECIALISTAS as spec FROM ".TBL_SIUNTIMAS." WHERE fk_PACIENTASid_VARTOTOJAS =".$id;
         return mysqli_query($this->connection, $query);
