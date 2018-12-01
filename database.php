@@ -254,6 +254,13 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+
+    //*******************************ADMIN******************************************** */
+    function getAllDoctors(){
+        $getAllDoctorsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where typeSelector='Seimos_gydytojas' OR typeSelector = 'Gydytojas_specialistas'" ;
+        $result= mysqli_query($this->connection, $getAllDoctorsQuery);
+        return $result;
+    }
     
 
     /**

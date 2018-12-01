@@ -25,7 +25,9 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link">Gydytojų sąrašas</a>
+				<?php
+            		echo "<a class='nav-link' href='View/Admin/doctorList.php'>Gydytojų sąrašas</a>";
+            	?>
 				</li>
 				<li class="nav-item">
 				<?php
