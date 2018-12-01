@@ -10,7 +10,7 @@
     include '../../session.php';
     global $database;
     $result = $database->GetAllPatients($_SESSION['id']);
-    $index = 0;
+    $id = $_GET['id'];
   ?>
     <br>
     <nav class="navbar fixed-top navbar-light navbar-expand-lg mt-0" style="background: #fff">
@@ -39,14 +39,14 @@
         </thead>
         <tbody>
         <?php
-        
          while($row = mysqli_fetch_array($result)){
         ?>
+       
             <tr>
-                <td><?php echo $row['vardas'];?></td>
-                <td><?php echo $row['pavarde'];?></td>
-                <td><?php echo $row['asmens_kodas'];?></td>
-                <td><?php echo $row['gimimo_data'];?></td>
+                <td><?php echo $row[1];?></td>
+                <td><?php echo $row[2];?></td>
+                <td><?php echo $row[3];?></td>
+                <td><?php echo $row[4];?></td>
                 <td>
                 <?php
                   echo "<a class='btn btn-link' href='patientConsultations.php?id={$row['id_VARTOTOJAS']}'>Siuntimų sąrašas</a>";

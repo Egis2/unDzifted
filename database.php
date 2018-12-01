@@ -146,10 +146,11 @@ class MySQLDB {
         return  mysqli_query($this->connection, $query);
     }
 
-    function getAllPatients(){
-        $getAllPatientsQuery = "SELECT * FROM ".TBL_VARTOTOJAS." where typeSelector = '".PATIENT_NAME."'";
-        $result= mysqli_query($this->connection, $getAllPatientsQuery);
-        return $result;
+    function getAllPatients($id){
+        $query ="SELECT id_VARTOTOJAS,vardas, pavarde, asmens_kodas, gimimo_data FROM ".TBL_VARTOTOJAS."
+        INNER JOIN ".TBL_GYDYMAS." ON ".TBL_VARTOTOJAS.".id_VARTOTOJAS =".TBL_GYDYMAS.".fk_PACIENTASid_VARTOTOJAS where ".TBL_GYDYMAS.".fk_GYDYTOJASid_VARTOTOJAS =".$id ;
+        $result= mysqli_query($this->connection, $query);
+        return $query;
     }
 
     function getPatientReservations($id){
