@@ -41,8 +41,26 @@
                 <textarea class="form-control" rows="3" id="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
-            <input class="btn btn-outline-dark" type="submit" value="Priskirti nereceptinį vaistą">
+            <input class="btn btn-outline-dark" type="submit" name='newMedicine' value="Priskirti nereceptinį vaistą">
         </form>
+        <?php 
+    $getMedicineExtract =NULL;
+    if(isset($_POST['newMedicine'])){
+        $data = date("Y-m-d");
+        $pacientInfo = explode(" ", $_POST['pacientas']);
+        $mediceAdd = $database->addNewMedicine($_POST['pavadinimas'],$_POST['vartojimo_instrukcija'],$_POST['kiekis_mg'],0);
+        $getLastMedicineAddQuery = "SELECT Max(id_VAISTAS) FROM ".TBL_VAISTAS."";
+        $aa = $database->query($getLastMedicineAddQuery);
+        $lastMedicineID;
+        while($medicineID = mysqli_fetch_array($aa)){
+            $lastMedicineID= $medicineID[0];
+        }
+            $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde'],$lastMedicineID);
+            header("Location:PatientMedicines.php?id={$id}");
+        }
+        
+
+    ?>
     </div>
 </body>
 </html>
