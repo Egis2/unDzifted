@@ -92,7 +92,7 @@
                 echo "<div>Nesėkmingai įtrepta</div>";
             }
             
-            //header("Location: add.php?id={$id}");
+            header("Location:patientPrescriptionMedicines.php?id={$id}");
         }
     ?>
     </div>

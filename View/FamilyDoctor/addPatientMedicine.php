@@ -60,7 +60,6 @@
         </form>
         <?php 
     $getMedicineExtract =NULL;
-    
     if(isset($_POST['newMedicine'])){
         $data = date("Y-m-d");
         $pacientInfo = explode(" ", $_POST['pacientas']);
@@ -71,8 +70,11 @@
         while($medicineID = mysqli_fetch_array($aa)){
             $lastMedicineID= $medicineID[0];
         }
-        $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde'],$lastMedicineID);
+            $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde'],$lastMedicineID);
+            header("Location:patientMedicines.php?id={$id}");
         }
+        
+
     ?>
     </div>
 </body>
