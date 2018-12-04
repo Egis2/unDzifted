@@ -87,12 +87,12 @@
 
             var_dump($insertNew);
             if($result == true && $getMedicineExtract == true  && $insertNew == true){
-                echo "<div>Sėkmingai įtrepta</div>";
+                header("Location:patientPrescriptionMedicines.php?id={$id}");
             } else {
                 echo "<div>Nesėkmingai įtrepta</div>";
             }
             
-            header("Location:patientPrescriptionMedicines.php?id={$id}");
+            
         }
     ?>
     </div>
