@@ -325,7 +325,7 @@ class MySQLDB {
     
     function getAllTestsWithSetTime($id, $start, $end){
         $query= "SELECT data, aprasymas, isvada FROM ".TBL_TYRIMAS.
-        "WHERE (data BETWEEN '".$start."' AND '".$end."') and send = 1";
+        " WHERE (data BETWEEN '".$start."' AND '".$end."') and send = 1 AND   fk_PACIENTASid_VARTOTOJAS = '$id' ";
         return mysqli_query($this->connection, $query);
     }
     

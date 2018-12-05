@@ -32,10 +32,6 @@ include("session.php");
                 }
                 unset($_SESSION['success']);
                 unset($_SESSION['message']);
-                if ($form->num_errors > 0)
-                {
-                    echo "<font size=\"3\" color=\"#ff0000\">Klaidų: " . $form->num_errors . "</font>";
-                }
                 include("View/User/login.php");
             }
 
