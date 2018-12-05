@@ -85,7 +85,6 @@
         </form>
     </div>
     <?php
-    var_dump($_SESSION);
     if(isset($_POST['newPatientIlness'])){
         global $database;
     $dalys = explode(" ", $_POST['liga']);
@@ -103,7 +102,11 @@
       }
       
     }
+
+
+
 }
+
 
 
     ?>
