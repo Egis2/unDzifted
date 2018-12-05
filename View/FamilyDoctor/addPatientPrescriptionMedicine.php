@@ -82,10 +82,8 @@
             while($maxVaistuIsrasasID = mysqli_fetch_array($getMaximumID)){
                 $recipeID = $maxVaistuIsrasasID;
             }
-            var_dump($recipeID[0]);
             $insertNew = $database->insertNewRecipe($_POST['galioja_iki'],$recipeID[0]);
 
-            var_dump($insertNew);
             if($result == true && $getMedicineExtract == true  && $insertNew == true){
                 $_SESSION['success'] = true;
                 $_SESSION['message'] = "Receptinis vaistas sėkmingai išrašytas.";

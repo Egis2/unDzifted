@@ -55,7 +55,7 @@
                     foreach($ilnesses as $ilness)
                     {
                         echo "<option value='".$ilnesses[$indexofIlness]['liga']."'>".$ilnesses[$indexofIlness]['liga']."</option>";
-                        $indexofIlness = $indexofilness + 1;
+                        $indexofIlness = $indexofIlness + 1;
                     }
                     echo "</select>";
                 ?>

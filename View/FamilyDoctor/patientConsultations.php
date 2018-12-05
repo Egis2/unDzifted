@@ -25,7 +25,6 @@
                 while($name = mysqli_fetch_array($getInfoAboutSpecialist)){
                   $specList[] = $name['spec'];
                 }
-                var_dump($specList);
             $localIndex = 0;?>
 ?>
   
