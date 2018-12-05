@@ -80,7 +80,9 @@
         $specialistInfo = explode(" ",$_POST['specialistSelect'][0]);
         $result = $database->addNewSending($_POST['komentaras'],$_POST['priezastis'],$pieces[0],$pieces[1],$specialistInfo[0],$specialistInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
         if($result == true){
-            echo "<div>irase sekmingai</div>";
+            header("Location:PatientConsultations.php?id={$id}");
+        } else {
+            echo "<div>Klaida pildant duomemis</div>";
         }
     }
     ?>
