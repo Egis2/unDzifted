@@ -65,7 +65,16 @@
     
     if(isset($_POST['write'])){
         $newSickListMember = $database->addNewSickness($_POST['data_pradzios'], $_POST['data_pabaigos'],$_POST['priezastis'],$_POST['diagnozes_kodas'],$_GET['id'],$_SESSION['id']);
-        header("Location:patientSickList.php?id={$id}");
+        if ($newSickListMember){
+            $_SESSION['success'] = true;
+            $_SESSION['message'] = "Pacientui įšrašytas nedarbingumo lapelis.";
+            header("Location:patientSickList.php?id={$id}");
+        }
+        else{
+            echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+            "<strong>Klaida pildant duomemis</strong>".
+            "</div>";
+        }
     }
     ?>
    

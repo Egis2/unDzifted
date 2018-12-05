@@ -84,9 +84,13 @@
 
             var_dump($insertNew);
             if($result == true && $getMedicineExtract == true  && $insertNew == true){
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = "Receptinis vaistas sėkmingai išrašytas.";
                 header("Location:PatientPrescriptionMedicines.php?id={$id}");
             } else {
-                echo "<div>Nesėkmingai įtrepta</div>";
+                echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+                "<strong>Klaida pildant duomemis</strong>".
+                "</div>";
             }
             
             

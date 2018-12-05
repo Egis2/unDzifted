@@ -16,12 +16,31 @@
             </li>
             <li>
 			<?php
-				echo "<a class='nav-link' href='AddMedicine.php'>Priskirti nereceptinį vaistą</a>";
+				echo "<a class='nav-link' href='AddMedicine.php?id={$_GET['id']}'>Priskirti nereceptinį vaistą</a>";
             ?>
             </li>
         </div>
     </nav>
-    <br>
+    <br><br>
+    <?php 
+
+    include ("../../session.php");
+    /* ALERT MENIU */
+    if (isset($_SESSION['success']) && !$_SESSION['success']) 
+    {
+        echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+                "<strong>{$_SESSION['message']}</strong>".
+            "</div>";
+    }
+    else if (isset($_SESSION['success']) && $_SESSION['success'])
+    {
+        echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+        "<strong>{$_SESSION['message']}</strong>".
+        "</div>";
+    }
+    unset($_SESSION['success']);
+    unset($_SESSION['message']);
+    ?>
     <br>
 
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">

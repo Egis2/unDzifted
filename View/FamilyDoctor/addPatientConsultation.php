@@ -80,9 +80,13 @@
         $specialistInfo = explode(" ",$_POST['specialistSelect'][0]);
         $result = $database->addNewSending($_POST['komentaras'],$_POST['priezastis'],$pieces[0],$pieces[1],$specialistInfo[0],$specialistInfo[1],$_SESSION['vardas'],$_SESSION['pavarde']);
         if($result == true){
+            $_SESSION['success'] = true;
+            $_SESSION['message'] = "Siuntimas išrašytas.";
             header("Location:PatientConsultations.php?id={$id}");
         } else {
-            echo "<div>Klaida pildant duomemis</div>";
+            echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+            "<strong>Klaida pildant duomemis</strong>".
+            "</div>";
         }
     }
     ?>

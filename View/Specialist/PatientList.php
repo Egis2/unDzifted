@@ -23,7 +23,6 @@
     <br>
     <table class="table table-light table-bordered table-hover" style="width: 95%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
-            <th style="width: 5%;">Nr.</th>
             <th style="width: 8%;">Vardas</th>
             <th style="width: 8%;">Pavardė</th>
             <th>Asmens kodas</th>
@@ -43,8 +42,7 @@
                 $query = "SELECT * FROM " . TBL_VARTOTOJAS . " WHERE id_VARTOTOJAS = '{$val['fk_PACIENTASid_VARTOTOJAS']}'";
                 $res = $database->query($query);
                 $pacientas = mysqli_fetch_array($res);
-                echo "<tr><td>{$val['id_SIUNTIMAS']}</td>"
-                    ."<td>{$pacientas['vardas']}</td>"
+                echo "<tr><td>{$pacientas['vardas']}</td>"
                     ."<td>{$pacientas['pavarde']}</td>"
                     ."<td>{$pacientas['asmens_kodas']}</td>"
                     ."<td>{$pacientas['gimimo_data']}</td>";

@@ -5,6 +5,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../Styles/styles.css">
   </head>
+  <?php
+    include '../../session.php';
+   /* if(isset($_POST)
+        unset($_POST);
+    */
+    $id = $_GET['id'];
+    global $database;
+    $result = $database->getNameAndSurname($_GET['id']);
+    $nameSurname = '';
+
+    while($row = mysqli_fetch_array($result)){
+        $nameSurname= $row['fullName'];
+    }
+?>
   <body>
 
     <br>
@@ -12,7 +26,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="btn btn-outline-dark" href=PatientMedicines.php>Atgal</a>
+            <?php
+				echo "<a class='btn btn-outline-dark' href='PatientMedicines.php?id={$id}'>Atgal</a>";
+            ?>
             </li>
         </div>
     </nav>
@@ -23,7 +39,7 @@
             <center><b>Nereceptinis vaistas</b></center><br>
             <div style="text-align: left;">
                 <label for="pacientas">Pacientas:</label>
-                <input name='pacientas' type='text' class="form-control" readonly>
+                <input name='pacientas' type='text' class="form-control" value='<?php echo $nameSurname; ?>'readonly>
             </div style="text-align: left;">
             <br>
             <div style="text-align: left;">
@@ -38,7 +54,7 @@
             <br>
             <div style="text-align: left;">
                 <label for="vartojimo_instrukcija">Vartojimo instrukcija:</label>
-                <textarea class="form-control" rows="3" id="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
+                <textarea class="form-control" rows="3" name="vartojimo_instrukcija" oninvalid="this.setCustomValidity('Neužpildyta vartojimo instrukcija')" oninput="this.setCustomValidity('')" required></textarea>
             </div style="text-align: left;">
             <br>
             <input class="btn btn-outline-dark" type="submit" name='newMedicine' value="Priskirti nereceptinį vaistą">
@@ -56,7 +72,16 @@
             $lastMedicineID= $medicineID[0];
         }
             $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde'],$lastMedicineID);
-            header("Location:PatientMedicines.php?id={$id}");
+            if ($getMedicineExtract){
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = "Nereceptinis vaistas sėkmingai išrašytas.";
+                header("Location:PatientMedicines.php?id={$id}");
+            }
+            else{
+                echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+                "<strong>Klaida pildant duomemis</strong>".
+                "</div>";
+            }
         }
         
 

@@ -49,6 +49,7 @@ class UserController{
             header("Location: " . $session->referrer);
         }
     }
+
     function userRegistration(){
 
     $registerValue = $_POST;
@@ -59,14 +60,22 @@ class UserController{
     {
         $nextUserIndex = $row;
     }
-    
-    if($database->addNewUser($nextUserIndex[0],$registerValue, PATIENT_NAME)){
-        $_SESSION['success'] = true;
-        $_SESSION['message'] = "Užregistruota sėkmingai.";
+    if ($_POST['slaptazodis'] == $_POST['Confslaptazodis'])
+    {
+        if($database->addNewUser($nextUserIndex[0],$registerValue, PATIENT_NAME)){
+            $_SESSION['success'] = true;
+            $_SESSION['message'] = "Užregistruota sėkmingai.";
+        }
+        else{
+            $_SESSION['success'] = false;
+            $_SESSION['message'] = "Registracija nesėkminga.";
+        }
     }
-    else{
+    else {
         $_SESSION['success'] = false;
-        $_SESSION['message'] = "Registracija nesėkminga.";
+        $_SESSION['message'] = "Slaptažodžiai nesutampa.";
+        header("Location: ../View/User/register.php");
+        return;
     }
 
     header("Location: ../index.php");

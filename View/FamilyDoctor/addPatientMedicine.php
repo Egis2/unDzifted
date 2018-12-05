@@ -31,8 +31,8 @@
             </li>
         </div>
     </nav>
-    <br> 
-    <br>
+    <br><Br>
+
     <div class="form-group login">
         <form method='post'>
             <center><b>Nereceptinis vaistas</b></center><br>
@@ -71,7 +71,16 @@
             $lastMedicineID= $medicineID[0];
         }
             $getMedicineExtract = $database->MedicineExtract($data,$pacientInfo[0],$pacientInfo[1],$_SESSION['vardas'],$_SESSION['pavarde'],$lastMedicineID);
-            header("Location:patientMedicines.php?id={$id}");
+            if ($getMedicineExtract){
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = "Nereceptinis vaistas sėkmingai išrašytas.";
+                header("Location:patientMedicines.php?id={$id}");
+            }
+            else{
+                echo "<div class='alert alert-success mb-0 text-center' role='alert'>".
+                "<strong>Klaida pildant duomemis</strong>".
+                "</div>";
+            }
         }
         
 
