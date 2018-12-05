@@ -49,7 +49,7 @@
                 <p style="text-align: left;">Slaptažodis:<br>
                     <input class="form-control" name="slaptazodis" type="password" value="" oninvalid="this.setCustomValidity('Neįvestas vartotojo slaptažodis')" oninput="this.setCustomValidity('')" required><br>
                 </p>   
-                <p style="text-align: left;">Patvirtinti slaptažodis:<br>
+                <p style="text-align: left;">Patvirtinti slaptažį:<br>
                     <input class="form-control" name="Confslaptazodis" type="password" value="" oninvalid="this.setCustomValidity('Neįvestas vartotojo slaptažodis')" oninput="this.setCustomValidity('')" required><br>
                 </p>   
 
