@@ -24,15 +24,40 @@ class PatientController {
         global $database;
         $result = $database->getUserInfo($_POST['submitEdit']);
         $registerValue = $_POST;
-        if($database->updatePatientInfo($_POST)){
-            $_SESSION['success'] = true;
-            $_SESSION['message'] = "Operacija buvo sėkminga.";
-            $_SESSION['vardas'] = $_POST['vardas'];
-            $_SESSION['pavarde'] = $_POST['pavarde'];
+        if ($_POST['slaptazodis'] == $_POST['Confslaptazodis'])
+        {
+            if ($_POST['slaptazodis'] == $result['slaptazodis'])
+            {
+                $query = "SELECT COUNT(vardas) FROM " . TBL_VARTOTOJAS . " WHERE el_pastas='{$_POST['el_pastas']}' AND id_VARTOTOJAS != '{$_POST['submitEdit']}'";
+                $reuslt = $database->query($query);
+                if ($result['COUNT(vardas)'] == 0){
+                    if($database->updatePatientInfo($_POST)){
+                        $_SESSION['success'] = true;
+                        $_SESSION['message'] = "Operacija buvo sėkminga.";
+                        $_SESSION['vardas'] = $_POST['vardas'];
+                        $_SESSION['pavarde'] = $_POST['pavarde'];
+                    }
+                    else
+                    {
+                        $_SESSION['success'] = false;
+                        $_SESSION['message'] = "Operacija nebuvo sėkminga.";
+                    }
+                }
+                else{
+                    $_SESSION['success'] = false;
+                    $_SESSION['message'] = "El. paštas jau užimtas.";
+                }
+            }
+            else
+            {
+                $_SESSION['success'] = false;
+                $_SESSION['message'] = "Neteisingas vartotojo slaptažodis";
+            }
         }
-        else{
+        else
+        {
             $_SESSION['success'] = false;
-            $_SESSION['message'] = "Operacija nebuvo sėkminga.";
+            $_SESSION['message'] = "Slaptažodžiai nesutampa.";
         }
         header("Location: ../View/Patient/PatientInfo.php?id=".$_POST['submitEdit']);
     }

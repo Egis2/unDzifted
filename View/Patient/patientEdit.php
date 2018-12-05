@@ -80,6 +80,11 @@ include("../../database.php");
                 <input name='slaptazodis' type='password' class="form-control" oninvalid="this.setCustomValidity('Neužpildytas slaptažodis')" oninput="this.setCustomValidity('')" required>
             </div style="text-align: left;">
             <br>
+            <div style="text-align: left;">
+                <label for="slaptazodis">Patvirtinti slaptažodį:</label>
+                <input name='Confslaptazodis' type='password' class="form-control" oninvalid="this.setCustomValidity('Neužpildytas slaptažodis')" oninput="this.setCustomValidity('')" required>
+            </div style="text-align: left;">
+            <br>
             <input class="btn btn-outline-dark" type="submit" value="Užbaigti redagavimą">
             <?php
                  echo  "<input class='btn btn-outline-dark' type='hidden' name='submitEdit' value='{$_GET['id']}'/>";

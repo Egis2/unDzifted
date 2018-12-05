@@ -93,7 +93,7 @@ class AdminController{
           $database->setAsSpecialistDoctor($result['id_VARTOTOJAS'], $_POST['specializacija']);
 
           $_SESSION['success'] = true;
-          $_SESSION['message'] = $result['id_VARTOTOJAS'] . " Gydytojas specialistas užregistruotas. El. Paštas - '". $_POST['el_pastas']."', slaptažodis - '".$_POST['slaptazodis']."'. Specialybė - ". $_POST['specializacija'];
+          $_SESSION['message'] = " Gydytojas specialistas užregistruotas. El. Paštas - '". $_POST['el_pastas']."', slaptažodis - '".$_POST['slaptazodis']."'. Specialybė - ". $_POST['specializacija'];
         }
         else{
           $_SESSION['success'] = false;
