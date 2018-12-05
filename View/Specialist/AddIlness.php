@@ -54,7 +54,7 @@
                 echo "<select name='liga' class='form-control'>";
                     foreach($ilnesses as $ilness)
                     {
-                        echo "<option value='".$ilnesses[$indexofIlness]['liga']."'>".$ilnesses[$indexofIlness]['liga']."</option>";
+                        echo "<option value='".$ilnesses[$indexofIlness]['id_LIGA']."'>".$ilnesses[$indexofIlness]['liga']."</option>";
                         $indexofIlness = $indexofIlness + 1;
                     }
                     echo "</select>";

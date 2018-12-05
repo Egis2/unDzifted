@@ -69,18 +69,18 @@ class SpecialistController
   function newPatientIllness(){
     global $database;
     $dalys = explode(" ", $_POST['liga']);
-    $query = "SELECT id_LIGA FROM " . TBL_LIGA . " WHERE ligos_kodas='{$dalys['1']}' AND pavadinimas='{$dalys['0']}'";
+    $query = "SELECT *  FROM " . TBL_LIGA . " WHERE id_LIGA='{$_POST['liga']}'";
     $liga = mysqli_fetch_array($database->query($query));
     //$database->newPatientIllness($_POST['id_pacientas'], $_POST['id_specialistas'], $liga['id_LIGA'], $_POST['aprasymas'], $_POST['data'], $_POST['diagnozes_kodas'], $_POST['isvada'])
-    if ($database->newPatientIllness($liga['id_LIGA'], $_POST['id_pacientas'])){
+    if ($database->newPatientIllness($_POST['liga'], $_POST['id_pacientas'])){
       $paciento_ligos_id = $database->selectLastFromPatientIlness($_POST['id_pacientas']);
-      if($database->newIllnessDescription($paciento_ligos_id['id_PACIENTO_LIGOS'], $_POST['id_specialistas'], $liga['id_LIGA'], $_POST['aprasymas'], $_POST['data'], $_POST['diagnozes_kodas'], $_POST['isvada'])){
+      if($database->newIllnessDescription($paciento_ligos_id['id_PACIENTO_LIGOS'], $_POST['id_specialistas'], $_POST['liga'], $_POST['aprasymas'], $_POST['data'], $_POST['diagnozes_kodas'], $_POST['isvada'])){
         $_SESSION['success'] = true;
-        $_SESSION['message'] = "Pacientui '". $_POST['pacientas'] . "' užfiksuota liga: " . $dalys['0'];
+        $_SESSION['message'] = "Pacientui '". $_POST['pacientas'] . "' užfiksuota liga: " .$liga['pavadinimas'];
       }
       else{
         $_SESSION['success'] = false;
-        $_SESSION['message'] = "Pacientui '". $_POST['pacientas'] . " nepavyko užfiksuoti ligos: " . $dalys['0'];
+        $_SESSION['message'] = "Pacientui '". $_POST['pacientas'] . " nepavyko užfiksuoti ligos: " .$liga['pavadinimas'];
       }
     }
     else{
