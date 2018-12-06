@@ -92,14 +92,24 @@ class PatientController {
 
     function deleteReservation($id){
         global $database;
-        $query = "DELETE FROM " . TBL_REZERVACIJA . " WHERE id_REZERVACIJA = '$id'";
-        if ($database->query($query)){
-            $_SESSION['success'] = true;
-            $_SESSION['message'] = "Rezervacija atšaukta sėkmingai.";
-        }
-        else{
+        $query = "SELECT data FROM " . TBL_REZERVACIJA ." WHERE id_REZERVACIJA = '$id'";
+        $laikas = mysqli_fetch_array($database->query($query));
+        if ((strtotime($laikas['data']) - 86400) < strtotime(date("Y-m-d h:m:s")))
+        {
             $_SESSION['success'] = false;
-            $_SESSION['message'] = "Nepavyko atšaukti rezervacijos.";
+            $_SESSION['message'] = "Atšaukti per vėlu";
+        }
+        else {
+
+            $query = "DELETE FROM " . TBL_REZERVACIJA . " WHERE id_REZERVACIJA = '$id'";
+            if ($database->query($query)){
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = "Rezervacija atšaukta sėkmingai.";
+            }
+            else{
+                $_SESSION['success'] = false;
+                $_SESSION['message'] = "Nepavyko atšaukti rezervacijos.";
+            }
         }
         header("Location: ../View/Patient/PatientReservations.php?id=".$_POST['id']);
     }
