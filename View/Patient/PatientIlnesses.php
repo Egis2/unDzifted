@@ -29,6 +29,23 @@
                 $_SESSION['message'] = "Blogai įvesti laikai. Atvaizdavymui nenaudojami filtrai";
             }
         }
+        global $database;
+        $query = "SELECT * FROM " . TBL_PACIENTO_LIGOS . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'";
+        $paciento_ligos = $database->query($query);
+        $_SESSION['showTable'] = true;
+        if (isset($_GET['laikas1']) && isset($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2']))
+            foreach ($paciento_ligos as $key => $val){
+                $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}' AND " . TBL_LIGOS_APRASAS.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";
+                if (mysqli_num_rows($database->query($query)) > 0)
+                {
+                    $_SESSION['success'] = true;
+                    $_SESSION['showTable'] = true;
+                    break;
+                }
+                $_SESSION['success'] = false;
+                $_SESSION['message'] = "Ligų nurodytam laiko tarpe nėra.";
+                $_SESSION['showTable'] = false;
+            }
         /* ALERT MENIU */
         if (isset($_SESSION['success']) && !$_SESSION['success']) 
         {
@@ -64,6 +81,9 @@
             </form>
         </div>
         <br>
+        <?php 
+        if ($_SESSION['showTable']) {
+        ?>
         <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th>Ligos Pavadinimas</th>
@@ -75,17 +95,13 @@
         </thead>
         <tbody>
         <?php 
-            global $database;
-            $query = "SELECT * FROM " . TBL_PACIENTO_LIGOS . " WHERE fk_PACIENTASid_VARTOTOJAS='{$_GET['id']}'";
-            $paciento_ligos = $database->query($query);
-
             foreach ($paciento_ligos as $key => $val){
                 /* Paima liga */
                 $query = "SELECT * FROM " . TBL_LIGA . " WHERE id_LIGA = '{$val['fk_LIGAid_LIGA']}'";
                 $liga = mysqli_fetch_array($database->query($query));
 
                 /* Jeigu laikų laukai buvo įvesti */
-                if (isset($_GET['laikas1']) && isset($_GET['laikas2']) && strtotime($_GET['laikas1']) && strtotime($_GET['laikas2']) )
+                if (isset($_GET['laikas1']) && isset($_GET['laikas2']) && strtotime($_GET['laikas1']) <= strtotime($_GET['laikas2']) )
                     $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}' AND " . TBL_LIGOS_APRASAS.".data BETWEEN '{$_GET['laikas1']}' AND '{$_GET['laikas2']}'";// AND ".TBL_VAISTU_ISRASAS .".israsymo_data <= '{$_GET['laikas2']}'";
                 else
                     $query = "SELECT * FROM " . TBL_LIGOS_APRASAS ." WHERE fk_PACIENTO_LIGOSid_PACIENTO_LIGOS = '{$val['id_PACIENTO_LIGOS']}'";
@@ -108,5 +124,6 @@
         ?>
         </tbody>
         </table>
+        <?php } ?>
     </body>
 </html>

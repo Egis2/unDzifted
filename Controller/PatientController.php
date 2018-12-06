@@ -66,6 +66,12 @@ class PatientController {
         global $database;
         if (isset($_POST['laikas']) && strtotime($_POST['laikas']) > (strtotime(date("Y-m-d h:m:s")) + 86400))
         {
+            $query = "SELECT * FROM " . TBL_REZERVACIJA . " WHERE data = '{$_POST['laikas']}' AND fk_SEIMOS_GYDYTOJASid_SEIMOS_GYDYTOJAS = '{$_POST['gydytojas']}'" ;
+            if (mysqli_num_rows($database->query($query)) > 0){
+                $_SESSION['success'] = false;
+                $_SESSION['message'] = "Daktaras tuo laiku jau užimtas.";
+            }
+
             $query = "INSERT INTO " . TBL_REZERVACIJA . " VALUES ('{$_POST['laikas']}', 'PAKEISTI', NULL, '{$_POST['gydytojas']}', '{$_POST['id']}')";
             if ($database->query($query))
             {

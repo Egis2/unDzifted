@@ -37,6 +37,8 @@
         {
             $query = "SELECT * FROM ". TBL_VAISTU_ISRASAS ." WHERE fk_PACIENTASid_VARTOTOJAS = '{$_GET['id']}'";
         }
+        global $database;
+        $vaistu_israsai = $database->query($query);
 
          /* ALERT MENIU */
          if (isset($_SESSION['success']) && !$_SESSION['success']) 
@@ -44,6 +46,12 @@
              echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
                      "<strong>{$_SESSION['message']}</strong>".
                  "</div>";
+         }
+         else if (isset($_GET['laikas1']) && isset($_GET['laikas2']) && mysqli_num_rows($vaistu_israsai) == 0)
+         {
+            echo "<div class='alert alert-danger mb-0 text-center' role='alert'>".
+            "<strong>Receptų išrašytų tokiam laiko tarpe, nėra</strong>".
+            "</div>";
          }
          else if (isset($_SESSION['success']) && $_SESSION['success'])
          {
@@ -73,7 +81,10 @@
         </form>
     </div>
     <br>
+    <?php 
+        if (!isset($_GET['laikas1']) && !isset($_GET['laikas2']) || mysqli_num_rows($vaistu_israsai) > 0 && isset($_GET['laikas1']) && isset($_GET['laikas2']) ){
 
+    ?>
     <table class="table table-light table-bordered table-hover" style="width: 80%; margin: 0 auto; text-align: center">
         <thead class="thead-dark">
             <th>Pavadinimas</th>
@@ -84,8 +95,6 @@
         </thead>
         <tbody>
         <?php      
-            global $database;
-            $vaistu_israsai = $database->query($query);
             foreach($vaistu_israsai as $key => $val){
                 $query = "SELECT * FROM ". TBL_VAISTAS. " WHERE id_VAISTAS = '{$val['fk_VAISTASid_VAISTAS']}' AND receptinis='1'";
                 $vaistas = mysqli_fetch_array($database->query($query));
@@ -103,5 +112,7 @@
        ?>
         </tbody>
     </table>
+    <?php } 
+    ?>
 </body>
 </html
